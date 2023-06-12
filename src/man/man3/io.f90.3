@@ -1,0 +1,136 @@
+.TH "io.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+io.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBconfig\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_hopping_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_coulomb_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_fock_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_hopping_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_coulomb_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_fock_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_fock_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_transop_xas\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_transop_rixs_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBread_transop_rixs_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBwrite_krylov\fP (fname, neff, alpha, beta, norm, e_gs)"
+.br
+.ti -1c
+.RI "subroutine \fBwrite_eigvecs\fP (fname, nloc, eigvec, eigval)"
+.br
+.ti -1c
+.RI "subroutine \fBread_eigvecs\fP (fname, nloc, eigvec, eigval)"
+.br
+.ti -1c
+.RI "subroutine \fBwrite_lowest_eigvals\fP (n, eigval)"
+.br
+.ti -1c
+.RI "subroutine \fBwrite_denmat\fP (n, num_orbs, denmat)"
+.br
+.ti -1c
+.RI "subroutine \fBwrite_opavg\fP (n, eval, opavg)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine config"
+
+.PP
+Definition at line \fB2\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_coulomb_i"
+
+.PP
+Definition at line \fB120\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_coulomb_n"
+
+.PP
+Definition at line \fB253\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_eigvecs (character(*), intent(in) fname, integer, intent(in) nloc, complex(dp), dimension(nloc), intent(out) eigvec, real(dp), intent(out) eigval)"
+
+.PP
+Definition at line \fB563\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_fock_f"
+
+.PP
+Definition at line \fB336\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_fock_i"
+
+.PP
+Definition at line \fB174\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_fock_n"
+
+.PP
+Definition at line \fB308\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_hopping_i"
+
+.PP
+Definition at line \fB70\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_hopping_n"
+
+.PP
+Definition at line \fB202\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_transop_rixs_f"
+
+.PP
+Definition at line \fB465\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_transop_rixs_i"
+
+.PP
+Definition at line \fB414\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine read_transop_xas"
+
+.PP
+Definition at line \fB364\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine write_denmat (integer, intent(in) n, integer, intent(in) num_orbs, complex(dp), dimension(num_orbs, num_orbs, n), intent(in) denmat)"
+
+.PP
+Definition at line \fB610\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine write_eigvecs (character(*), intent(in) fname, integer, intent(in) nloc, complex(dp), dimension(nloc), intent(in) eigvec, real(dp), intent(in) eigval)"
+
+.PP
+Definition at line \fB544\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine write_krylov (character(*), intent(in) fname, integer, intent(in) neff, real(dp), dimension(neff), intent(in) alpha, real(dp), dimension(neff), intent(in) beta, real(dp), intent(in) norm, real(dp), intent(in) e_gs)"
+
+.PP
+Definition at line \fB515\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine write_lowest_eigvals (integer, intent(in) n, real(dp), dimension(n), intent(in) eigval)"
+
+.PP
+Definition at line \fB587\fP of file \fBio\&.f90\fP\&.
+.SS "subroutine write_opavg (integer, intent(in) n, real(dp), dimension(n), intent(in) eval, complex(dp), dimension(n), intent(in) opavg)"
+
+.PP
+Definition at line \fB638\fP of file \fBio\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

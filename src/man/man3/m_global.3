@@ -1,0 +1,289 @@
+.TH "m_global" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+m_global
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBalloc_hopping_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_hopping_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_coulomb_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_coulomb_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_fock_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_fock_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_hopping_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_hopping_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_coulomb_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_coulomb_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_fock_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_fock_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_fock_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_fock_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_transop_xas\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_transop_xas\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_transop_rixs_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_transop_rixs_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_transop_rixs_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_transop_rixs_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_ham_csr\fP (nblock)"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_ham_csr\fP (nblock)"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_tran_csr\fP (nblock)"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_tran_csr\fP (nblock)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public \fBhopping_i\fP"
+.br
+.ti -1c
+.RI "type(\fBt_tensor4\fP), dimension(:), allocatable, save, public \fBcoulomb_i\fP"
+.br
+.ti -1c
+.RI "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public \fBhopping_n\fP"
+.br
+.ti -1c
+.RI "type(\fBt_tensor4\fP), dimension(:), allocatable, save, public \fBcoulomb_n\fP"
+.br
+.ti -1c
+.RI "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public \fBtransop_xas\fP"
+.br
+.ti -1c
+.RI "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public \fBtransop_rixs_i\fP"
+.br
+.ti -1c
+.RI "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public \fBtransop_rixs_f\fP"
+.br
+.ti -1c
+.RI "integer(dp), dimension(:), allocatable, save, public \fBfock_i\fP"
+.br
+.ti -1c
+.RI "integer(dp), dimension(:), allocatable, save, public \fBfock_n\fP"
+.br
+.ti -1c
+.RI "integer(dp), dimension(:), allocatable, save, public \fBfock_f\fP"
+.br
+.ti -1c
+.RI "type(\fBt_csr\fP), dimension(:), allocatable, save, public \fBham_csr\fP"
+.br
+.ti -1c
+.RI "type(\fBt_csr\fP), dimension(:), allocatable, save, public \fBtran_csr\fP"
+.br
+.ti -1c
+.RI "real(dp), dimension(:), allocatable, save, public \fBkrylov_alpha\fP"
+.br
+.ti -1c
+.RI "real(dp), dimension(:), allocatable, save, public \fBkrylov_beta\fP"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine m_global::alloc_coulomb_i"
+
+.PP
+Definition at line \fB63\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_coulomb_n"
+
+.PP
+Definition at line \fB136\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_fock_f"
+
+.PP
+Definition at line \fB183\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_fock_i"
+
+.PP
+Definition at line \fB91\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_fock_n"
+
+.PP
+Definition at line \fB164\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_ham_csr (integer, intent(in) nblock)"
+
+.PP
+Definition at line \fB281\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_hopping_i"
+
+.PP
+Definition at line \fB37\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_hopping_n"
+
+.PP
+Definition at line \fB110\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_tran_csr (integer, intent(in) nblock)"
+
+.PP
+Definition at line \fB311\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_transop_rixs_f"
+
+.PP
+Definition at line \fB255\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_transop_rixs_i"
+
+.PP
+Definition at line \fB229\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::alloc_transop_xas"
+
+.PP
+Definition at line \fB202\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_coulomb_i"
+
+.PP
+Definition at line \fB83\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_coulomb_n"
+
+.PP
+Definition at line \fB156\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_fock_f"
+
+.PP
+Definition at line \fB194\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_fock_i"
+
+.PP
+Definition at line \fB102\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_fock_n"
+
+.PP
+Definition at line \fB175\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_ham_csr (integer, intent(in) nblock)"
+
+.PP
+Definition at line \fB296\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_hopping_i"
+
+.PP
+Definition at line \fB55\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_hopping_n"
+
+.PP
+Definition at line \fB128\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_tran_csr (integer, intent(in) nblock)"
+
+.PP
+Definition at line \fB326\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_transop_rixs_f"
+
+.PP
+Definition at line \fB273\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_transop_rixs_i"
+
+.PP
+Definition at line \fB247\fP of file \fBm_global\&.f90\fP\&.
+.SS "subroutine m_global::dealloc_transop_xas"
+
+.PP
+Definition at line \fB220\fP of file \fBm_global\&.f90\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "type(\fBt_tensor4\fP), dimension(:), allocatable, save, public m_global::coulomb_i"
+
+.PP
+Definition at line \fB10\fP of file \fBm_global\&.f90\fP\&.
+.SS "type(\fBt_tensor4\fP), dimension(:), allocatable, save, public m_global::coulomb_n"
+
+.PP
+Definition at line \fB12\fP of file \fBm_global\&.f90\fP\&.
+.SS "integer(dp), dimension(:), allocatable, save, public m_global::fock_f"
+
+.PP
+Definition at line \fB22\fP of file \fBm_global\&.f90\fP\&.
+.SS "integer(dp), dimension(:), allocatable, save, public m_global::fock_i"
+
+.PP
+Definition at line \fB20\fP of file \fBm_global\&.f90\fP\&.
+.SS "integer(dp), dimension(:), allocatable, save, public m_global::fock_n"
+
+.PP
+Definition at line \fB21\fP of file \fBm_global\&.f90\fP\&.
+.SS "type (\fBt_csr\fP), dimension(:), allocatable, save, public m_global::ham_csr"
+
+.PP
+Definition at line \fB25\fP of file \fBm_global\&.f90\fP\&.
+.SS "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public m_global::hopping_i"
+
+.PP
+Definition at line \fB9\fP of file \fBm_global\&.f90\fP\&.
+.SS "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public m_global::hopping_n"
+
+.PP
+Definition at line \fB11\fP of file \fBm_global\&.f90\fP\&.
+.SS "real(dp), dimension(:), allocatable, save, public m_global::krylov_alpha"
+
+.PP
+Definition at line \fB31\fP of file \fBm_global\&.f90\fP\&.
+.SS "real(dp), dimension(:), allocatable, save, public m_global::krylov_beta"
+
+.PP
+Definition at line \fB32\fP of file \fBm_global\&.f90\fP\&.
+.SS "type (\fBt_csr\fP), dimension(:), allocatable, save, public m_global::tran_csr"
+
+.PP
+Definition at line \fB28\fP of file \fBm_global\&.f90\fP\&.
+.SS "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public m_global::transop_rixs_f"
+
+.PP
+Definition at line \fB17\fP of file \fBm_global\&.f90\fP\&.
+.SS "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public m_global::transop_rixs_i"
+
+.PP
+Definition at line \fB16\fP of file \fBm_global\&.f90\fP\&.
+.SS "type(\fBt_tensor2\fP), dimension(:), allocatable, save, public m_global::transop_xas"
+
+.PP
+Definition at line \fB15\fP of file \fBm_global\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

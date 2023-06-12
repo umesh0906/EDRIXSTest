@@ -1,0 +1,32 @@
+\hypertarget{spmv_8f90}{}\doxysection{spmv.\+f90 File Reference}
+\label{spmv_8f90}\index{spmv.f90@{spmv.f90}}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine \mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\+\_\+csr}} (comm, nblock, end\+\_\+indx, needed, mloc, nloc, ham, vec\+\_\+in, vec\+\_\+out)
+\item 
+subroutine \mbox{\hyperlink{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}{matvec\+\_\+csr}} (m, n, mat, vec\+\_\+in, vec\+\_\+out)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}\label{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}} 
+\index{spmv.f90@{spmv.f90}!matvec\_csr@{matvec\_csr}}
+\index{matvec\_csr@{matvec\_csr}!spmv.f90@{spmv.f90}}
+\doxysubsubsection{\texorpdfstring{matvec\_csr()}{matvec\_csr()}}
+{\footnotesize\ttfamily subroutine matvec\+\_\+csr (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{m,  }\item[{integer, intent(in)}]{n,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), intent(in)}]{mat,  }\item[{complex(dp), dimension(n), intent(in)}]{vec\+\_\+in,  }\item[{complex(dp), dimension(m), intent(inout)}]{vec\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{spmv_8f90_source_l00073}{73}} of file \mbox{\hyperlink{spmv_8f90_source}{spmv.\+f90}}.
+
+\mbox{\Hypertarget{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}\label{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}} 
+\index{spmv.f90@{spmv.f90}!pspmv\_csr@{pspmv\_csr}}
+\index{pspmv\_csr@{pspmv\_csr}!spmv.f90@{spmv.f90}}
+\doxysubsubsection{\texorpdfstring{pspmv\_csr()}{pspmv\_csr()}}
+{\footnotesize\ttfamily subroutine pspmv\+\_\+csr (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{comm,  }\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2, 2, nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, dimension(nprocs, nprocs), intent(in)}]{needed,  }\item[{integer, intent(in)}]{mloc,  }\item[{integer, intent(in)}]{nloc,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham,  }\item[{complex(dp), dimension(nloc), intent(in)}]{vec\+\_\+in,  }\item[{complex(dp), dimension(mloc), intent(inout)}]{vec\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{spmv_8f90_source_l00001}{1}} of file \mbox{\hyperlink{spmv_8f90_source}{spmv.\+f90}}.
+

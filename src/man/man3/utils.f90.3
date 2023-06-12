@@ -1,0 +1,59 @@
+.TH "utils.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+utils.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "integer function \fBbinary_search\fP (n, vec, m)"
+.br
+.ti -1c
+.RI "subroutine \fBsort_eigvals\fP (n, eigvals, sorted_indx)"
+.br
+.ti -1c
+.RI "subroutine \fBpartition_task\fP (nprocs, m, n, end_indx)"
+.br
+.ti -1c
+.RI "subroutine \fBget_needed_indx\fP (nblock, ham_csr, needed)"
+.br
+.ti -1c
+.RI "subroutine \fBget_number_nonzeros\fP (nblock, ham_csr, num_nonzeros)"
+.br
+.ti -1c
+.RI "subroutine \fBget_prob\fP (n, eigval, beta, prob)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "integer function binary_search (integer, intent(in) n, integer(dp), dimension(n), intent(in) vec, integer(dp), intent(in) m)"
+
+.PP
+Definition at line \fB2\fP of file \fButils\&.f90\fP\&.
+.SS "subroutine get_needed_indx (integer, intent(in) nblock, type (\fBt_csr\fP), dimension(nblock) ham_csr, integer, dimension(nprocs, nprocs), intent(out) needed)"
+
+.PP
+Definition at line \fB114\fP of file \fButils\&.f90\fP\&.
+.SS "subroutine get_number_nonzeros (integer, intent(in) nblock, type (\fBt_csr\fP), dimension(nblock) ham_csr, integer(dp), intent(out) num_nonzeros)"
+
+.PP
+Definition at line \fB145\fP of file \fButils\&.f90\fP\&.
+.SS "subroutine get_prob (integer, intent(in) n, real(dp), dimension(n), intent(in) eigval, real(dp), intent(in) beta, real(dp), dimension(n), intent(out) prob)"
+
+.PP
+Definition at line \fB173\fP of file \fButils\&.f90\fP\&.
+.SS "subroutine partition_task (integer, intent(in) nprocs, integer, intent(in) m, integer, intent(in) n, integer, dimension(2, 2, nprocs), intent(out) end_indx)"
+
+.PP
+Definition at line \fB80\fP of file \fButils\&.f90\fP\&.
+.SS "subroutine sort_eigvals (integer, intent(in) n, real(dp), dimension(n), intent(inout) eigvals, integer, dimension(n), intent(inout) sorted_indx)"
+
+.PP
+Definition at line \fB42\fP of file \fButils\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

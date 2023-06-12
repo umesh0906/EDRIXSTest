@@ -1,0 +1,171 @@
+\hypertarget{xas__driver_8f90_source}{}\doxysection{xas\+\_\+driver.\+f90}
+\mbox{\hyperlink{xas__driver_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00001}\mbox{\hyperlink{xas__driver_8f90_a71df8d095e50a2a6375ec5ec5e1d9496}{00001}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{xas__driver_8f90_a71df8d095e50a2a6375ec5ec5e1d9496}{xas\_driver}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00002}00002\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}}\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00004}00004\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00006}00006\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__lanczos}{m\_lanczos}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00008}00008\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00009}00009\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00011}00011\ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ nblock}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ mloc}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ nloc}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ neff}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ igs}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ needed(nprocs,nprocs)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00018}00018\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ needed2(nprocs,nprocs)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ end\_indx(2,2,nprocs)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ end\_indx2(2,2,nprocs)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{integer(dp)}\ ::\ num\_of\_nonzeros}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00024}00024\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ rtemp}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00025}00025\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ norm}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00026}00026\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ eigvals}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\ omega}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ eigvecs(:)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ phi\_vec(:)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00031}00031\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ eigvecs\_mpi(:)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{character(len=20)}\ ::\ fname}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00034}00034\ \ \ \ \ \textcolor{keywordtype}{character(len=10)}\ ::\ char\_I}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00037}00037\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00038}00038\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ XAS\ Begin\ ...\ "{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00039}00039\ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00040}00040\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_acaf8099af1508186dbab2ea9b42d79bc}{read\_hopping\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_afda8c0cc367918a8d7321075b0970f87}{read\_coulomb\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00044}00044\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a021d6d1122d54b1b03161a452c6fc0b4}{read\_transop\_xas}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00045}00045\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}{read\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}}\ =\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}}\ *\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00051}00051\ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00052}00052\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ num\_val\_orbs:\ \ "{}},\ \mbox{\hyperlink{namespacem__control_a0f93e7250b180e061762d7de2e9914b6}{num\_val\_orbs}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00053}00053\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ num\_core\_orbs:\ "{}},\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00054}00054\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ ndim\_i:\ \ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00055}00055\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ ndim\_n:\ \ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00056}00056\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ nhopp\_n:\ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_ad9363f8deec35138790cd02cadd525b9}{nhopp\_n}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00057}00057\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ ncoul\_n:\ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_aeee13c5f3e7020b4f33263a9e8db17f7}{ncoul\_n}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00058}00058\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ num\_gs:\ \ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_ad5788b395823edf1ebb64e7e7f492ba5}{num\_gs}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00059}00059\ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \textcolor{stringliteral}{"{}\ nkryl:\ \ \ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_a62e21f71e206cdaf324aadb580ff01c4}{nkryl}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00060}00060\ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00061}00061\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00063}00063\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{do}\ igs=1,\ \mbox{\hyperlink{namespacem__control_ad5788b395823edf1ebb64e7e7f492ba5}{num\_gs}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ For\ ground\ state:\ "{}},\ igs}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Building\ transition\ operator\ for\ absorption\ process\ ..."{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00069}00069\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}{read\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00072}00072\ \ \ \ \ \ \ \ \ nblock\ =\ nprocs}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_a5256ecd7fc3ffc6268aef71add5dc031}{partition\_task}}(nprocs,\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ end\_indx)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00074}00074\ \ \ \ \ \ \ \ \ mloc\ =\ end\_indx(2,1,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)-\/end\_indx(1,1,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00075}00075\ \ \ \ \ \ \ \ \ nloc\ =\ end\_indx(2,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)-\/end\_indx(1,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a5e8c060e91314108df64187060985e3f}{alloc\_tran\_csr}}(nblock)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{ham_8f90_adb706c43859bdda6ff6a47fd83edbb1c}{build\_transop\_i}}(\mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__global_afbe27d44734900516c28e1d952ce678b}{fock\_n}},\ \mbox{\hyperlink{namespacem__global_ad87b23bf9109a3806c4eb44d99e9b8c6}{fock\_i}},\ \mbox{\hyperlink{namespacem__control_a0f93e7250b180e061762d7de2e9914b6}{num\_val\_orbs}},\ \&}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}},\ nblock,\ end\_indx,\ \mbox{\hyperlink{namespacem__control_ad3ae711ced893d383b10086212a3fbb1}{ntran\_xas}},\ \mbox{\hyperlink{namespacem__global_a009c9f62ad93f3138c2710fa793637eb}{transop\_xas}},\ \mbox{\hyperlink{namespacem__global_a9f60cf8b09539434a01b65f7a3d79250}{tran\_csr}})}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_aa7bc34ed020633677cc319cec33a321d}{get\_needed\_indx}}(nblock,\ \mbox{\hyperlink{namespacem__global_a9f60cf8b09539434a01b65f7a3d79250}{tran\_csr}},\ needed)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Done\ !"{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00086}00086\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Apply\ transition\ operator\ on\ the\ ground\ state\ to\ get\ intermediate\ state..."{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00090}00090\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(eigvecs(nloc))}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(eigvecs\_mpi(\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}))}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00093}00093\ \ \ \ \ \ \ \ \ eigvecs\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00094}00094\ \ \ \ \ \ \ \ \ eigvecs\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00095}00095\ \ \ \ \ \ \ \ \ eigvals\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(char\_i,\ \textcolor{stringliteral}{'(i5)'})\ igs}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ fname=\textcolor{stringliteral}{"{}eigvec."{}}//trim(adjustl(char\_i))}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_aba78b721f1743094eb7b745ac244df1c}{read\_eigvecs}}(fname,\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ eigvecs\_mpi,\ eigvals)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00099}00099\ \ \ \ \ \ \ \ \ eigvecs\ =\ eigvecs\_mpi(end\_indx(1,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1):\ end\_indx(2,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1))\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(eigvecs\_mpi)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(phi\_vec(mloc))}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00102}00102\ \ \ \ \ \ \ \ \ phi\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ mloc,\ nloc,\ \mbox{\hyperlink{namespacem__global_a9f60cf8b09539434a01b65f7a3d79250}{tran\_csr}},\ eigvecs,\ phi\_vec)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(eigvecs)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a82fd719998c41856086fa0966f45caa8}{dealloc\_tran\_csr}}(nblock)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Done\ !"{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00113}00113\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Build\ Hamiltonian\ for\ intermediate\ configuration..."{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00117}00117\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_a5256ecd7fc3ffc6268aef71add5dc031}{partition\_task}}(nprocs,\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ end\_indx2)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_ac486dee39def24accd8484ff5c10f398}{alloc\_ham\_csr}}(nblock)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00120}00120\ \ \ \ \ \ \ \ \ rtemp\ =\ 1.0\_dp}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00121}00121\ \ \ \ \ \ \ \ \ omega\ =\ dcmplx(0.0\_dp,0.0\_dp)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{ham_8f90_ab9e8d106f98346d29b99dbbded25d8d5}{build\_ham\_n}}(\mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}},\ \mbox{\hyperlink{namespacem__global_afbe27d44734900516c28e1d952ce678b}{fock\_n}},\ \mbox{\hyperlink{namespacem__control_a0f93e7250b180e061762d7de2e9914b6}{num\_val\_orbs}},\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}},\ nblock,\ end\_indx2,\ \&}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_ad9363f8deec35138790cd02cadd525b9}{nhopp\_n}},\ \mbox{\hyperlink{namespacem__global_abd316d82c04df558f47b2e0586ebf2c7}{hopping\_n}},\ \mbox{\hyperlink{namespacem__control_aeee13c5f3e7020b4f33263a9e8db17f7}{ncoul\_n}},\ \mbox{\hyperlink{namespacem__global_ad9f2453186a08f48fcdc072ad790d212}{coulomb\_n}},\ omega,\ rtemp,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}})}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_aa7bc34ed020633677cc319cec33a321d}{get\_needed\_indx}}(nblock,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}},\ needed2)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_ac467c9e327a0a87c986c6edea2e67d0e}{get\_number\_nonzeros}}(nblock,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}},\ num\_of\_nonzeros)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Number\ of\ nonzero\ elements\ of\ intermediate\ Hamiltonian:\ "{}},\ num\_of\_nonzeros}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Done\ !"{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00132}00132\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Building\ Krylov\ space\ for\ XAS\ spectrum\ ..."{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00136}00136\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(\mbox{\hyperlink{namespacem__global_a2a086f8791ccaf10cb11b364fff49492}{krylov\_alpha}}(\mbox{\hyperlink{namespacem__control_a62e21f71e206cdaf324aadb580ff01c4}{nkryl}}))}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(\mbox{\hyperlink{namespacem__global_a4074dbc9f1bed3bb2af09ad0fc46c761}{krylov\_beta}}(0:\mbox{\hyperlink{namespacem__control_a62e21f71e206cdaf324aadb580ff01c4}{nkryl}}))}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00139}00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__global_a2a086f8791ccaf10cb11b364fff49492}{krylov\_alpha}}\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00140}00140\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__global_a4074dbc9f1bed3bb2af09ad0fc46c761}{krylov\_beta}}\ \ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__lanczos_a8071f36793c0faf48923f67f7025fd41}{build\_krylov\_mp}}(nblock,\ end\_indx2,\ needed2,\ mloc,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}},\ phi\_vec,\ \mbox{\hyperlink{namespacem__control_a62e21f71e206cdaf324aadb580ff01c4}{nkryl}},\ neff,\ \mbox{\hyperlink{namespacem__global_a2a086f8791ccaf10cb11b364fff49492}{krylov\_alpha}},\ \mbox{\hyperlink{namespacem__global_a4074dbc9f1bed3bb2af09ad0fc46c761}{krylov\_beta}},\ norm)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(char\_i,\ \textcolor{stringliteral}{'(I5)'})\ igs}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00144}00144\ \ \ \ \ \ \ \ \ fname=\textcolor{stringliteral}{"{}xas\_poles."{}}//trim(adjustl(char\_i))}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_ab2341c20b18a0a661d6e8f358d4f1be8}{write\_krylov}}(fname,\ neff,\ \mbox{\hyperlink{namespacem__global_a2a086f8791ccaf10cb11b364fff49492}{krylov\_alpha}}(1:neff),\ \mbox{\hyperlink{namespacem__global_a4074dbc9f1bed3bb2af09ad0fc46c761}{krylov\_beta}}(1:neff),\ norm,\ eigvals)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_ae85787bd403e20fbfdea52a52ee71bbf}{dealloc\_ham\_csr}}(nblock)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(\mbox{\hyperlink{namespacem__global_a2a086f8791ccaf10cb11b364fff49492}{krylov\_alpha}})}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(\mbox{\hyperlink{namespacem__global_a4074dbc9f1bed3bb2af09ad0fc46c761}{krylov\_beta}})}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(phi\_vec)}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ \ \ \ Done\ !"{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00154}00154\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00155}00155\ \textcolor{keywordflow}{\ \ \ \ enddo}\ \textcolor{comment}{!\ over\ igs=1,\ num\_gs}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00157}00157\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_ac3fd1be809a04b000ae995c1f841b2e8}{dealloc\_transop\_xas}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00158}00158\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a406ce6fb64977cd6e4a77d7fe578409e}{dealloc\_hopping\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00159}00159\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a52a480dd3514778cddede105669c64f2}{dealloc\_coulomb\_n}}()}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00160}00160\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00161}00161\ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00162}00162\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ XAS\ End\ !"{}}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00163}00163\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{xas__driver_8f90_source_l00166}00166\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{xas__driver_8f90_a71df8d095e50a2a6375ec5ec5e1d9496}{xas\_driver}}}
+
+\end{DoxyCode}

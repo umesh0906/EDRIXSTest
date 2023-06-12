@@ -1,0 +1,104 @@
+\hypertarget{m__control_8f90_source}{}\doxysection{m\+\_\+control.\+f90}
+\mbox{\hyperlink{m__control_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00001}00001\ \textcolor{comment}{!!>>>\ set\ control\ parameters}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00002}\mbox{\hyperlink{namespacem__control}{00002}}\ \textcolor{keyword}{module}\ \mbox{\hyperlink{namespacem__control}{m\_control}}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00007}00007\ \ \ \ \ \textcolor{comment}{!\ which\ ed\ solver\ is\ used}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00008}\mbox{\hyperlink{namespacem__control_a1c0457db49bc3527dd210d6c87e27739}{00008}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a1c0457db49bc3527dd210d6c87e27739}{ed\_solver}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00010}00010\ \ \ \ \ \textcolor{comment}{!\ number\ of\ valence\ orbitals}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00011}\mbox{\hyperlink{namespacem__control_a0f93e7250b180e061762d7de2e9914b6}{00011}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a0f93e7250b180e061762d7de2e9914b6}{num\_val\_orbs}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00013}00013\ \ \ \ \ \textcolor{comment}{!\ number\ of\ core\ orbitals}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00014}\mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{00014}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00016}00016\ \ \ \ \ \textcolor{comment}{!\ the\ dimension\ of\ initial\ Hilbert\ space\ }}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00017}\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{00017}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00019}00019\ \ \ \ \ \textcolor{comment}{!\ the\ dimension\ of\ intermediate\ Hilbert\ space\ without\ core\ orbitals\ }}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00020}\mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{00020}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00022}00022\ \ \ \ \ \textcolor{comment}{!\ the\ dimension\ of\ intermediate\ Hilbert\ space\ with\ core\ orbitals\ }}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00023}00023\ \ \ \ \ \textcolor{comment}{!\ ndim\_n\ =\ ndim\_n\_nocore\ *\ num\_core\_orbs}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00024}\mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{00024}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00026}00026\ \ \ \ \ \textcolor{comment}{!\ the\ dimension\ of\ final\ Hilbert\ space}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00027}\mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{00027}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{ndim\_f}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00029}00029\ \ \ \ \ \textcolor{comment}{!\ number\ of\ nonzero\ elements\ of\ hopping\ and\ Coulomb\ interaction\ terms}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00030}00030\ \ \ \ \ \textcolor{comment}{!\ for\ initial\ Hamiltonian}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00031}\mbox{\hyperlink{namespacem__control_a0b50c8369822934aa736718e9b443ae6}{00031}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a0b50c8369822934aa736718e9b443ae6}{nhopp\_i}}\ =1\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00032}\mbox{\hyperlink{namespacem__control_a52790c56b05d01fa30119fea64ea8688}{00032}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a52790c56b05d01fa30119fea64ea8688}{ncoul\_i}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00034}00034\ \ \ \ \ \textcolor{comment}{!\ number\ of\ nonzero\ elements\ of\ hopping\ and\ Coulomb\ interaction\ terms}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00035}00035\ \ \ \ \ \textcolor{comment}{!\ for\ intermediate\ Hamiltonian}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00036}\mbox{\hyperlink{namespacem__control_ad9363f8deec35138790cd02cadd525b9}{00036}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ad9363f8deec35138790cd02cadd525b9}{nhopp\_n}}\ =1\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00037}\mbox{\hyperlink{namespacem__control_aeee13c5f3e7020b4f33263a9e8db17f7}{00037}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_aeee13c5f3e7020b4f33263a9e8db17f7}{ncoul\_n}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00039}00039\ \ \ \ \ \textcolor{comment}{!\ number\ of\ nonzeros\ of\ transition\ operators}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00040}\mbox{\hyperlink{namespacem__control_ad3ae711ced893d383b10086212a3fbb1}{00040}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ad3ae711ced893d383b10086212a3fbb1}{ntran\_xas}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00041}\mbox{\hyperlink{namespacem__control_a6c38094f03bf69819f8bf2d11c30a06b}{00041}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a6c38094f03bf69819f8bf2d11c30a06b}{ntran\_rixs\_i}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00042}\mbox{\hyperlink{namespacem__control_a889a6b20eb1e3ecaa6c2c3a081b14623}{00042}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a889a6b20eb1e3ecaa6c2c3a081b14623}{ntran\_rixs\_f}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00043}00043\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00044}00044\ \ \ \ \ \textcolor{comment}{!\ how\ many\ smallest\ eigenvalues\ to\ be\ found}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00045}\mbox{\hyperlink{namespacem__control_ac9600e35a3420e3038e1ef8a39ff3eaa}{00045}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ac9600e35a3420e3038e1ef8a39ff3eaa}{neval}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00047}00047\ \ \ \ \ \textcolor{comment}{!\ indicate\ how\ to\ dump\ the\ eigenvectors}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00048}\mbox{\hyperlink{namespacem__control_a19eb13e0746592eb2261cdb919675570}{00048}}\ \ \ \ \ \textcolor{keywordtype}{logical},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a19eb13e0746592eb2261cdb919675570}{idump}}\ =\ .false.}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00050}00050\ \ \ \ \ \textcolor{comment}{!\ how\ many\ eigenvectors\ are\ dumped\ out}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00051}\mbox{\hyperlink{namespacem__control_ab61bd3cba31945a3a0990df285973c25}{00051}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ab61bd3cba31945a3a0990df285973c25}{nvector}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00053}00053\ \ \ \ \ \textcolor{comment}{!\ how\ many\ ground\ state\ are\ used\ to\ calculate\ XAS\ or\ RIXS}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00054}\mbox{\hyperlink{namespacem__control_ad5788b395823edf1ebb64e7e7f492ba5}{00054}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ad5788b395823edf1ebb64e7e7f492ba5}{num\_gs}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00056}00056\ \ \ \ \ \textcolor{comment}{!\ maximum\ of\ the\ dimension\ of\ Krylov\ space}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00057}00057\ \ \ \ \ \textcolor{comment}{!\ for\ diagonalizing\ initial\ Hamiltonian}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00058}\mbox{\hyperlink{namespacem__control_a691f31083aad9f2c18d33dea038cab86}{00058}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a691f31083aad9f2c18d33dea038cab86}{maxiter}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00060}00060\ \ \ \ \ \textcolor{comment}{!\ maximum\ step\ for\ linear\ system\ solver,\ minres}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00061}\mbox{\hyperlink{namespacem__control_a8f4dbdd98d6377a12d9f821b2cdebf3d}{00061}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a8f4dbdd98d6377a12d9f821b2cdebf3d}{linsys\_max}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00063}00063\ \ \ \ \ \textcolor{comment}{!\ minimum\ dimension\ for\ Lanczos\ or\ Arpack}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00064}\mbox{\hyperlink{namespacem__control_a392de033e8fdad0359edd82ea9cc7bca}{00064}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a392de033e8fdad0359edd82ea9cc7bca}{min\_ndim}}\ =\ 100}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00066}00066\ \ \ \ \ \textcolor{comment}{!\ ncv,\ for\ arpack}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00067}\mbox{\hyperlink{namespacem__control_af97d1b2c4ab19258a44195f8b76bc946}{00067}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_af97d1b2c4ab19258a44195f8b76bc946}{ncv}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00069}00069\ \ \ \ \ \textcolor{comment}{!\ dimension\ of\ Krylov\ space,\ for\ building\ XAS\ and\ RIXS}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00070}\mbox{\hyperlink{namespacem__control_a62e21f71e206cdaf324aadb580ff01c4}{00070}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a62e21f71e206cdaf324aadb580ff01c4}{nkryl}}\ =\ 500}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00072}00072\ \ \ \ \ \textcolor{comment}{!\ the\ tolerance\ of\ eigen\ values}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00073}\mbox{\hyperlink{namespacem__control_ac89ddf6e08792c33ffa0f0e2c2371244}{00073}}\ \textcolor{keywordtype}{\ \ \ \ real}(\mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}),\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ac89ddf6e08792c33ffa0f0e2c2371244}{eigval\_tol}}\ =\ 1e-\/10\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00075}00075\ \ \ \ \ \textcolor{comment}{!\ the\ tolerance\ for\ linear\ system}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00076}\mbox{\hyperlink{namespacem__control_a6a51092e6a57d2362f1fba425253b061}{00076}}\ \textcolor{keywordtype}{\ \ \ \ real}(\mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}),\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a6a51092e6a57d2362f1fba425253b061}{linsys\_tol}}\ =\ 1e-\/12\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00078}00078\ \ \ \ \ \textcolor{comment}{!\ the\ frequency\ of\ incident\ photon,\ for\ RIXS}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00079}\mbox{\hyperlink{namespacem__control_a818959526919f32de2c01c3476e33ec6}{00079}}\ \textcolor{keywordtype}{\ \ \ \ real}(\mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}),\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a818959526919f32de2c01c3476e33ec6}{omega\_in}}\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00081}00081\ \ \ \ \ \textcolor{comment}{!\ life-\/time\ of\ core-\/hole\ (in\ eV)}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00082}\mbox{\hyperlink{namespacem__control_aac14dea6036123b4ac4946eab1e3b858}{00082}}\ \textcolor{keywordtype}{\ \ \ \ real}(\mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}),\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_aac14dea6036123b4ac4946eab1e3b858}{gamma\_in}}\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00084}00084\ \ \ \ \ \textcolor{comment}{!\ number\ of\ process}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00085}\mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{00085}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00086}\mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{00086}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00088}00088\ \ \ \ \ \textcolor{comment}{!\ the\ index\ of\ process}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00089}\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{00089}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00090}\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{00090}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00092}00092\ \ \ \ \ \textcolor{comment}{!\ the\ index\ of\ master\ process}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00093}\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{00093}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}}\ =\ 0\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00095}00095\ \ \ \ \ \textcolor{comment}{!\ MPI\ communicator}}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00096}\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{00096}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00097}\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{00097}}\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{public},\ \textcolor{keywordtype}{save}\ ::\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{m__control_8f90_source_l00099}00099\ \textcolor{keyword}{end\ module\ }\mbox{\hyperlink{namespacem__control}{m\_control}}}
+
+\end{DoxyCode}

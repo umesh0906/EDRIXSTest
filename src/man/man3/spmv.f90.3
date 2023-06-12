@@ -1,0 +1,31 @@
+.TH "spmv.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+spmv.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBpspmv_csr\fP (comm, nblock, end_indx, needed, mloc, nloc, ham, vec_in, vec_out)"
+.br
+.ti -1c
+.RI "subroutine \fBmatvec_csr\fP (m, n, mat, vec_in, vec_out)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine matvec_csr (integer, intent(in) m, integer, intent(in) n, type (\fBt_csr\fP), intent(in) mat, complex(dp), dimension(n), intent(in) vec_in, complex(dp), dimension(m), intent(inout) vec_out)"
+
+.PP
+Definition at line \fB73\fP of file \fBspmv\&.f90\fP\&.
+.SS "subroutine pspmv_csr (integer, intent(in) comm, integer, intent(in) nblock, integer, dimension(2, 2, nprocs), intent(in) end_indx, integer, dimension(nprocs, nprocs), intent(in) needed, integer, intent(in) mloc, integer, intent(in) nloc, type (\fBt_csr\fP), dimension(nblock) ham, complex(dp), dimension(nloc), intent(in) vec_in, complex(dp), dimension(mloc), intent(inout) vec_out)"
+
+.PP
+Definition at line \fB1\fP of file \fBspmv\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

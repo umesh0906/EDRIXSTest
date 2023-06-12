@@ -1,0 +1,131 @@
+\hypertarget{opavg__driver_8f90_source}{}\doxysection{opavg\+\_\+driver.\+f90}
+\mbox{\hyperlink{opavg__driver_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00001}\mbox{\hyperlink{opavg__driver_8f90_a78eb6a19f80214256090dd2faed722e4}{00001}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{opavg__driver_8f90_a78eb6a19f80214256090dd2faed722e4}{opavg\_driver}}()}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00002}00002\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}}\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00004}00004\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00006}00006\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00009}00009\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ mblock}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ nblock}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ nloc}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ needed(nprocs,nprocs)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ end\_indx(2,2,nprocs)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ igs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{integer(dp)}\ ::\ num\_of\_nonzeros}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00018}00018\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ rtemp}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00019}00019\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ time\_begin}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00020}00020\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ time\_end}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00021}00021\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ time\_used}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00022}00022\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ eigvals(num\_gs)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00024}00024\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ omega}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ temp1}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ temp1\_mpi}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ opavg(num\_gs)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ v\_vector(:)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ w\_vector(:)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ v\_vector\_mpi(:)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{character(len=20)}\ ::\ fname}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{character(len=10)}\ ::\ char\_I}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00035}00035\ \ \ \ \ time\_begin\ =\ 0.0\_dp}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00036}00036\ \ \ \ \ time\_end\ \ \ =\ 0.0\_dp}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00037}00037\ \ \ \ \ time\_used\ \ =\ 0.0\_dp}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00038}00038\ \ \ \ \ \textcolor{keyword}{call\ }cpu\_time(time\_begin)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00041}00041\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00042}00042\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ OPAVG\ begin\ ...\ "{}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00043}00043\ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00044}00044\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00045}00045\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_abdc5dadebaaded05442bd0ffb35f7de7}{read\_hopping\_i}}()}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a0eeff768f4dfe8cf4113222bd7d15fce}{read\_coulomb\_i}}()}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00047}00047\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \ \textcolor{stringliteral}{"{}num\_val\_orbs:\ \ "{}},\ \mbox{\hyperlink{namespacem__control_a0f93e7250b180e061762d7de2e9914b6}{num\_val\_orbs}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \ \textcolor{stringliteral}{"{}nhopp\_i:\ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_a0b50c8369822934aa736718e9b443ae6}{nhopp\_i}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \ \textcolor{stringliteral}{"{}ncoul\_i:\ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_a52790c56b05d01fa30119fea64ea8688}{ncoul\_i}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \ \textcolor{stringliteral}{"{}ndim\_i:\ \ \ \ \ \ \ \ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \ \textcolor{stringliteral}{"{}nprocs:\ \ \ \ \ \ \ \ "{}},\ nprocs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a20,\ i15)"{}})\ \ \ \textcolor{stringliteral}{"{}num\_gs:\ \ \ \ \ \ \ \ "{}},\ num\_gs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00056}00056\ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00057}00057\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00060}00060\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Building\ operator\ \ ..."{}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00061}00061\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_a5256ecd7fc3ffc6268aef71add5dc031}{partition\_task}}(nprocs,\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ end\_indx)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00063}00063\ \ \ \ \ rtemp\ =\ 1.0\_dp}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00064}00064\ \ \ \ \ omega\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00065}00065\ \ \ \ \ mblock\ =\ nprocs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00066}00066\ \ \ \ \ nblock\ =\ nprocs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00067}00067\ \ \ \ \ nloc\ =\ end\_indx(2,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)-\/end\_indx(1,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_ac486dee39def24accd8484ff5c10f398}{alloc\_ham\_csr}}(nblock)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00069}00069\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{ham_8f90_ade3ceb66467698b2fbc3cf275038e65f}{build\_ham\_i}}(\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__global_ad87b23bf9109a3806c4eb44d99e9b8c6}{fock\_i}},\ nblock,\ end\_indx,\ \mbox{\hyperlink{namespacem__control_a0b50c8369822934aa736718e9b443ae6}{nhopp\_i}},\ \mbox{\hyperlink{namespacem__global_a7d917e1ae0f654becad2544466b3d691}{hopping\_i}},\ \mbox{\hyperlink{namespacem__control_a52790c56b05d01fa30119fea64ea8688}{ncoul\_i}},\ \mbox{\hyperlink{namespacem__global_a1aca4ccb323509c34971f5f47cb97b51}{coulomb\_i}},\ omega,\ rtemp,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}})}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00071}00071\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_aa7bc34ed020633677cc319cec33a321d}{get\_needed\_indx}}(nblock,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}},\ needed)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00073}00073\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_ac467c9e327a0a87c986c6edea2e67d0e}{get\_number\_nonzeros}}(nblock,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}},\ num\_of\_nonzeros)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00074}00074\ \ \ \ \ \textcolor{keyword}{call\ }cpu\_time(time\_end)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00075}00075\ \ \ \ \ time\_used\ =\ time\_used\ +\ time\_end\ -\/\ time\_begin}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00077}00077\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Number\ of\ nonzero\ elements\ of\ the\ Hamiltonian"{}},\ num\_of\_nonzeros}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00078}00078\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Done\ !"{}}\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00079}00079\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Time\ used:\ "{}},\ time\_end\ -\/\ time\_begin,\ \textcolor{stringliteral}{"{}\ \ seconds"{}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00080}00080\ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00081}00081\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00083}00083\ \ \ \ \ eigvals=\mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00084}00084\ \ \ \ \ opavg=\mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00085}00085\ \ \ \ \ \textcolor{keyword}{allocate}(v\_vector(nloc))}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00086}00086\ \ \ \ \ \textcolor{keyword}{allocate}(w\_vector(nloc))}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00087}00087\ \ \ \ \ time\_begin\ =\ time\_end}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{do}\ igs=1,\ num\_gs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ For\ state:\ "{}},\ igs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00091}00091\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(v\_vector\_mpi(\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}))}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00093}00093\ \ \ \ \ \ \ \ \ v\_vector\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00094}00094\ \ \ \ \ \ \ \ \ w\_vector\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00095}00095\ \ \ \ \ \ \ \ \ v\_vector\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(char\_i,\ \textcolor{stringliteral}{'(i5)'})\ igs}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ fname=\textcolor{stringliteral}{"{}eigvec."{}}//trim(adjustl(char\_i))}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_aba78b721f1743094eb7b745ac244df1c}{read\_eigvecs}}(fname,\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ v\_vector\_mpi,\ eigvals(igs))}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00099}00099\ \ \ \ \ \ \ \ \ v\_vector\ =\ v\_vector\_mpi(end\_indx(1,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1):\ end\_indx(1,2,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1))\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(v\_vector\_mpi)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ \mbox{\hyperlink{namespacem__global_af1975f7037e18b6bd0af46737d29970c}{ham\_csr}},\ v\_vector,\ w\_vector)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00104}00104\ \ \ \ \ \ \ \ \ temp1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00105}00105\ \ \ \ \ \ \ \ \ temp1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00106}00106\ \ \ \ \ \ \ \ \ temp1\ =\ dot\_product(v\_vector,\ w\_vector)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(temp1,\ temp1\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00108}00108\ \ \ \ \ \ \ \ \ opavg(igs)\ =\ temp1\_mpi}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00109}00109\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00111}00111\ \ \ \ \ \textcolor{keyword}{deallocate}(v\_vector)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00112}00112\ \ \ \ \ \textcolor{keyword}{deallocate}(w\_vector)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00114}00114\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_aa625eb6d922d0ee0a6ee6a7fcee5cbcf}{write\_opavg}}(num\_gs,\ eigvals,\ opavg)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00116}00116\ \ \ \ \ \textcolor{keyword}{call\ }cpu\_time(time\_end)}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00117}00117\ \ \ \ \ time\_used\ =\ time\_used\ +\ time\_end\ -\/\ time\_begin}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00118}00118\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00119}00119\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Done\ !\ Time\ used:\ "{}},\ time\_end-\/time\_begin,\ \textcolor{stringliteral}{"{}\ \ seconds"{}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00120}00120\ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00121}00121\ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ OPAVG\ end\ !\ Total\ time\ used:\ "{}},\ time\_used,\ \textcolor{stringliteral}{"{}\ \ seconds"{}}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00122}00122\ \ \ \ \ \ \ \ \ print\ *}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00123}00123\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{opavg__driver_8f90_source_l00126}00126\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{opavg__driver_8f90_a78eb6a19f80214256090dd2faed722e4}{opavg\_driver}}}
+
+\end{DoxyCode}

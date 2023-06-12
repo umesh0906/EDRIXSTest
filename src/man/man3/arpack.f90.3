@@ -1,0 +1,38 @@
+.TH "arpack.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+arpack.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBdiag_ham_arpack\fP (nblock, end_indx, needed, nloc, nev, ham, eval, n_vecs, evec, ncv, maxiter, tol, info, actual_step, nconv)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine diag_ham_arpack (integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, dimension(nprocs, nprocs), intent(in) needed, integer, intent(in) nloc, integer, intent(in) nev, type (\fBt_csr\fP), dimension(nblock) ham, real(dp), dimension(nev), intent(out) eval, integer, intent(in) n_vecs, complex(dp), dimension(nloc,n_vecs), intent(out) evec, integer, intent(in) ncv, integer, intent(in) maxiter, real(dp), intent(in) tol, integer, intent(out) info, integer, intent(out) actual_step, integer, intent(out) nconv)"
+This subroutine diagnonlized a the matrix using Arpack 
+.PP
+\fBParameters\fP
+.RS 4
+\fIparam1\fP nblock, end_indx, needed, nloc, ham, tol, info, 
+.br
+\fIparamN\fP eval, n_vecs, eve, maxiter, tol, actual_step, nconv 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void recall the euler formula: $ e^{i x} = \mathrm{cos} x + i \mathrm{sin} x  $ The distance between $(x_1,y_1)$ and $(x_2,y_2)$ is 
+.RE
+.PP
+
+.PP
+Definition at line \fB12\fP of file \fBarpack\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

@@ -1,0 +1,78 @@
+.TH "m_types" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+m_types
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Types"
+
+.in +1c
+.ti -1c
+.RI "type \fBt_col\fP"
+.br
+.ti -1c
+.RI "type \fBt_container_col\fP"
+.br
+.ti -1c
+.RI "type \fBt_csr\fP"
+.br
+.ti -1c
+.RI "type \fBt_tensor2\fP"
+.br
+.ti -1c
+.RI "type \fBt_tensor4\fP"
+.br
+.in -1c
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBinit_col\fP (self, col, val)"
+.br
+.ti -1c
+.RI "subroutine \fBinsert_into_row\fP (self, col, val)"
+.br
+.ti -1c
+.RI "subroutine \fBinit_csr\fP (self)"
+.br
+.ti -1c
+.RI "subroutine \fBalloc_csr\fP (m, nnz, self)"
+.br
+.ti -1c
+.RI "subroutine \fBdealloc_csr\fP (self)"
+.br
+.ti -1c
+.RI "subroutine \fBcsr_to_full\fP (m, n, m_csr, m_full)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine m_types::alloc_csr (integer, intent(in) m, integer, intent(in) nnz, type (\fBt_csr\fP) self)"
+
+.PP
+Definition at line \fB138\fP of file \fBm_types\&.f90\fP\&.
+.SS "subroutine m_types::csr_to_full (integer, intent(in) m, integer, intent(in) n, type (\fBt_csr\fP) m_csr, complex(dp), dimension(m,n), intent(out) m_full)"
+
+.PP
+Definition at line \fB173\fP of file \fBm_types\&.f90\fP\&.
+.SS "subroutine m_types::dealloc_csr (type (\fBt_csr\fP) self)"
+
+.PP
+Definition at line \fB159\fP of file \fBm_types\&.f90\fP\&.
+.SS "subroutine m_types::init_col (type (\fBt_col\fP), pointer self, integer, intent(in) col, complex(dp), intent(in) val)"
+
+.PP
+Definition at line \fB58\fP of file \fBm_types\&.f90\fP\&.
+.SS "subroutine m_types::init_csr (type (\fBt_csr\fP) self)"
+
+.PP
+Definition at line \fB123\fP of file \fBm_types\&.f90\fP\&.
+.SS "subroutine m_types::insert_into_row (type (\fBt_col\fP), pointer self, integer, intent(in) col, complex(dp), intent(in) val)"
+
+.PP
+Definition at line \fB74\fP of file \fBm_types\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

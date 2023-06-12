@@ -1,0 +1,56 @@
+\hypertarget{namespacem__lanczos}{}\doxysection{m\+\_\+lanczos Module Reference}
+\label{namespacem__lanczos}\index{m\_lanczos@{m\_lanczos}}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine \mbox{\hyperlink{namespacem__lanczos_aed0cc19d3bbbb20cd6bb7065dd374050}{diag\+\_\+ham\+\_\+lanczos}} (nblock, end\+\_\+indx, needed, nloc, nev, max\+\_\+niter, eval\+\_\+tol, ham, eval, n\+\_\+vec, evec)
+\item 
+subroutine \mbox{\hyperlink{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}{krylov\+\_\+eigs}} (n, alpha, beta, eval, evec)
+\item 
+subroutine \mbox{\hyperlink{namespacem__lanczos_a8071f36793c0faf48923f67f7025fd41}{build\+\_\+krylov\+\_\+mp}} (nblock, end\+\_\+indx, needed, nloc, ham, init\+\_\+vec, maxn, neff, alpha, beta, norm)
+\item 
+subroutine \mbox{\hyperlink{namespacem__lanczos_af5d4b9f812de377655bc2b4552f859d8}{build\+\_\+spectrum}} (nkrylov, alpha, beta, norm, nw, om\+\_\+mesh, e\+\_\+gs, gamma\+\_\+final, spec)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacem__lanczos_a8071f36793c0faf48923f67f7025fd41}\label{namespacem__lanczos_a8071f36793c0faf48923f67f7025fd41}} 
+\index{m\_lanczos@{m\_lanczos}!build\_krylov\_mp@{build\_krylov\_mp}}
+\index{build\_krylov\_mp@{build\_krylov\_mp}!m\_lanczos@{m\_lanczos}}
+\doxysubsubsection{\texorpdfstring{build\_krylov\_mp()}{build\_krylov\_mp()}}
+{\footnotesize\ttfamily subroutine m\+\_\+lanczos\+::build\+\_\+krylov\+\_\+mp (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2,2,nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, dimension(nprocs, nprocs), intent(in)}]{needed,  }\item[{integer, intent(in)}]{nloc,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham,  }\item[{complex(dp), dimension(nloc), intent(in)}]{init\+\_\+vec,  }\item[{integer, intent(in)}]{maxn,  }\item[{integer, intent(out)}]{neff,  }\item[{real(dp), dimension(maxn), intent(out)}]{alpha,  }\item[{real(dp), dimension(0\+:maxn), intent(out)}]{beta,  }\item[{real(dp), intent(out)}]{norm }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lanczos_8f90_source_l00210}{210}} of file \mbox{\hyperlink{lanczos_8f90_source}{lanczos.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__lanczos_af5d4b9f812de377655bc2b4552f859d8}\label{namespacem__lanczos_af5d4b9f812de377655bc2b4552f859d8}} 
+\index{m\_lanczos@{m\_lanczos}!build\_spectrum@{build\_spectrum}}
+\index{build\_spectrum@{build\_spectrum}!m\_lanczos@{m\_lanczos}}
+\doxysubsubsection{\texorpdfstring{build\_spectrum()}{build\_spectrum()}}
+{\footnotesize\ttfamily subroutine m\+\_\+lanczos\+::build\+\_\+spectrum (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nkrylov,  }\item[{real(dp), dimension(nkrylov), intent(in)}]{alpha,  }\item[{real(dp), dimension(0\+:nkrylov), intent(in)}]{beta,  }\item[{real(dp), intent(in)}]{norm,  }\item[{integer, intent(in)}]{nw,  }\item[{real(dp), dimension(nw), intent(in)}]{om\+\_\+mesh,  }\item[{real(dp), intent(in)}]{e\+\_\+gs,  }\item[{real(dp), dimension(nw), intent(in)}]{gamma\+\_\+final,  }\item[{real(dp), dimension(nw), intent(out)}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lanczos_8f90_source_l00306}{306}} of file \mbox{\hyperlink{lanczos_8f90_source}{lanczos.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__lanczos_aed0cc19d3bbbb20cd6bb7065dd374050}\label{namespacem__lanczos_aed0cc19d3bbbb20cd6bb7065dd374050}} 
+\index{m\_lanczos@{m\_lanczos}!diag\_ham\_lanczos@{diag\_ham\_lanczos}}
+\index{diag\_ham\_lanczos@{diag\_ham\_lanczos}!m\_lanczos@{m\_lanczos}}
+\doxysubsubsection{\texorpdfstring{diag\_ham\_lanczos()}{diag\_ham\_lanczos()}}
+{\footnotesize\ttfamily subroutine m\+\_\+lanczos\+::diag\+\_\+ham\+\_\+lanczos (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2,2,nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, dimension(nprocs, nprocs), intent(in)}]{needed,  }\item[{integer, intent(in)}]{nloc,  }\item[{integer, intent(in)}]{nev,  }\item[{integer, intent(in)}]{max\+\_\+niter,  }\item[{real(dp), intent(in)}]{eval\+\_\+tol,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham,  }\item[{real(dp), dimension(nev), intent(out)}]{eval,  }\item[{integer, intent(in)}]{n\+\_\+vec,  }\item[{complex(dp), dimension(nloc,n\+\_\+vec), intent(out)}]{evec }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lanczos_8f90_source_l00006}{6}} of file \mbox{\hyperlink{lanczos_8f90_source}{lanczos.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}\label{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}} 
+\index{m\_lanczos@{m\_lanczos}!krylov\_eigs@{krylov\_eigs}}
+\index{krylov\_eigs@{krylov\_eigs}!m\_lanczos@{m\_lanczos}}
+\doxysubsubsection{\texorpdfstring{krylov\_eigs()}{krylov\_eigs()}}
+{\footnotesize\ttfamily subroutine m\+\_\+lanczos\+::krylov\+\_\+eigs (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{n,  }\item[{real(dp), dimension(n), intent(in)}]{alpha,  }\item[{real(dp), dimension(n-\/1), intent(in)}]{beta,  }\item[{real(dp), dimension(n), intent(out)}]{eval,  }\item[{real(dp), dimension(n,n), intent(out)}]{evec }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lanczos_8f90_source_l00169}{169}} of file \mbox{\hyperlink{lanczos_8f90_source}{lanczos.\+f90}}.
+

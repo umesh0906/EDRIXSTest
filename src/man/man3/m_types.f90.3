@@ -1,0 +1,59 @@
+.TH "m_types.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+m_types.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Types"
+
+.in +1c
+.ti -1c
+.RI "type \fBm_types::t_tensor2\fP"
+.br
+.ti -1c
+.RI "type \fBm_types::t_tensor4\fP"
+.br
+.ti -1c
+.RI "type \fBm_types::t_col\fP"
+.br
+.ti -1c
+.RI "type \fBm_types::t_container_col\fP"
+.br
+.ti -1c
+.RI "type \fBm_types::t_csr\fP"
+.br
+.in -1c
+.SS "Modules"
+
+.in +1c
+.ti -1c
+.RI "module \fBm_types\fP"
+.br
+.in -1c
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBm_types::init_col\fP (self, col, val)"
+.br
+.ti -1c
+.RI "subroutine \fBm_types::insert_into_row\fP (self, col, val)"
+.br
+.ti -1c
+.RI "subroutine \fBm_types::init_csr\fP (self)"
+.br
+.ti -1c
+.RI "subroutine \fBm_types::alloc_csr\fP (m, nnz, self)"
+.br
+.ti -1c
+.RI "subroutine \fBm_types::dealloc_csr\fP (self)"
+.br
+.ti -1c
+.RI "subroutine \fBm_types::csr_to_full\fP (m, n, m_csr, m_full)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

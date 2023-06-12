@@ -1,0 +1,15 @@
+digraph "diag_ham_arpack"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="diag_ham_arpack",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Use parallel arpack to find a few lowest eigenstates of a large sparse Hamiltonian."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="pspmv_csr",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$spmv_8f90.html#a47c3d20e0ee5069ec953cf38a88660a9",tooltip=" "];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="matvec_csr",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$spmv_8f90.html#a11a5912cf5999eee051513ecb31e6196",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="sort_eigvals",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$utils_8f90.html#af15b4162539239a5bafa53b4ebf64115",tooltip=" "];
+}

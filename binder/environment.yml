@@ -1,0 +1,16 @@
+name: edrixs_tutorial
+channels:
+  - nsls2forge                     # We added a third party channel
+dependencies:
+  - jupyterlab=2.1.4
+  - edrixs>=0.0.6
+  - ipympl=0.5.*
+  - ipywidgets=7.5.*
+  - nodejs
+  - openmpi
+  - unzip
+  - bokeh=2.0.*
+  - h5py
+  - hdf5
+  - seaborn
+  - sphinx-gallery

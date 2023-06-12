@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['ncoul_5fi_0',['ncoul_i',['../namespacem__control.html#a52790c56b05d01fa30119fea64ea8688',1,'m_control']]],
+  ['ncoul_5fn_1',['ncoul_n',['../namespacem__control.html#aeee13c5f3e7020b4f33263a9e8db17f7',1,'m_control']]],
+  ['ncv_2',['ncv',['../namespacem__control.html#af97d1b2c4ab19258a44195f8b76bc946',1,'m_control']]],
+  ['ndim_5ff_3',['ndim_f',['../namespacem__control.html#ac11c92ba53c725bcfb2e5ee83daff399',1,'m_control']]],
+  ['ndim_5fi_4',['ndim_i',['../namespacem__control.html#ac73afc7cf69e0c46557a4b9539fd7415',1,'m_control']]],
+  ['ndim_5fn_5',['ndim_n',['../namespacem__control.html#aa54e607622df910d3293326cc15dea9c',1,'m_control']]],
+  ['ndim_5fn_5fnocore_6',['ndim_n_nocore',['../namespacem__control.html#abe12f8a135fef2916f4909a3a43489d7',1,'m_control']]],
+  ['neval_7',['neval',['../namespacem__control.html#ac9600e35a3420e3038e1ef8a39ff3eaa',1,'m_control']]],
+  ['new_5fcomm_8',['new_comm',['../namespacem__control.html#a896ab416a37d0aa3ab8bfd65a9a31d8d',1,'m_control']]],
+  ['next_9',['next',['../structm__types_1_1t__col.html#ada09e3f229e99bb119507fb64ff4d70c',1,'m_types::t_col']]],
+  ['nhopp_5fi_10',['nhopp_i',['../namespacem__control.html#a0b50c8369822934aa736718e9b443ae6',1,'m_control']]],
+  ['nhopp_5fn_11',['nhopp_n',['../namespacem__control.html#ad9363f8deec35138790cd02cadd525b9',1,'m_control']]],
+  ['nkryl_12',['nkryl',['../namespacem__control.html#a62e21f71e206cdaf324aadb580ff01c4',1,'m_control']]],
+  ['nnz_13',['nnz',['../structm__types_1_1t__csr.html#a21f619bbf4da47ee20d37e91ced87956',1,'m_types::t_csr']]],
+  ['nprocs_14',['nprocs',['../namespacem__control.html#aed53f6eb55ad14842a27ac004ee3ca6c',1,'m_control']]],
+  ['ntran_5frixs_5ff_15',['ntran_rixs_f',['../namespacem__control.html#a889a6b20eb1e3ecaa6c2c3a081b14623',1,'m_control']]],
+  ['ntran_5frixs_5fi_16',['ntran_rixs_i',['../namespacem__control.html#a6c38094f03bf69819f8bf2d11c30a06b',1,'m_control']]],
+  ['ntran_5fxas_17',['ntran_xas',['../namespacem__control.html#ad3ae711ced893d383b10086212a3fbb1',1,'m_control']]],
+  ['num_5fcore_5forbs_18',['num_core_orbs',['../namespacem__control.html#ae48f44448ca814ee66b6a0b9641fc6a8',1,'m_control']]],
+  ['num_5fgs_19',['num_gs',['../namespacem__control.html#ad5788b395823edf1ebb64e7e7f492ba5',1,'m_control']]],
+  ['num_5fval_5forbs_20',['num_val_orbs',['../namespacem__control.html#a0f93e7250b180e061762d7de2e9914b6',1,'m_control']]],
+  ['nvector_21',['nvector',['../namespacem__control.html#ab61bd3cba31945a3a0990df285973c25',1,'m_control']]]
+];

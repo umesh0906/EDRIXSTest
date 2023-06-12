@@ -1,0 +1,343 @@
+\hypertarget{lanczos_8f90_source}{}\doxysection{lanczos.\+f90}
+\mbox{\hyperlink{lanczos_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00001}\mbox{\hyperlink{namespacem__lanczos}{00001}}\ \textcolor{keyword}{module}\ \mbox{\hyperlink{namespacem__lanczos}{m\_lanczos}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keyword}{contains}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00004}00004\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00005}00005\ \ \ \ \ \textcolor{comment}{!!\ use\ parallel\ Lanczos\ method\ to\ find\ the\ ground\ state}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00006}\mbox{\hyperlink{namespacem__lanczos_aed0cc19d3bbbb20cd6bb7065dd374050}{00006}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__lanczos_aed0cc19d3bbbb20cd6bb7065dd374050}{diag\_ham\_lanczos}}(nblock,\ end\_indx,\ needed,\ nloc,\ nev,\ max\_niter,\ eval\_tol,\ ham,\ eval,\ n\_vec,\ evec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00007}00007\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}},\ \mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00008}00008\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ ,\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00009}00009\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00010}00010\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00011}00011\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00013}00013\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nblock}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ end\_indx(2,2,nprocs)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ needed(nprocs,\ nprocs)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nloc}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nev}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ max\_niter}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00021}00021\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ eval\_tol}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\ ham(nblock)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00023}00023\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ ::\ eval(nev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ n\_vec}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(out)}\ \ ::\ evec(nloc,n\_vec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00026}00026\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00028}00028\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \ \ \ \textcolor{keywordtype}{allocatable}\ ::\ temp\_vec(:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ work\_vec(:,:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00030}00030\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \ \ \ \textcolor{keywordtype}{allocatable}\ ::\ alpha(:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00031}00031\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \ \ \ \textcolor{keywordtype}{allocatable}\ ::\ beta(:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00032}00032\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \ \ \ \textcolor{keywordtype}{allocatable}\ ::\ krylov\_eigval(:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00033}00033\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \ \ \ \textcolor{keywordtype}{allocatable}\ ::\ krylov\_eigvec(:,:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00034}00034\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ curr}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ prev}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ temp\_indx}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i,j}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ nkrylov}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00041}00041\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00042}00042\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp)\ ::\ res}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00043}00043\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ temp1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ temp1\_mpi}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00046}00046\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(temp\_vec(nloc))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(work\_vec(nloc,2))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(alpha(max\_niter))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(beta(0:max\_niter))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(krylov\_eigval(max\_niter))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(krylov\_eigvec(max\_niter,max\_niter))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00053}00053\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00054}00054\ \ \ \ \ \ \ \ \ temp\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00055}00055\ \ \ \ \ \ \ \ \ eval\ \ \ \ \ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00056}00056\ \ \ \ \ \ \ \ \ work\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00057}00057\ \ \ \ \ \ \ \ \ alpha\ \ \ \ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00058}00058\ \ \ \ \ \ \ \ \ beta\ \ \ \ \ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00059}00059\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }random\_seed()}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }random\_number(temp\_vec)\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00062}00062\ \ \ \ \ \ \ \ \ work\_vec(:,1)\ =\ temp\_vec\ -\/\ 0.5}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(temp\_vec))\ \textcolor{keyword}{deallocate}(temp\_vec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00064}00064\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ normalize\ v1}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00066}00066\ \ \ \ \ \ \ \ \ temp1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00067}00067\ \ \ \ \ \ \ \ \ temp1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00068}00068\ \ \ \ \ \ \ \ \ temp1\ =\ dot\_product(work\_vec(:,1),\ work\_vec(:,1))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(temp1,\ temp1\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00070}00070\ \ \ \ \ \ \ \ \ temp1\ =\ sqrt(real(temp1\_mpi))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00071}00071\ \ \ \ \ \ \ \ \ work\_vec(:,1)\ =\ work\_vec(:,1)\ /\ temp1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00072}00072\ \ \ \ \ \ \ \ \ evec(:,1)\ =\ work\_vec(:,1)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00073}00073\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00074}00074\ \ \ \ \ \ \ \ \ curr\ =\ 1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00075}00075\ \ \ \ \ \ \ \ \ prev\ =\ 2}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00076}00076\ \ \ \ \ \ \ \ \ nkrylov\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00077}00077\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,max\_niter}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ matrix-\/vector\ product}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ -\/beta(i-\/1)\ *\ work\_vec(:,prev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ ham,\ work\_vec(:,curr),\ work\_vec(:,prev))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ compute\ alpha\_i}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ dot\_product(work\_vec(:,curr),\ work\_vec(:,prev))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(temp1,\ temp1\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ alpha(i)\ =\ real(temp1\_mpi)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00090}00090\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mod(i,10)\ ==\ 0\ .or.\ i==max\_niter)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ krylov\_eigval\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ krylov\_eigvec\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}{krylov\_eigs}}(i,\ alpha(1:i),\ beta(1:i-\/1),\ krylov\_eigval(1:i),\ krylov\_eigvec(1:i,1:i))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ check\ convergence}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i>=nev)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ krylov\_eigval(nev)\ -\/\ eval(nev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a25,\ i5,\ E10.2,\ a5,\ E10.2)"{}})\ \ \textcolor{stringliteral}{"{}Lanczos\ iteration:\ \ "{}},\ i,\ abs(res),\ \textcolor{stringliteral}{"{}-\/-\/>"{}},\ eval\_tol}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00100}00100\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (abs(res)\ <\ eval\_tol)\ \textcolor{keywordflow}{then}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval(1:nev)\ =\ krylov\_eigval(1:nev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nkrylov\ =\ i}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{EXIT}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00105}00105\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00106}00106\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval(1:nev)\ =\ krylov\_eigval(1:nev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00108}00108\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00109}00109\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ work\_vec(:,prev)\ -\/\ alpha(i)\ *\ work\_vec(:,curr)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ compute\ beta\_\{i+1\}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ dot\_product(work\_vec(:,prev),\ work\_vec(:,prev))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(temp1,\ temp1\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ beta(i)\ =\ sqrt(real(temp1\_mpi))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ beta\ is\ too\ small,\ exit}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (abs(beta(i))\ <\ 1e-\/10)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ krylov\_eigval\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ krylov\_eigvec\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i>=2)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}{krylov\_eigs}}(i,\ alpha(1:i),\ beta(1:i-\/1),\ krylov\_eigval(1:i),\ krylov\_eigvec(1:i,1:i))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval(1:nev)\ =\ krylov\_eigval(1:nev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval(1)\ =\ alpha(1)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ krylov\_eigvec(1,1)\ =\ 1.0\_dp}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00127}00127\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nkrylov\ =\ i}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{EXIT}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00130}00130\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ work\_vec(:,prev)\ /\ beta(i)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_indx\ =\ curr}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ curr\ =\ prev}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ prev\ =\ temp\_indx\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00135}00135\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00136}00136\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ build\ eigenvectors\ if\ wanted}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00138}00138\ \ \ \ \ \ \ \ \ work\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00139}00139\ \ \ \ \ \ \ \ \ work\_vec(:,1)\ =\ evec(:,1)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00140}00140\ \ \ \ \ \ \ \ \ evec\ \ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00141}00141\ \ \ \ \ \ \ \ \ curr\ \ =\ 1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00142}00142\ \ \ \ \ \ \ \ \ prev\ \ =\ 2}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,nkrylov}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ j=1,n\_vec}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ evec(:,j)\ =\ evec(:,j)\ +\ krylov\_eigvec(i,j)\ *\ work\_vec(:,curr)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00146}00146\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ enddo}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i<nkrylov)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ -\/alpha(i)\ *\ work\_vec(:,curr)\ -\/\ beta(i-\/1)\ *\ work\_vec(:,prev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ ham,\ work\_vec(:,curr),\ work\_vec(:,prev))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ work\_vec(:,prev)\ /\ beta(i)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp\_indx\ =\ curr}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ curr\ =\ prev}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev\ =\ temp\_indx\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00156}00156\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00157}00157\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00159}00159\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(work\_vec))\ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(work\_vec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(alpha))\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(alpha)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(beta))\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{deallocate}(beta)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(krylov\_eigval))\ \ \ \textcolor{keyword}{deallocate}(krylov\_eigval)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(krylov\_eigvec))\ \ \ \textcolor{keyword}{deallocate}(krylov\_eigvec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00165}00165\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00167}00167\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__lanczos_aed0cc19d3bbbb20cd6bb7065dd374050}{diag\_ham\_lanczos}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00168}00168\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00169}\mbox{\hyperlink{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}{00169}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}{krylov\_eigs}}(n,\ alpha,\ beta,\ eval,\ evec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00172}00172\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ n}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00175}00175\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ alpha(n)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00176}00176\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ beta(n-\/1)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00177}00177\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ ::\ eval(n)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00178}00178\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ ::\ evec(n,n)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00179}00179\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00180}00180\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00181}00181\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{allocatable}\ ::\ tmp\_beta(:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00182}00182\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{allocatable}\ ::\ work(:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ info}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00185}00185\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(tmp\_beta(n-\/1))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(work(max(1,2*n-\/2)))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00188}00188\ \ \ \ \ \ \ \ \ eval\ =\ alpha}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00189}00189\ \ \ \ \ \ \ \ \ tmp\_beta\ =\ beta}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00190}00190\ \ \ \ \ \ \ \ \ work\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ init\ evec\ to\ identity\ matrix}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00192}00192\ \ \ \ \ \ \ \ \ evec\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,n}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ evec(i,i)\ =\ 1.0\_dp}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00195}00195\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }dsteqr(\textcolor{stringliteral}{'I'},\ n,\ eval,\ tmp\_beta,\ evec,\ n,\ work,\ info)\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (info\ /=\ 0\ )\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}error\ in\ dster,\ info:\ "{}},\ info}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ stop}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00200}00200\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00201}00201\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(tmp\_beta))\ \textcolor{keyword}{deallocate}(tmp\_beta)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(work))\ \ \ \ \ \textcolor{keyword}{deallocate}(work)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00204}00204\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00205}00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00206}00206\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__lanczos_a7d0da944adb4fd1a2676437f36c9599a}{krylov\_eigs}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00208}00208\ \ \ \ \ \textcolor{comment}{!!\ given\ a\ Hamiltonian\ H,\ an\ initial\ vector\ V1,\ build\ its\ Krylov\ space\ with\ desired\ dimension}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00209}00209\ \ \ \ \ \textcolor{comment}{!!\ return\ the\ actual\ dimension\ of\ the\ Krylov\ space,\ the\ normalization\ parameter\ of\ V0,\ alpha\ and\ beta\ }}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00210}\mbox{\hyperlink{namespacem__lanczos_a8071f36793c0faf48923f67f7025fd41}{00210}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__lanczos_a8071f36793c0faf48923f67f7025fd41}{build\_krylov\_mp}}(nblock,\ end\_indx,\ needed,\ nloc,\ ham,\ init\_vec,\ maxn,\ neff,\ alpha,\ beta,\ norm)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00211}00211\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}},\ \mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00215}00215\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00217}00217\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ nblock}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ end\_indx(2,2,nprocs)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ needed(nprocs,\ nprocs)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ nloc}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ \ \ \ \ \ \ \ \ \ \ \ \ ::\ ham(nblock)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(in)}\ \ ::\ init\_vec(nloc)\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ maxn}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ ::\ neff}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00227}00227\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ \ \ \ ::\ alpha(maxn)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00228}00228\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ \ \ \ ::\ beta(0:maxn)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00229}00229\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ \ \ \ ::\ norm}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00230}00230\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ work\_vec(:,:)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00233}00233\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00234}00234\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ curr}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00235}00235\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ prev}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ temp\_indx}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00237}00237\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00240}00240\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00241}00241\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ temp1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ temp1\_mpi}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00243}00243\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(work\_vec(nloc,2))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00245}00245\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00246}00246\ \ \ \ \ \ \ \ \ work\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00247}00247\ \ \ \ \ \ \ \ \ alpha\ \ \ \ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00248}00248\ \ \ \ \ \ \ \ \ beta\ \ \ \ \ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00249}00249\ \ \ \ \ \ \ \ \ neff\ \ \ \ \ =\ 0}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00250}00250\ \ \ \ \ \ \ \ \ norm\ \ \ \ \ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00251}00251\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00252}00252\ \ \ \ \ \ \ \ \ work\_vec(:,1)\ =\ init\_vec}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ normalize\ V1}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00254}00254\ \ \ \ \ \ \ \ \ temp1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00255}00255\ \ \ \ \ \ \ \ \ temp1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00256}00256\ \ \ \ \ \ \ \ \ temp1\ =\ dot\_product(work\_vec(:,1),\ work\_vec(:,1))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00257}00257\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(temp1,\ temp1\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00258}00258\ \ \ \ \ \ \ \ \ norm\ =\ real(temp1\_mpi)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00259}00259\ \ \ \ \ \ \ \ \ temp1\ =\ sqrt(real(temp1\_mpi))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00260}00260\ \ \ \ \ \ \ \ \ work\_vec(:,1)\ =\ work\_vec(:,1)\ /\ temp1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00261}00261\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00262}00262\ \ \ \ \ \ \ \ \ curr\ =\ 1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00263}00263\ \ \ \ \ \ \ \ \ prev\ =\ 2}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00264}00264\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00265}00265\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ begin\ iteration}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00266}00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,maxn}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ ==\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}}\ .and.\ mod(i,50)==0)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a24,\ i5)"{}})\ \ \textcolor{stringliteral}{"{}Krylov\ iteration:\ \ "{}},\ i}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00269}00269\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ neff\ =\ i}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ matrix-\/vector\ product}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ -\/beta(i-\/1)\ *\ work\_vec(:,prev)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ ham,\ work\_vec(:,curr),\ work\_vec(:,prev))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ compute\ alpha\_i}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ dot\_product(work\_vec(:,curr),\ work\_vec(:,prev))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(temp1,\ temp1\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ alpha(i)\ =\ real(temp1\_mpi)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00282}00282\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ work\_vec(:,prev)\ -\/\ alpha(i)\ *\ work\_vec(:,curr)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ compute\ beta\_\{i+1\}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ temp1\ =\ dot\_product(work\_vec(:,prev),\ work\_vec(:,prev))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(temp1,\ temp1\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ beta(i)\ =\ sqrt(real(temp1\_mpi))}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ beta\ is\ too\ small,\ exit}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (abs(beta(i))\ <\ 1e-\/10)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{EXIT}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00293}00293\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ work\_vec(:,prev)\ =\ work\_vec(:,prev)\ /\ beta(i)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_indx\ =\ curr}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ curr\ =\ prev}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ prev\ =\ temp\_indx\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00298}00298\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00300}00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(work\_vec))\ \textcolor{keyword}{deallocate}(work\_vec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00301}00301\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00302}00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00303}00303\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__lanczos_a8071f36793c0faf48923f67f7025fd41}{build\_krylov\_mp}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00305}00305\ \ \ \ \ \textcolor{comment}{!\ given\ alpha,\ beta\ and\ normalization\ parameter\ to\ build\ the\ spectrum\ function}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00306}\mbox{\hyperlink{namespacem__lanczos_af5d4b9f812de377655bc2b4552f859d8}{00306}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__lanczos_af5d4b9f812de377655bc2b4552f859d8}{build\_spectrum}}(nkrylov,\ alpha,\ beta,\ norm,\ nw,\ om\_mesh,\ e\_gs,\ gamma\_final,\ spec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00307}00307\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}},\ \mbox{\hyperlink{namespacem__constants_a67fd3d171c6cdf9b879fe1277046afe2}{pi}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00308}00308\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00309}00309\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00311}00311\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00312}00312\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ nkrylov}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00313}00313\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ alpha(nkrylov)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00314}00314\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ beta(0:nkrylov)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00315}00315\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ norm}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00316}00316\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \ \textcolor{keywordtype}{intent(in)}\ ::\ nw}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00317}00317\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ om\_mesh(nw)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00318}00318\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ e\_gs}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00319}00319\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ ::\ gamma\_final(nw)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00320}00320\ \textcolor{keywordtype}{\ \ \ \ \ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ ::\ spec(nw)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00322}00322\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00323}00323\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00324}00324\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ tmp\_vec(nw)\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00325}00325\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ loop\ over\ krylov\ space}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00327}00327\ \ \ \ \ \ \ \ \ tmp\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00328}00328\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=nkrylov,\ 2,\ -\/1}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ tmp\_vec\ =\ beta(i-\/1)**2\ /\ (om\_mesh\ +\ dcmplx(0.0,\ 1.0)*gamma\_final\ +\ e\_gs\ -\/\ alpha(i)\ -\/\ tmp\_vec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00330}00330\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00331}00331\ \ \ \ \ \ \ \ \ tmp\_vec\ =\ 1.0/(om\_mesh\ +\ dcmplx(0.0,1.0)\ *\ gamma\_final\ +\ e\_gs\ -\/\ alpha(1)\ -\/\ tmp\_vec)}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00332}00332\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00333}00333\ \ \ \ \ \ \ \ \ spec\ =\ -\/1.0/\mbox{\hyperlink{namespacem__constants_a67fd3d171c6cdf9b879fe1277046afe2}{pi}}\ *\ aimag(tmp\_vec)\ *\ norm}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00334}00334\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00335}00335\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00336}00336\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__lanczos_af5d4b9f812de377655bc2b4552f859d8}{build\_spectrum}}}
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{lanczos_8f90_source_l00338}00338\ \textcolor{keyword}{end\ module\ }\mbox{\hyperlink{namespacem__lanczos}{m\_lanczos}}}
+
+\end{DoxyCode}

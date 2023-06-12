@@ -1,0 +1,45 @@
+.TH "ham.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ham.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBbuild_ham_i\fP (ncfgs, fock, nblock, end_indx, nhopp, hopping, ncoul, coulomb, omega, ham_sign, ham_csr)"
+.br
+.ti -1c
+.RI "subroutine \fBbuild_ham_n\fP (ncfgs, fock, num_val_orbs, num_core_orbs, nblock, end_indx, nhopp, hopping, ncoul, coulomb, omega, ham_sign, ham_csr)"
+.br
+.ti -1c
+.RI "subroutine \fBbuild_transop_i\fP (mcfgs, ncfgs, fock_left, fock_right, num_val_orbs, num_core_orbs, nblock, end_indx, ntran, transop, tran_csr)"
+.br
+.ti -1c
+.RI "subroutine \fBbuild_transop_f\fP (mcfgs, ncfgs, fock_left, fock_right, num_val_orbs, num_core_orbs, nblock, end_indx, ntran, transop, tran_csr)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine build_ham_i (integer, intent(in) ncfgs, integer(dp), dimension(ncfgs), intent(in) fock, integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, intent(in) nhopp, type (\fBt_tensor2\fP), dimension(nhopp), intent(in) hopping, integer, intent(in) ncoul, type (\fBt_tensor4\fP), dimension(ncoul), intent(in) coulomb, complex(dp), intent(in) omega, real(dp), intent(in) ham_sign, type (\fBt_csr\fP), dimension(nblock) ham_csr)"
+
+.PP
+Definition at line \fB2\fP of file \fBham\&.f90\fP\&.
+.SS "subroutine build_ham_n (integer, intent(in) ncfgs, integer(dp), dimension(ncfgs), intent(in) fock, integer, intent(in) num_val_orbs, integer, intent(in) num_core_orbs, integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, intent(in) nhopp, type (\fBt_tensor2\fP), dimension(nhopp), intent(in) hopping, integer, intent(in) ncoul, type (\fBt_tensor4\fP), dimension(ncoul), intent(in) coulomb, complex(dp), intent(in) omega, real(dp), intent(in) ham_sign, type (\fBt_csr\fP), dimension(nblock) ham_csr)"
+
+.PP
+Definition at line \fB352\fP of file \fBham\&.f90\fP\&.
+.SS "subroutine build_transop_f (integer, intent(in) mcfgs, integer, intent(in) ncfgs, integer(dp), dimension(mcfgs), intent(in) fock_left, integer(dp), dimension(ncfgs), intent(in) fock_right, integer, intent(in) num_val_orbs, integer, intent(in) num_core_orbs, integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, intent(in) ntran, type(\fBt_tensor2\fP), dimension(ntran), intent(in) transop, type (\fBt_csr\fP), dimension(nblock) tran_csr)"
+
+.PP
+Definition at line \fB915\fP of file \fBham\&.f90\fP\&.
+.SS "subroutine build_transop_i (integer, intent(in) mcfgs, integer, intent(in) ncfgs, integer(dp), dimension(mcfgs), intent(in) fock_left, integer(dp), dimension(ncfgs), intent(in) fock_right, integer, intent(in) num_val_orbs, integer, intent(in) num_core_orbs, integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, intent(in) ntran, type(\fBt_tensor2\fP), dimension(ntran), intent(in) transop, type (\fBt_csr\fP), dimension(nblock) tran_csr)"
+
+.PP
+Definition at line \fB714\fP of file \fBham\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

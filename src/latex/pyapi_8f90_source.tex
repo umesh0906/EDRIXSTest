@@ -1,0 +1,245 @@
+\hypertarget{pyapi_8f90_source}{}\doxysection{pyapi.\+f90}
+\mbox{\hyperlink{pyapi_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00001}\mbox{\hyperlink{pyapi_8f90_a6444ebf2c39a1bf243da4800825feb06}{00001}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{pyapi_8f90_a6444ebf2c39a1bf243da4800825feb06}{ed\_fsolver}}(comm,\ my\_id,\ num\_procs)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00002}00002\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00004}00004\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00009}00009\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ color}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ key}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00017}00017\ \textcolor{comment}{!F2PY\ intent(in)\ comm}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00018}00018\ \textcolor{comment}{!F2PY\ intent(in)\ my\_id}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00019}00019\ \textcolor{comment}{!F2PY\ intent(in)\ num\_procs}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}\ =\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00021}00021\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ =\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00022}00022\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}\ =\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_ad477686ee760c61aabf02b2a025d1c00}{config}}()\ \ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00025}00025\ \ \ \ \ \textcolor{comment}{!\ read\ fock\ to\ know\ the\ dimension\ of\ the\ Hamiltonian}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}\ <\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Warning:\ number\ of\ CPU\ processors\ "{}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \&}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\ larger\ than\ ndim\_i:\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Only\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \textcolor{stringliteral}{"{}\ processors\ will\ really\ work!"{}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00033}00033\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 1\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 2}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00040}00040\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_split(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ color,\ key,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00045}00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00046}00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ =\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00047}00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}\ =\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00048}00048\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{ed__driver_8f90_a5706bd8bee60960fe8166de1870e47da}{ed\_driver}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00052}00052\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00054}00054\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00056}00056\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{pyapi_8f90_a6444ebf2c39a1bf243da4800825feb06}{ed\_fsolver}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00058}\mbox{\hyperlink{pyapi_8f90_a6d1d4dfb0bee4d6e0a1210a3b66b94a9}{00058}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{pyapi_8f90_a6d1d4dfb0bee4d6e0a1210a3b66b94a9}{xas\_fsolver}}(comm,\ my\_id,\ num\_procs)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00059}00059\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00060}00060\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}},\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00061}00061\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}},\ \mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00062}00062\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00064}00064\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00066}00066\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00067}00067\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00068}00068\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00070}00070\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00071}00071\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ color}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00072}00072\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ key}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ min\_dim}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00075}00075\ \textcolor{comment}{!F2PY\ intent(in)\ comm}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00076}00076\ \textcolor{comment}{!F2PY\ intent(in)\ my\_id}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00077}00077\ \textcolor{comment}{!F2PY\ intent(in)\ num\_procs}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00078}00078\ \ \ \ \ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}\ =\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00079}00079\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ =\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00080}00080\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}\ =\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00082}00082\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_ad477686ee760c61aabf02b2a025d1c00}{config}}()\ \ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00084}00084\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00085}00085\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}{read\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00086}00086\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00087}00087\ \ \ \ \ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}}\ =\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}}\ *\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00088}00088\ \ \ \ \ min\_dim\ =\ min(\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}})}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{if}\ (min\_dim\ <\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Warning:\ number\ of\ CPU\ processors\ "{}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \&}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\ larger\ than\ min(ndim\_i,\ ndim\_n):\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Only\ "{}},\ min\_dim,\ \textcolor{stringliteral}{"{}\ processors\ will\ really\ work!"{}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00094}00094\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ min\_dim)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 1\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 2}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00101}00101\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_split(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ color,\ key,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00105}00105\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00106}00106\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00107}00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ =\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00108}00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}\ =\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00109}00109\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ min\_dim)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00112}00112\ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{xas__driver_8f90_a71df8d095e50a2a6375ec5ec5e1d9496}{xas\_driver}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00113}00113\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00115}00115\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00118}00118\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{pyapi_8f90_a6d1d4dfb0bee4d6e0a1210a3b66b94a9}{xas\_fsolver}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00120}\mbox{\hyperlink{pyapi_8f90_a3d9fb8546dfc91267e37577e19542d2a}{00120}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{pyapi_8f90_a3d9fb8546dfc91267e37577e19542d2a}{rixs\_fsolver}}(comm,\ my\_id,\ num\_procs)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00121}00121\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00122}00122\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{ndim\_f}},\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}},\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00123}00123\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}},\ \mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}},\ \mbox{\hyperlink{namespacem__global_a0a1b986a9a6227515b7fbc8d8ee29c6b}{dealloc\_fock\_f}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00124}00124\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00126}00126\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00128}00128\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00129}00129\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00130}00130\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00132}00132\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00133}00133\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ color}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00134}00134\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ key}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00135}00135\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ min\_dim}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00137}00137\ \textcolor{comment}{!F2PY\ intent(in)\ comm}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00138}00138\ \textcolor{comment}{!F2PY\ intent(in)\ my\_id}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00139}00139\ \textcolor{comment}{!F2PY\ intent(in)\ num\_procs}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00141}00141\ \ \ \ \ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}\ =\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00142}00142\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ =\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00143}00143\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}\ =\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00145}00145\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_ad477686ee760c61aabf02b2a025d1c00}{config}}()\ \ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00146}00146\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00147}00147\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00148}00148\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}{read\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00149}00149\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00150}00150\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a6aaa81cf42e896f7ec7f5496915398ab}{read\_fock\_f}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00151}00151\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a0a1b986a9a6227515b7fbc8d8ee29c6b}{dealloc\_fock\_f}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00152}00152\ \ \ \ \ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}}\ =\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}}\ *\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00153}00153\ \ \ \ \ min\_dim\ =\ min(\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{ndim\_f}})}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{if}\ (min\_dim\ <\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Warning:\ number\ of\ CPU\ processors\ "{}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \&}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\ larger\ than\ min(ndim\_i,\ ndim\_n,\ ndim\_f):\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{ndim\_f}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Only\ "{}},\ min\_dim,\ \textcolor{stringliteral}{"{}\ processors\ will\ really\ work!"{}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00159}00159\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ min\_dim)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 1\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 2}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00166}00166\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_split(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ color,\ key,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00170}00170\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00171}00171\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00172}00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ =\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00173}00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}\ =\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00174}00174\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00176}00176\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ min\_dim)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{rixs__driver_8f90_a0407f8460e22064b14c73e1e55ba0e25}{rixs\_driver}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00178}00178\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00180}00180\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00181}00181\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00182}00182\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{pyapi_8f90_a3d9fb8546dfc91267e37577e19542d2a}{rixs\_fsolver}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00184}\mbox{\hyperlink{pyapi_8f90_a37097b1e02e2cefce778c2b2e7ee4cf6}{00184}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{pyapi_8f90_a37097b1e02e2cefce778c2b2e7ee4cf6}{opavg\_fsolver}}(comm,\ my\_id,\ num\_procs)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00185}00185\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00186}00186\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00187}00187\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00188}00188\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00190}00190\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00192}00192\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00193}00193\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00194}00194\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00196}00196\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00197}00197\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ color}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00198}00198\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ key}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00200}00200\ \textcolor{comment}{!F2PY\ intent(in)\ comm}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00201}00201\ \textcolor{comment}{!F2PY\ intent(in)\ my\_id}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00202}00202\ \textcolor{comment}{!F2PY\ intent(in)\ num\_procs}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00203}00203\ \ \ \ \ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}\ =\ comm}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00204}00204\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ =\ my\_id}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00205}00205\ \ \ \ \ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}\ =\ num\_procs}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00207}00207\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_ad477686ee760c61aabf02b2a025d1c00}{config}}()\ \ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00208}00208\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00209}00209\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00210}00210\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}\ <\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00211}00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Warning:\ number\ of\ CPU\ processors\ "{}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \&}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\ larger\ than\ ndim\_i:\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Only\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \textcolor{stringliteral}{"{}\ processors\ will\ really\ work!"{}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00215}00215\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 1\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 2}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00222}00222\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_split(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ color,\ key,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00226}00226\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00227}00227\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00228}00228\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ =\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00229}00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}\ =\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00230}00230\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00231}00231\ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ "{}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00233}00233\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00234}00234\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{opavg__driver_8f90_a78eb6a19f80214256090dd2faed722e4}{opavg\_driver}}()}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00235}00235\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00237}00237\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{pyapi_8f90_source_l00240}00240\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{pyapi_8f90_a37097b1e02e2cefce778c2b2e7ee4cf6}{opavg\_fsolver}}}
+
+\end{DoxyCode}

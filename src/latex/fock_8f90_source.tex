@@ -1,0 +1,74 @@
+\hypertarget{fock_8f90_source}{}\doxysection{fock.\+f90}
+\mbox{\hyperlink{fock_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00004}\mbox{\hyperlink{fock_8f90_a8f8af8b2262a57f48a1539ebadcb922b}{00004}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{fock_8f90_a8f8af8b2262a57f48a1539ebadcb922b}{cal\_combination}}(n,\ m,\ cnm)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00009}00009\ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ n}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ m}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ ::\ cnm}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00014}00014\ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ small}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ large}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00019}00019\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ x}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00020}00020\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ y}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00022}00022\ \ \ \ \ small\ =\ min(m,n-\/m)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00023}00023\ \ \ \ \ large\ =\ max(m,n-\/m)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00025}00025\ \ \ \ \ x\ =\ 1.0\_dp}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00026}00026\ \ \ \ \ y\ =\ 1.0\_dp}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{do}\ i=large+1,\ n}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00028}00028\ \ \ \ \ \ \ \ \ x\ =\ x\ *\ dble(i)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00029}00029\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,\ small}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00032}00032\ \ \ \ \ \ \ \ \ y\ =\ y\ *\ dble(i)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00033}00033\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00035}00035\ \ \ \ \ cnm\ =\ nint(x\ /\ y)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00038}00038\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{fock_8f90_a8f8af8b2262a57f48a1539ebadcb922b}{cal\_combination}}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00040}00040\ \textcolor{comment}{!!>>>\ get\ new\ fock\ state\ and\ the\ sign}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00041}\mbox{\hyperlink{fock_8f90_a9289a6cfa0326c767c00a2ebb924e090}{00041}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{fock_8f90_a9289a6cfa0326c767c00a2ebb924e090}{make\_newfock}}(c\_type,\ pos,\ old,\ new,\ sgn)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00042}00042\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00044}00044\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00046}00046\ \ \ \ \ \textcolor{keywordtype}{character(1)},\ \textcolor{keywordtype}{intent(in)}\ \ ::\ c\_type}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00047}00047\ \ \ \ \ \textcolor{keywordtype}{integer},\ \ \ \ \ \ \textcolor{keywordtype}{intent(in)}\ \ ::\ pos}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{integer(dp)},\ \ \textcolor{keywordtype}{intent(in)}\ \ ::\ old}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{integer(dp)},\ \ \textcolor{keywordtype}{intent(out)}\ ::\ new}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{integer},\ \ \ \ \ \ \textcolor{keywordtype}{intent(out)}\ ::\ sgn}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00052}00052\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00054}00054\ \ \ \ \ sgn\ =\ 0}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,pos-\/1}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00056}00056\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (btest(old,\ i-\/1)\ .eqv.\ .true.)\ sgn\ =\ sgn\ +\ 1}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00057}00057\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00058}00058\ \ \ \ \ sgn\ =\ mod(sgn,2)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00059}00059\ \ \ \ \ sgn\ =\ (-\/1)**sgn}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{if}\ (c\_type\ ==\ \textcolor{stringliteral}{'+'})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00062}00062\ \ \ \ \ \ \ \ \ new\ =\ old\ +\ (2\_dp)**(pos-\/1)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{elseif}\ (c\_type\ ==\ \textcolor{stringliteral}{'-\/'})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00064}00064\ \ \ \ \ \ \ \ \ new\ =\ old\ -\/\ (2\_dp)**(pos-\/1)}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\ \textcolor{stringliteral}{"{}(58a,a)"{}})\ \ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ error\ of\ create\ and\ destroy\ operator\ type:\ "{}},\ c\_type}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00067}00067\ \ \ \ \ \ \ \ \ stop}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00068}00068\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{fock_8f90_source_l00071}00071\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{fock_8f90_a9289a6cfa0326c767c00a2ebb924e090}{make\_newfock}}}
+
+\end{DoxyCode}

@@ -1,0 +1,255 @@
+.TH "m_control" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+m_control
+.SH SYNOPSIS
+.br
+.PP
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "integer, save, public \fBed_solver\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBnum_val_orbs\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBnum_core_orbs\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBndim_i\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBndim_n_nocore\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBndim_n\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBndim_f\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBnhopp_i\fP =1"
+.br
+.ti -1c
+.RI "integer, save, public \fBncoul_i\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBnhopp_n\fP =1"
+.br
+.ti -1c
+.RI "integer, save, public \fBncoul_n\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBntran_xas\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBntran_rixs_i\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBntran_rixs_f\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBneval\fP = 1"
+.br
+.ti -1c
+.RI "logical, save, public \fBidump\fP = \&.false\&."
+.br
+.ti -1c
+.RI "integer, save, public \fBnvector\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBnum_gs\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBmaxiter\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBlinsys_max\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBmin_ndim\fP = 100"
+.br
+.ti -1c
+.RI "integer, save, public \fBncv\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBnkryl\fP = 500"
+.br
+.ti -1c
+.RI "real(dp), save, public \fBeigval_tol\fP = 1E\-10"
+.br
+.ti -1c
+.RI "real(dp), save, public \fBlinsys_tol\fP = 1E\-12"
+.br
+.ti -1c
+.RI "real(dp), save, public \fBomega_in\fP"
+.br
+.ti -1c
+.RI "real(dp), save, public \fBgamma_in\fP"
+.br
+.ti -1c
+.RI "integer, save, public \fBorigin_nprocs\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBnprocs\fP = 1"
+.br
+.ti -1c
+.RI "integer, save, public \fBorigin_myid\fP = 0"
+.br
+.ti -1c
+.RI "integer, save, public \fBmyid\fP = 0"
+.br
+.ti -1c
+.RI "integer, save, public \fBmaster\fP = 0"
+.br
+.ti -1c
+.RI "integer, save, public \fBnew_comm\fP = 0"
+.br
+.ti -1c
+.RI "integer, save, public \fBorigin_comm\fP = 0"
+.br
+.in -1c
+.SH "Variable Documentation"
+.PP 
+.SS "integer, save, public m_control::ed_solver = 1"
+
+.PP
+Definition at line \fB8\fP of file \fBm_control\&.f90\fP\&.
+.SS "real(dp), save, public m_control::eigval_tol = 1E\-10"
+
+.PP
+Definition at line \fB73\fP of file \fBm_control\&.f90\fP\&.
+.SS "real(dp), save, public m_control::gamma_in"
+
+.PP
+Definition at line \fB82\fP of file \fBm_control\&.f90\fP\&.
+.SS "logical, save, public m_control::idump = \&.false\&."
+
+.PP
+Definition at line \fB48\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::linsys_max = 1"
+
+.PP
+Definition at line \fB61\fP of file \fBm_control\&.f90\fP\&.
+.SS "real(dp), save, public m_control::linsys_tol = 1E\-12"
+
+.PP
+Definition at line \fB76\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::master = 0"
+
+.PP
+Definition at line \fB93\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::maxiter = 1"
+
+.PP
+Definition at line \fB58\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::min_ndim = 100"
+
+.PP
+Definition at line \fB64\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::myid = 0"
+
+.PP
+Definition at line \fB90\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ncoul_i = 1"
+
+.PP
+Definition at line \fB32\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ncoul_n = 1"
+
+.PP
+Definition at line \fB37\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ncv = 1"
+
+.PP
+Definition at line \fB67\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ndim_f = 1"
+
+.PP
+Definition at line \fB27\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ndim_i = 1"
+
+.PP
+Definition at line \fB17\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ndim_n = 1"
+
+.PP
+Definition at line \fB24\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ndim_n_nocore = 1"
+
+.PP
+Definition at line \fB20\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::neval = 1"
+
+.PP
+Definition at line \fB45\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::new_comm = 0"
+
+.PP
+Definition at line \fB96\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::nhopp_i =1"
+
+.PP
+Definition at line \fB31\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::nhopp_n =1"
+
+.PP
+Definition at line \fB36\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::nkryl = 500"
+
+.PP
+Definition at line \fB70\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::nprocs = 1"
+
+.PP
+Definition at line \fB86\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ntran_rixs_f = 1"
+
+.PP
+Definition at line \fB42\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ntran_rixs_i = 1"
+
+.PP
+Definition at line \fB41\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::ntran_xas = 1"
+
+.PP
+Definition at line \fB40\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::num_core_orbs = 1"
+
+.PP
+Definition at line \fB14\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::num_gs = 1"
+
+.PP
+Definition at line \fB54\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::num_val_orbs = 1"
+
+.PP
+Definition at line \fB11\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::nvector = 1"
+
+.PP
+Definition at line \fB51\fP of file \fBm_control\&.f90\fP\&.
+.SS "real(dp), save, public m_control::omega_in"
+
+.PP
+Definition at line \fB79\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::origin_comm = 0"
+
+.PP
+Definition at line \fB97\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::origin_myid = 0"
+
+.PP
+Definition at line \fB89\fP of file \fBm_control\&.f90\fP\&.
+.SS "integer, save, public m_control::origin_nprocs = 1"
+
+.PP
+Definition at line \fB85\fP of file \fBm_control\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

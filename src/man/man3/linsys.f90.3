@@ -1,0 +1,24 @@
+.TH "linsys.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+linsys.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBpminres_csr\fP (nblock, end_indx, needed, nloc, ham, b_vec, x_vec, info)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine pminres_csr (integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, dimension(nprocs,nprocs), intent(in) needed, integer, intent(in) nloc, type (\fBt_csr\fP), dimension(nblock) ham, complex(dp), dimension(nloc), intent(in) b_vec, complex(dp), dimension(nloc), intent(out) x_vec, integer, intent(out) info)"
+
+.PP
+Definition at line \fB3\fP of file \fBlinsys\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

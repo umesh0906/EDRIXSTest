@@ -1,0 +1,63 @@
+\hypertarget{rixs__main_8f90_source}{}\doxysection{rixs\+\_\+main.\+f90}
+\mbox{\hyperlink{rixs__main_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00001}\mbox{\hyperlink{rixs__main_8f90_af9eaaf0df114b46fc68b59f3b5f7cf11}{00001}}\ \textcolor{keyword}{program}\ \mbox{\hyperlink{rixs__main_8f90_af9eaaf0df114b46fc68b59f3b5f7cf11}{rixs\_main}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00002}00002\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{ndim\_f}},\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}},\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00004}00004\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}},\ \mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}},\ \mbox{\hyperlink{namespacem__global_a0a1b986a9a6227515b7fbc8d8ee29c6b}{dealloc\_fock\_f}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00008}00008\ \ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00009}00009\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ color}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ key}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ min\_dim}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00014}00014\ \ \ \ \ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}\ =\ mpi\_comm\_world}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_init(ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \ \ ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_ad477686ee760c61aabf02b2a025d1c00}{config}}()\ \ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}{read\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a254a4b8c4a58a71a005d8f99b92844b1}{dealloc\_fock\_n}}()}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a6aaa81cf42e896f7ec7f5496915398ab}{read\_fock\_f}}()}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_a0a1b986a9a6227515b7fbc8d8ee29c6b}{dealloc\_fock\_f}}()}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}}\ =\ \mbox{\hyperlink{namespacem__control_abe12f8a135fef2916f4909a3a43489d7}{ndim\_n\_nocore}}\ *\ \mbox{\hyperlink{namespacem__control_ae48f44448ca814ee66b6a0b9641fc6a8}{num\_core\_orbs}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00028}00028\ \ \ \ \ min\_dim\ =\ min(\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{ndim\_f}})}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{if}\ (min\_dim\ <\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Warning:\ number\ of\ CPU\ processors\ "{}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \&}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\ larger\ than\ min(ndim\_i,\ ndim\_n,\ ndim\_f):\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \mbox{\hyperlink{namespacem__control_aa54e607622df910d3293326cc15dea9c}{ndim\_n}},\ \mbox{\hyperlink{namespacem__control_ac11c92ba53c725bcfb2e5ee83daff399}{ndim\_f}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Only\ "{}},\ min\_dim,\ \textcolor{stringliteral}{"{}\ processors\ will\ really\ work!"{}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00034}00034\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ min\_dim)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 1\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 2}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00041}00041\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_split(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ color,\ key,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00046}00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00047}00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ =\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00048}00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}\ =\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00049}00049\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ min\_dim)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{rixs__driver_8f90_a0407f8460e22064b14c73e1e55ba0e25}{rixs\_driver}}()}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00053}00053\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00055}00055\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_finalize(ierror)}
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{rixs__main_8f90_source_l00058}00058\ \textcolor{keyword}{end\ program\ }\mbox{\hyperlink{rixs__main_8f90_af9eaaf0df114b46fc68b59f3b5f7cf11}{rixs\_main}}}
+
+\end{DoxyCode}

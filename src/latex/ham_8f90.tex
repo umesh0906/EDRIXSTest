@@ -1,0 +1,56 @@
+\hypertarget{ham_8f90}{}\doxysection{ham.\+f90 File Reference}
+\label{ham_8f90}\index{ham.f90@{ham.f90}}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine \mbox{\hyperlink{ham_8f90_ade3ceb66467698b2fbc3cf275038e65f}{build\+\_\+ham\+\_\+i}} (ncfgs, fock, nblock, end\+\_\+indx, nhopp, hopping, ncoul, coulomb, omega, ham\+\_\+sign, ham\+\_\+csr)
+\item 
+subroutine \mbox{\hyperlink{ham_8f90_ab9e8d106f98346d29b99dbbded25d8d5}{build\+\_\+ham\+\_\+n}} (ncfgs, fock, num\+\_\+val\+\_\+orbs, num\+\_\+core\+\_\+orbs, nblock, end\+\_\+indx, nhopp, hopping, ncoul, coulomb, omega, ham\+\_\+sign, ham\+\_\+csr)
+\item 
+subroutine \mbox{\hyperlink{ham_8f90_adb706c43859bdda6ff6a47fd83edbb1c}{build\+\_\+transop\+\_\+i}} (mcfgs, ncfgs, fock\+\_\+left, fock\+\_\+right, num\+\_\+val\+\_\+orbs, num\+\_\+core\+\_\+orbs, nblock, end\+\_\+indx, ntran, transop, tran\+\_\+csr)
+\item 
+subroutine \mbox{\hyperlink{ham_8f90_a9e67524f01add50c128fa9f094d32588}{build\+\_\+transop\+\_\+f}} (mcfgs, ncfgs, fock\+\_\+left, fock\+\_\+right, num\+\_\+val\+\_\+orbs, num\+\_\+core\+\_\+orbs, nblock, end\+\_\+indx, ntran, transop, tran\+\_\+csr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{ham_8f90_ade3ceb66467698b2fbc3cf275038e65f}\label{ham_8f90_ade3ceb66467698b2fbc3cf275038e65f}} 
+\index{ham.f90@{ham.f90}!build\_ham\_i@{build\_ham\_i}}
+\index{build\_ham\_i@{build\_ham\_i}!ham.f90@{ham.f90}}
+\doxysubsubsection{\texorpdfstring{build\_ham\_i()}{build\_ham\_i()}}
+{\footnotesize\ttfamily subroutine build\+\_\+ham\+\_\+i (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{ncfgs,  }\item[{integer(dp), dimension(ncfgs), intent(in)}]{fock,  }\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2,2,nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, intent(in)}]{nhopp,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__tensor2}{t\+\_\+tensor2}}), dimension(nhopp), intent(in)}]{hopping,  }\item[{integer, intent(in)}]{ncoul,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__tensor4}{t\+\_\+tensor4}}), dimension(ncoul), intent(in)}]{coulomb,  }\item[{complex(dp), intent(in)}]{omega,  }\item[{real(dp), intent(in)}]{ham\+\_\+sign,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham\+\_\+csr }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00002}{2}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+
+\mbox{\Hypertarget{ham_8f90_ab9e8d106f98346d29b99dbbded25d8d5}\label{ham_8f90_ab9e8d106f98346d29b99dbbded25d8d5}} 
+\index{ham.f90@{ham.f90}!build\_ham\_n@{build\_ham\_n}}
+\index{build\_ham\_n@{build\_ham\_n}!ham.f90@{ham.f90}}
+\doxysubsubsection{\texorpdfstring{build\_ham\_n()}{build\_ham\_n()}}
+{\footnotesize\ttfamily subroutine build\+\_\+ham\+\_\+n (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{ncfgs,  }\item[{integer(dp), dimension(ncfgs), intent(in)}]{fock,  }\item[{integer, intent(in)}]{num\+\_\+val\+\_\+orbs,  }\item[{integer, intent(in)}]{num\+\_\+core\+\_\+orbs,  }\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2,2,nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, intent(in)}]{nhopp,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__tensor2}{t\+\_\+tensor2}}), dimension(nhopp), intent(in)}]{hopping,  }\item[{integer, intent(in)}]{ncoul,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__tensor4}{t\+\_\+tensor4}}), dimension(ncoul), intent(in)}]{coulomb,  }\item[{complex(dp), intent(in)}]{omega,  }\item[{real(dp), intent(in)}]{ham\+\_\+sign,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham\+\_\+csr }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00352}{352}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+
+\mbox{\Hypertarget{ham_8f90_a9e67524f01add50c128fa9f094d32588}\label{ham_8f90_a9e67524f01add50c128fa9f094d32588}} 
+\index{ham.f90@{ham.f90}!build\_transop\_f@{build\_transop\_f}}
+\index{build\_transop\_f@{build\_transop\_f}!ham.f90@{ham.f90}}
+\doxysubsubsection{\texorpdfstring{build\_transop\_f()}{build\_transop\_f()}}
+{\footnotesize\ttfamily subroutine build\+\_\+transop\+\_\+f (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{mcfgs,  }\item[{integer, intent(in)}]{ncfgs,  }\item[{integer(dp), dimension(mcfgs), intent(in)}]{fock\+\_\+left,  }\item[{integer(dp), dimension(ncfgs), intent(in)}]{fock\+\_\+right,  }\item[{integer, intent(in)}]{num\+\_\+val\+\_\+orbs,  }\item[{integer, intent(in)}]{num\+\_\+core\+\_\+orbs,  }\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2,2,nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, intent(in)}]{ntran,  }\item[{type(\mbox{\hyperlink{structm__types_1_1t__tensor2}{t\+\_\+tensor2}}), dimension(ntran), intent(in)}]{transop,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{tran\+\_\+csr }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00915}{915}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+
+\mbox{\Hypertarget{ham_8f90_adb706c43859bdda6ff6a47fd83edbb1c}\label{ham_8f90_adb706c43859bdda6ff6a47fd83edbb1c}} 
+\index{ham.f90@{ham.f90}!build\_transop\_i@{build\_transop\_i}}
+\index{build\_transop\_i@{build\_transop\_i}!ham.f90@{ham.f90}}
+\doxysubsubsection{\texorpdfstring{build\_transop\_i()}{build\_transop\_i()}}
+{\footnotesize\ttfamily subroutine build\+\_\+transop\+\_\+i (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{mcfgs,  }\item[{integer, intent(in)}]{ncfgs,  }\item[{integer(dp), dimension(mcfgs), intent(in)}]{fock\+\_\+left,  }\item[{integer(dp), dimension(ncfgs), intent(in)}]{fock\+\_\+right,  }\item[{integer, intent(in)}]{num\+\_\+val\+\_\+orbs,  }\item[{integer, intent(in)}]{num\+\_\+core\+\_\+orbs,  }\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2,2,nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, intent(in)}]{ntran,  }\item[{type(\mbox{\hyperlink{structm__types_1_1t__tensor2}{t\+\_\+tensor2}}), dimension(ntran), intent(in)}]{transop,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{tran\+\_\+csr }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00714}{714}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+

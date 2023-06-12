@@ -1,0 +1,108 @@
+\hypertarget{spmv_8f90_source}{}\doxysection{spmv.\+f90}
+\mbox{\hyperlink{spmv_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00001}\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{00001}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(comm,\ nblock,\ end\_indx,\ needed,\ mloc,\ nloc,\ ham,\ vec\_in,\ vec\_out)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00002}00002\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00004}00004\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{structm__types_1_1t__csr}{t\_csr}}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00009}00009\ \ \ \ \ \textcolor{comment}{!\ externval\ variables}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ \ \ ::\ comm}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ \ \ ::\ nblock}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ \ \ ::\ end\_indx(2,\ 2,\ nprocs)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ \ \ ::\ needed(nprocs,\ nprocs)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ \ \ ::\ mloc}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ \ \ ::\ nloc}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\ ham(nblock)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ ::\ vec\_in(nloc)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00018}00018\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(inout)}\ \ ::\ vec\_out(mloc)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00020}00020\ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ireq}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00024}00024\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ request(nprocs)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ send\_stat(MPI\_STATUS\_SIZE,\ nprocs)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ stat(MPI\_STATUS\_SIZE)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ other\_size}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ max\_size}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ tmp\_vec(:)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00031}00031\ \ \ \ \ \textcolor{comment}{!\ send\ the\ data}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00032}00032\ \ \ \ \ ireq\ =\ 0}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,nprocs}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00034}00034\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (needed(i,\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)\ ==\ 1)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ ireq\ =\ ireq\ +\ 1}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_isend(vec\_in,\ nloc,\ mpi\_double\_complex,\ i-\/1,\ i*(10*nprocs)+\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1,\ \&}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ comm,\ request(ireq),\ ierror)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00038}00038\ \textcolor{keywordflow}{\ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00039}00039\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00041}00041\ \ \ \ \ \textcolor{comment}{!\ do\ matrix\ vector\ multiplication}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00042}00042\ \ \ \ \ \textcolor{comment}{!\ diagonal\ part}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}{matvec\_csr}}(mloc,\ nloc,\ ham(\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1),\ vec\_in,\ vec\_out)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00044}00044\ \ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00045}00045\ \ \ \ \ \textcolor{comment}{!\ off-\/diagonal\ parts}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{if}\ (nblock\ ==\ nprocs\ .and.\ nprocs\ >\ 1)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00047}00047\ \ \ \ \ \ \ \ \ max\_size\ =\ end\_indx(2,2,1)-\/end\_indx(1,2,1)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=2,nprocs}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (end\_indx(2,2,i)\ -\/\ end\_indx(1,2,i)\ +\ 1)\ >\ max\_size\ )\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_size\ =\ end\_indx(2,2,i)\ -\/\ end\_indx(1,2,i)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00051}00051\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00052}00052\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(tmp\_vec(max\_size))}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,nprocs}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (needed(\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1,i)\ ==\ 1)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ receive\ data\ from\ other\ processor}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ other\_size\ =\ end\_indx(2,2,i)\ -\/\ end\_indx(1,2,i)\ +\ 1}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_recv(tmp\_vec(1:other\_size),\ other\_size,\ mpi\_double\_complex,\ i-\/1,\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}+1)*(10*nprocs)+i,\&}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comm,\ stat,\ ierror)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ do\ matrix\ vector\ multiplication}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}{matvec\_csr}}(mloc,\ other\_size,\ ham(i),\ tmp\_vec(1:other\_size),\ vec\_out)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00063}00063\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00064}00064\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(tmp\_vec))\ \textcolor{keyword}{deallocate}(tmp\_vec)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00066}00066\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_waitall(ireq,\ request,\ send\_stat,\ ierror)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00069}00069\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00071}00071\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00073}\mbox{\hyperlink{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}{00073}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}{matvec\_csr}}(m,\ n,\ mat,\ vec\_in,\ vec\_out)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00074}00074\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00075}00075\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00077}00077\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00079}00079\ \ \ \ \ \textcolor{comment}{!\ externval\ variables}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00080}00080\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ m}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00081}00081\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ n}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00082}00082\ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr),\ \textcolor{keywordtype}{intent(in)}\ ::\ mat}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00083}00083\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(in)}\ ::\ vec\_in(n)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00084}00084\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(inout)}\ ::\ vec\_out(m)}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00086}00086\ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00087}00087\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ tmp\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00088}00088\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i,j}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00089}00089\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ begin\_col,\ end\_col}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,mat\%m}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00092}00092\ \ \ \ \ \ \ \ begin\_col\ =\ mat\%iaa(i)\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00093}00093\ \ \ \ \ \ \ \ end\_col\ =\ mat\%iaa(i+1)-\/1\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00094}00094\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (begin\_col\ >\ end\_col)\ cycle}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00095}00095\ \ \ \ \ \ \ \ tmp\ =\ 0}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00096}00096\ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ j=begin\_col,\ end\_col}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ tmp\ =\ tmp\ +\ mat\%aa(j)\ *\ vec\_in(mat\%jaa(j)\ -\/\ mat\%col\_shift)\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00098}00098\ \textcolor{keywordflow}{\ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00099}00099\ \ \ \ \ \ \ \ vec\_out(i)\ =\ vec\_out(i)\ +\ tmp}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00100}00100\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{spmv_8f90_source_l00103}00103\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{spmv_8f90_a11a5912cf5999eee051513ecb31e6196}{matvec\_csr}}}
+
+\end{DoxyCode}

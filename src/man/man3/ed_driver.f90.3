@@ -1,0 +1,51 @@
+.TH "ed_driver.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ed_driver.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBed_driver\fP ()"
+.br
+.RI "This sets up the drive for call the ED code 
+.br
+ Reads $\langle s|H_T |s\rangle $, $\langle s|H_C |s\rangle $ and $|s\rangle $ from \fBio\&.f90\fP file 
+.br
+
+.br
+ Calls ED solver: 
+.br
+ ed_solver = 0 : full ED using \fBfull_diag\&.f90\fP 
+.br
+ ed_solver = 1 : Lanczos from anczos\&.f90 
+.br
+ ed_solver==2 : Arpack from \fBarpack\&.f90\fP\&. "
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine ed_driver"
+
+.PP
+This sets up the drive for call the ED code 
+.br
+ Reads $\langle s|H_T |s\rangle $, $\langle s|H_C |s\rangle $ and $|s\rangle $ from \fBio\&.f90\fP file 
+.br
+
+.br
+ Calls ED solver: 
+.br
+ ed_solver = 0 : full ED using \fBfull_diag\&.f90\fP 
+.br
+ ed_solver = 1 : Lanczos from anczos\&.f90 
+.br
+ ed_solver==2 : Arpack from \fBarpack\&.f90\fP\&. 
+.PP
+Definition at line \fB7\fP of file \fBed_driver\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

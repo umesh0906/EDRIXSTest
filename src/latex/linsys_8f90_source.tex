@@ -1,0 +1,133 @@
+\hypertarget{linsys_8f90_source}{}\doxysection{linsys.\+f90}
+\mbox{\hyperlink{linsys_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00001}00001\ \textcolor{comment}{!!\ use\ parallel\ minres\ method\ to\ solve\ large\ scale\ sparse\ linear\ system,}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00002}00002\ \textcolor{comment}{!!\ Ax\ =\ b\ or\ (A-\/sI)x\ =\ b,\ where\ s\ can\ be\ any\ number}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00003}\mbox{\hyperlink{linsys_8f90_a03ececaaddafbfa19b0f7002d9c8c03c}{00003}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{linsys_8f90_a03ececaaddafbfa19b0f7002d9c8c03c}{pminres\_csr}}(nblock,\ end\_indx,\ needed,\ nloc,\ ham,\ b\_vec,\ x\_vec,\ info)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00004}00004\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}},\ \mbox{\hyperlink{namespacem__constants_a32fa78b0271299235377fe714259c92b}{cone}},\ \mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00005}00005\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \ \ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a6a51092e6a57d2362f1fba425253b061}{linsys\_tol}},\ \mbox{\hyperlink{namespacem__control_a8f4dbdd98d6377a12d9f821b2cdebf3d}{linsys\_max}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00006}00006\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00009}00009\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00011}00011\ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nblock}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ end\_indx(2,2,nprocs)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ needed(nprocs,nprocs)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nloc}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\ ham(nblock)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(in)}\ \ \ ::\ b\_vec(nloc)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00018}00018\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(out)}\ \ ::\ x\_vec(nloc)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ \ ::\ info}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00021}00021\ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ ::\ curr,\ prev,\ tmp\_indx,\ ierror}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ ::\ iter}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00024}00024\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ beta0,\ beta1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00025}00025\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ ::\ beta0\_mpi,\ beta1\_mpi}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ sigma0,\ sigma1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ gamma0,\ gamma1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ eta}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ delta}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ res}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00031}00031\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ alpha,\ alpha\_mpi}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ rho1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ rho2}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00034}00034\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ rho3}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00036}00036\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ v\_vec(:,:)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00037}00037\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ w\_vec(:,:)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00038}00038\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ tmp\_vec(:)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00039}00039\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00040}00040\ \ \ \ \ info\ =\ 0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{allocate}(v\_vec(nloc,2))}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{allocate}(w\_vec(nloc,2))}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00044}00044\ \ \ \ \ \textcolor{keyword}{allocate}(tmp\_vec(nloc))}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00046}00046\ \ \ \ \ x\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00047}00047\ \ \ \ \ v\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00048}00048\ \ \ \ \ w\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00049}00049\ \ \ \ \ tmp\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00050}00050\ \ \ \ \ sigma0\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00051}00051\ \ \ \ \ sigma1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00052}00052\ \ \ \ \ gamma0\ =\ \mbox{\hyperlink{namespacem__constants_a32fa78b0271299235377fe714259c92b}{cone}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00053}00053\ \ \ \ \ gamma1\ =\ \mbox{\hyperlink{namespacem__constants_a32fa78b0271299235377fe714259c92b}{cone}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00054}00054\ \ \ \ \ beta0\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00055}00055\ \ \ \ \ beta1\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00056}00056\ \ \ \ \ beta0\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00057}00057\ \ \ \ \ beta1\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a4e7c7889f3412362ee732d66f2a70458}{zero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00058}00058\ \ \ \ \ alpha\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00059}00059\ \ \ \ \ alpha\_mpi\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00060}00060\ \ \ \ \ rho1\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00061}00061\ \ \ \ \ rho2\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00062}00062\ \ \ \ \ rho3\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00063}00063\ \ \ \ \ delta\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00065}00065\ \ \ \ \ curr\ =\ 1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00066}00066\ \ \ \ \ prev\ =\ 2}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00068}00068\ \ \ \ \ v\_vec(:,curr)\ =\ b\_vec}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00069}00069\ \ \ \ \ beta0\ =\ real(dot\_product(v\_vec(:,curr),\ v\_vec(:,curr)))}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(beta0,\ beta0\_mpi,\ 1,\ mpi\_double\_precision,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00071}00071\ \ \ \ \ beta0\ =\ sqrt(beta0\_mpi)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00072}00072\ \ \ \ \ eta\ =\ beta0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00073}00073\ \ \ \ \ res\ =\ beta0\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00074}00074\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00075}00075\ \ \ \ \ iter\ =\ 0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{do}\ \textcolor{keywordflow}{while}\ (abs(res)\ >\ \mbox{\hyperlink{namespacem__control_a6a51092e6a57d2362f1fba425253b061}{linsys\_tol}}\ .and.\ iter\ <\ \mbox{\hyperlink{namespacem__control_a8f4dbdd98d6377a12d9f821b2cdebf3d}{linsys\_max}}\ )}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00077}00077\ \ \ \ \ \ \ \ \ iter\ =\ iter\ +\ 1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}}\ .and.\ mod(iter,50)\ ==\ 0\ )\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a25,\ i5,\ E10.2,\ a5,\ E10.2)"{}})\ \ \textcolor{stringliteral}{"{}PMINRES\ iteration:\ \ "{}},\ iter,\ abs(res),\ \textcolor{stringliteral}{"{}-\/-\/>"{}},\ \mbox{\hyperlink{namespacem__control_a6a51092e6a57d2362f1fba425253b061}{linsys\_tol}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00080}00080\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00081}00081\ \ \ \ \ \ \ \ \ v\_vec(:,curr)\ =\ v\_vec(:,curr)\ /\ beta0\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00082}00082\ \ \ \ \ \ \ \ \ tmp\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ ham,\ v\_vec(:,curr),\ tmp\_vec)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00084}00084\ \ \ \ \ \ \ \ \ alpha\ =\ dot\_product(v\_vec(:,curr),\ tmp\_vec)\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(alpha,\ alpha\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00086}00086\ \ \ \ \ \ \ \ \ alpha\ =\ alpha\_mpi\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00087}00087\ \ \ \ \ \ \ \ \ v\_vec(:,prev)\ =\ tmp\_vec\ -\/\ alpha\ *\ v\_vec(:,curr)\ -\/\ beta0\ *\ v\_vec(:,prev)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00088}00088\ \ \ \ \ \ \ \ \ beta1\ =\ real(dot\_product(v\_vec(:,prev),\ v\_vec(:,prev)))}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(beta1,\ beta1\_mpi,\ 1,\ mpi\_double\_precision,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00090}00090\ \ \ \ \ \ \ \ \ beta1\ =\ sqrt(beta1\_mpi)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00092}00092\ \ \ \ \ \ \ \ \ delta\ =\ gamma0\ *\ alpha\ -\/\ gamma1\ *\ sigma0\ *\ beta0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00093}00093\ \ \ \ \ \ \ \ \ rho1\ =\ sqrt(delta*delta\ +\ beta1*beta1)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00094}00094\ \ \ \ \ \ \ \ \ rho2\ =\ sigma0\ *\ alpha\ +\ gamma1\ *\ gamma0\ *\ beta0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00095}00095\ \ \ \ \ \ \ \ \ rho3\ =\ sigma1\ *\ beta0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ gamma1\ =\ gamma0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00098}00098\ \ \ \ \ \ \ \ \ sigma1\ =\ sigma0}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00099}00099\ \ \ \ \ \ \ \ \ gamma0\ =\ delta\ /\ rho1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00100}00100\ \ \ \ \ \ \ \ \ sigma0\ =\ beta1\ /\ rho1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00102}00102\ \ \ \ \ \ \ \ \ w\_vec(:,prev)\ =\ (v\_vec(:,curr)\ -\/\ rho3\ *\ w\_vec(:,prev)\ -\/\ rho2\ *\ w\_vec(:,curr))/rho1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00103}00103\ \ \ \ \ \ \ \ \ x\_vec\ =\ x\_vec\ +\ gamma0\ *\ eta\ *\ w\_vec(:,prev)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00105}00105\ \ \ \ \ \ \ \ \ res\ =\ abs(sigma0)\ *\ res}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00106}00106\ \ \ \ \ \ \ \ \ eta\ =\ -\/sigma0\ *\ eta}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00108}00108\ \ \ \ \ \ \ \ \ beta0\ =\ beta1}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00109}00109\ \ \ \ \ \ \ \ \ tmp\_indx\ =\ curr}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00110}00110\ \ \ \ \ \ \ \ \ curr\ =\ prev}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00111}00111\ \ \ \ \ \ \ \ \ prev\ =\ tmp\_indx\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00112}00112\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a25,\ i5,\ E10.2,\ a5,\ E10.2)"{}})\ \ \textcolor{stringliteral}{"{}PMINRES\ iteration:\ \ "{}},\ iter,\ abs(res),\ \textcolor{stringliteral}{"{}-\/-\/>"{}},\ \mbox{\hyperlink{namespacem__control_a6a51092e6a57d2362f1fba425253b061}{linsys\_tol}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00115}00115\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00116}00116\ \ \ \ \ \textcolor{comment}{!\ test\ the\ precision}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00117}00117\ \ \ \ \ tmp\_vec\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00118}00118\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ ham,\ x\_vec,\ tmp\_vec)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00119}00119\ \ \ \ \ tmp\_vec\ =\ tmp\_vec\ -\/\ b\_vec}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00120}00120\ \ \ \ \ alpha\ =\ dot\_product(tmp\_vec,\ tmp\_vec)\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00121}00121\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_allreduce(alpha,\ alpha\_mpi,\ 1,\ mpi\_double\_complex,\ mpi\_sum,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00122}00122\ \ \ \ \ alpha\ =\ alpha\_mpi\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{write}(\mbox{\hyperlink{namespacem__constants_ac4bbe848309cfaeaefe557e73eec5254}{mystd}},\textcolor{stringliteral}{"{}(a34,\ E10.2)"{}})\ \ \textcolor{stringliteral}{"{}Final\ precision\ of\ |H*x-\/b|:\ \ "{}},\ sqrt(abs(alpha))}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00125}00125\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00127}00127\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{linsys_8f90_source_l00128}00128\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{linsys_8f90_a03ececaaddafbfa19b0f7002d9c8c03c}{pminres\_csr}}}
+
+\end{DoxyCode}

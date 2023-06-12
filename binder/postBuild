@@ -1,0 +1,19 @@
+#!/bin/bash
+
+jupyter labextension install @jupyter-widgets/jupyterlab-manager@^2.0.0 --no-build
+jupyter labextension install @bokeh/jupyter_bokeh@^2.0.0 --no-build
+jupyter labextension install jupyter-matplotlib@^0.7.2 --no-build
+jupyter lab build -y
+jupyter lab clean -y
+npm cache clean --force
+
+# run matplotlib once to generate the font cache
+python -c "import matplotlib as mpl; mpl.use('Agg'); import pylab as plt; fig, ax = plt.subplots(); fig.savefig('test.png')"
+
+test -e test.png && rm test.png
+
+git clone https://github.com/NSLS-II/edrixs.git
+cp -r edrixs/examples .
+cp examples/sphinx/example_*.py .
+sphx_glr_python_to_jupyter.py example_*.py
+rm -r edrixs

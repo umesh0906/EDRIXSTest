@@ -1,0 +1,34 @@
+.TH "lanczos.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lanczos.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Modules"
+
+.in +1c
+.ti -1c
+.RI "module \fBm_lanczos\fP"
+.br
+.in -1c
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBm_lanczos::diag_ham_lanczos\fP (nblock, end_indx, needed, nloc, nev, max_niter, eval_tol, ham, eval, n_vec, evec)"
+.br
+.ti -1c
+.RI "subroutine \fBm_lanczos::krylov_eigs\fP (n, alpha, beta, eval, evec)"
+.br
+.ti -1c
+.RI "subroutine \fBm_lanczos::build_krylov_mp\fP (nblock, end_indx, needed, nloc, ham, init_vec, maxn, neff, alpha, beta, norm)"
+.br
+.ti -1c
+.RI "subroutine \fBm_lanczos::build_spectrum\fP (nkrylov, alpha, beta, norm, nw, om_mesh, e_gs, gamma_final, spec)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

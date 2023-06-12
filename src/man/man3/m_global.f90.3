@@ -1,0 +1,140 @@
+.TH "m_global.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+m_global.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Modules"
+
+.in +1c
+.ti -1c
+.RI "module \fBm_global\fP"
+.br
+.in -1c
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBm_global::alloc_hopping_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_hopping_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_coulomb_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_coulomb_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_fock_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_fock_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_hopping_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_hopping_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_coulomb_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_coulomb_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_fock_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_fock_n\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_fock_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_fock_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_transop_xas\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_transop_xas\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_transop_rixs_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_transop_rixs_i\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_transop_rixs_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_transop_rixs_f\fP ()"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_ham_csr\fP (nblock)"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_ham_csr\fP (nblock)"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::alloc_tran_csr\fP (nblock)"
+.br
+.ti -1c
+.RI "subroutine \fBm_global::dealloc_tran_csr\fP (nblock)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "type(t_tensor2), dimension(:), allocatable, save, public \fBm_global::hopping_i\fP"
+.br
+.ti -1c
+.RI "type(t_tensor4), dimension(:), allocatable, save, public \fBm_global::coulomb_i\fP"
+.br
+.ti -1c
+.RI "type(t_tensor2), dimension(:), allocatable, save, public \fBm_global::hopping_n\fP"
+.br
+.ti -1c
+.RI "type(t_tensor4), dimension(:), allocatable, save, public \fBm_global::coulomb_n\fP"
+.br
+.ti -1c
+.RI "type(t_tensor2), dimension(:), allocatable, save, public \fBm_global::transop_xas\fP"
+.br
+.ti -1c
+.RI "type(t_tensor2), dimension(:), allocatable, save, public \fBm_global::transop_rixs_i\fP"
+.br
+.ti -1c
+.RI "type(t_tensor2), dimension(:), allocatable, save, public \fBm_global::transop_rixs_f\fP"
+.br
+.ti -1c
+.RI "integer(dp), dimension(:), allocatable, save, public \fBm_global::fock_i\fP"
+.br
+.ti -1c
+.RI "integer(dp), dimension(:), allocatable, save, public \fBm_global::fock_n\fP"
+.br
+.ti -1c
+.RI "integer(dp), dimension(:), allocatable, save, public \fBm_global::fock_f\fP"
+.br
+.ti -1c
+.RI "type(t_csr), dimension(:), allocatable, save, public \fBm_global::ham_csr\fP"
+.br
+.ti -1c
+.RI "type(t_csr), dimension(:), allocatable, save, public \fBm_global::tran_csr\fP"
+.br
+.ti -1c
+.RI "real(dp), dimension(:), allocatable, save, public \fBm_global::krylov_alpha\fP"
+.br
+.ti -1c
+.RI "real(dp), dimension(:), allocatable, save, public \fBm_global::krylov_beta\fP"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

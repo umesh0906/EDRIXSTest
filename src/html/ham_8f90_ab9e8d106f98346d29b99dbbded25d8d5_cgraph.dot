@@ -1,0 +1,19 @@
+digraph "build_ham_n"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="build_ham_n",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="m_types::alloc_csr",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacem__types.html#afa72812b21ac35564e90fb4e6b6a1823",tooltip=" "];
+  Node1 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="binary_search",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$utils_8f90.html#a93cc6914826eeda664bc64e4fa9cf5b6",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="m_types::init_col",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacem__types.html#abd0ca5d73afb35c07d0d4adba445c6e8",tooltip=" "];
+  Node1 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="m_types::insert_into_row",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacem__types.html#aec8d2008c4e184ec95db90ef2c9b2f36",tooltip=" "];
+  Node1 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="make_newfock",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$fock_8f90.html#a9289a6cfa0326c767c00a2ebb924e090",tooltip=" "];
+}

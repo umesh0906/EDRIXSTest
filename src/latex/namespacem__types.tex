@@ -1,0 +1,93 @@
+\hypertarget{namespacem__types}{}\doxysection{m\+\_\+types Module Reference}
+\label{namespacem__types}\index{m\_types@{m\_types}}
+\doxysubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+type \mbox{\hyperlink{structm__types_1_1t__col}{t\+\_\+col}}
+\item 
+type \mbox{\hyperlink{structm__types_1_1t__container__col}{t\+\_\+container\+\_\+col}}
+\item 
+type \mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}
+\item 
+type \mbox{\hyperlink{structm__types_1_1t__tensor2}{t\+\_\+tensor2}}
+\item 
+type \mbox{\hyperlink{structm__types_1_1t__tensor4}{t\+\_\+tensor4}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine \mbox{\hyperlink{namespacem__types_abd0ca5d73afb35c07d0d4adba445c6e8}{init\+\_\+col}} (self, col, val)
+\item 
+subroutine \mbox{\hyperlink{namespacem__types_aec8d2008c4e184ec95db90ef2c9b2f36}{insert\+\_\+into\+\_\+row}} (self, col, val)
+\item 
+subroutine \mbox{\hyperlink{namespacem__types_a6fb75dff3efeb5e521c895f53b6bada8}{init\+\_\+csr}} (self)
+\item 
+subroutine \mbox{\hyperlink{namespacem__types_afa72812b21ac35564e90fb4e6b6a1823}{alloc\+\_\+csr}} (m, nnz, self)
+\item 
+subroutine \mbox{\hyperlink{namespacem__types_a42410e788a922622a857175aff3ba80e}{dealloc\+\_\+csr}} (self)
+\item 
+subroutine \mbox{\hyperlink{namespacem__types_a7f3bc30609b2ec6ee3fc6d7a3a773f64}{csr\+\_\+to\+\_\+full}} (m, n, m\+\_\+csr, m\+\_\+full)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacem__types_afa72812b21ac35564e90fb4e6b6a1823}\label{namespacem__types_afa72812b21ac35564e90fb4e6b6a1823}} 
+\index{m\_types@{m\_types}!alloc\_csr@{alloc\_csr}}
+\index{alloc\_csr@{alloc\_csr}!m\_types@{m\_types}}
+\doxysubsubsection{\texorpdfstring{alloc\_csr()}{alloc\_csr()}}
+{\footnotesize\ttfamily subroutine m\+\_\+types\+::alloc\+\_\+csr (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{m,  }\item[{integer, intent(in)}]{nnz,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}})}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m__types_8f90_source_l00138}{138}} of file \mbox{\hyperlink{m__types_8f90_source}{m\+\_\+types.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__types_a7f3bc30609b2ec6ee3fc6d7a3a773f64}\label{namespacem__types_a7f3bc30609b2ec6ee3fc6d7a3a773f64}} 
+\index{m\_types@{m\_types}!csr\_to\_full@{csr\_to\_full}}
+\index{csr\_to\_full@{csr\_to\_full}!m\_types@{m\_types}}
+\doxysubsubsection{\texorpdfstring{csr\_to\_full()}{csr\_to\_full()}}
+{\footnotesize\ttfamily subroutine m\+\_\+types\+::csr\+\_\+to\+\_\+full (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{m,  }\item[{integer, intent(in)}]{n,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}})}]{m\+\_\+csr,  }\item[{complex(dp), dimension(m,n), intent(out)}]{m\+\_\+full }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m__types_8f90_source_l00173}{173}} of file \mbox{\hyperlink{m__types_8f90_source}{m\+\_\+types.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__types_a42410e788a922622a857175aff3ba80e}\label{namespacem__types_a42410e788a922622a857175aff3ba80e}} 
+\index{m\_types@{m\_types}!dealloc\_csr@{dealloc\_csr}}
+\index{dealloc\_csr@{dealloc\_csr}!m\_types@{m\_types}}
+\doxysubsubsection{\texorpdfstring{dealloc\_csr()}{dealloc\_csr()}}
+{\footnotesize\ttfamily subroutine m\+\_\+types\+::dealloc\+\_\+csr (\begin{DoxyParamCaption}\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}})}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m__types_8f90_source_l00159}{159}} of file \mbox{\hyperlink{m__types_8f90_source}{m\+\_\+types.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__types_abd0ca5d73afb35c07d0d4adba445c6e8}\label{namespacem__types_abd0ca5d73afb35c07d0d4adba445c6e8}} 
+\index{m\_types@{m\_types}!init\_col@{init\_col}}
+\index{init\_col@{init\_col}!m\_types@{m\_types}}
+\doxysubsubsection{\texorpdfstring{init\_col()}{init\_col()}}
+{\footnotesize\ttfamily subroutine m\+\_\+types\+::init\+\_\+col (\begin{DoxyParamCaption}\item[{type (\mbox{\hyperlink{structm__types_1_1t__col}{t\+\_\+col}}), pointer}]{self,  }\item[{integer, intent(in)}]{col,  }\item[{complex(dp), intent(in)}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m__types_8f90_source_l00058}{58}} of file \mbox{\hyperlink{m__types_8f90_source}{m\+\_\+types.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__types_a6fb75dff3efeb5e521c895f53b6bada8}\label{namespacem__types_a6fb75dff3efeb5e521c895f53b6bada8}} 
+\index{m\_types@{m\_types}!init\_csr@{init\_csr}}
+\index{init\_csr@{init\_csr}!m\_types@{m\_types}}
+\doxysubsubsection{\texorpdfstring{init\_csr()}{init\_csr()}}
+{\footnotesize\ttfamily subroutine m\+\_\+types\+::init\+\_\+csr (\begin{DoxyParamCaption}\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}})}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m__types_8f90_source_l00123}{123}} of file \mbox{\hyperlink{m__types_8f90_source}{m\+\_\+types.\+f90}}.
+
+\mbox{\Hypertarget{namespacem__types_aec8d2008c4e184ec95db90ef2c9b2f36}\label{namespacem__types_aec8d2008c4e184ec95db90ef2c9b2f36}} 
+\index{m\_types@{m\_types}!insert\_into\_row@{insert\_into\_row}}
+\index{insert\_into\_row@{insert\_into\_row}!m\_types@{m\_types}}
+\doxysubsubsection{\texorpdfstring{insert\_into\_row()}{insert\_into\_row()}}
+{\footnotesize\ttfamily subroutine m\+\_\+types\+::insert\+\_\+into\+\_\+row (\begin{DoxyParamCaption}\item[{type (\mbox{\hyperlink{structm__types_1_1t__col}{t\+\_\+col}}), pointer}]{self,  }\item[{integer, intent(in)}]{col,  }\item[{complex(dp), intent(in)}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m__types_8f90_source_l00074}{74}} of file \mbox{\hyperlink{m__types_8f90_source}{m\+\_\+types.\+f90}}.
+

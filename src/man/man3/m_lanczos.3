@@ -1,0 +1,45 @@
+.TH "m_lanczos" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+m_lanczos
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBdiag_ham_lanczos\fP (nblock, end_indx, needed, nloc, nev, max_niter, eval_tol, ham, eval, n_vec, evec)"
+.br
+.ti -1c
+.RI "subroutine \fBkrylov_eigs\fP (n, alpha, beta, eval, evec)"
+.br
+.ti -1c
+.RI "subroutine \fBbuild_krylov_mp\fP (nblock, end_indx, needed, nloc, ham, init_vec, maxn, neff, alpha, beta, norm)"
+.br
+.ti -1c
+.RI "subroutine \fBbuild_spectrum\fP (nkrylov, alpha, beta, norm, nw, om_mesh, e_gs, gamma_final, spec)"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine m_lanczos::build_krylov_mp (integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, dimension(nprocs, nprocs), intent(in) needed, integer, intent(in) nloc, type (\fBt_csr\fP), dimension(nblock) ham, complex(dp), dimension(nloc), intent(in) init_vec, integer, intent(in) maxn, integer, intent(out) neff, real(dp), dimension(maxn), intent(out) alpha, real(dp), dimension(0:maxn), intent(out) beta, real(dp), intent(out) norm)"
+
+.PP
+Definition at line \fB210\fP of file \fBlanczos\&.f90\fP\&.
+.SS "subroutine m_lanczos::build_spectrum (integer, intent(in) nkrylov, real(dp), dimension(nkrylov), intent(in) alpha, real(dp), dimension(0:nkrylov), intent(in) beta, real(dp), intent(in) norm, integer, intent(in) nw, real(dp), dimension(nw), intent(in) om_mesh, real(dp), intent(in) e_gs, real(dp), dimension(nw), intent(in) gamma_final, real(dp), dimension(nw), intent(out) spec)"
+
+.PP
+Definition at line \fB306\fP of file \fBlanczos\&.f90\fP\&.
+.SS "subroutine m_lanczos::diag_ham_lanczos (integer, intent(in) nblock, integer, dimension(2,2,nprocs), intent(in) end_indx, integer, dimension(nprocs, nprocs), intent(in) needed, integer, intent(in) nloc, integer, intent(in) nev, integer, intent(in) max_niter, real(dp), intent(in) eval_tol, type (\fBt_csr\fP), dimension(nblock) ham, real(dp), dimension(nev), intent(out) eval, integer, intent(in) n_vec, complex(dp), dimension(nloc,n_vec), intent(out) evec)"
+
+.PP
+Definition at line \fB6\fP of file \fBlanczos\&.f90\fP\&.
+.SS "subroutine m_lanczos::krylov_eigs (integer, intent(in) n, real(dp), dimension(n), intent(in) alpha, real(dp), dimension(n\-1), intent(in) beta, real(dp), dimension(n), intent(out) eval, real(dp), dimension(n,n), intent(out) evec)"
+
+.PP
+Definition at line \fB169\fP of file \fBlanczos\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

@@ -1,0 +1,59 @@
+\hypertarget{ed__main_8f90_source}{}\doxysection{ed\+\_\+main.\+f90}
+\mbox{\hyperlink{ed__main_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00010}\mbox{\hyperlink{ed__main_8f90_a4d3d4fb36660d909e9dbec9d6bc45282}{00010}}\ \textcolor{keyword}{program}\ \mbox{\hyperlink{ed__main_8f90_a4d3d4fb36660d909e9dbec9d6bc45282}{ed\_main}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__global}{m\_global}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00018}00018\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ierror}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ color}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ key}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00022}00022\ \ \ \ \ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}\ =\ mpi\_comm\_world}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_init(ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}},\ \ \ ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_ad477686ee760c61aabf02b2a025d1c00}{config}}()}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00029}00029\ \ \ \ \ \textcolor{comment}{!\ read\ fock\ to\ know\ the\ dimension\ of\ the\ Hamiltonian}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{io_8f90_a7db27cecc3aca80ca299aea361410c2b}{read\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{namespacem__global_aae0e281be12d46d02c1ffe5a09dff595}{dealloc\_fock\_i}}()}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}\ <\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}==\mbox{\hyperlink{namespacem__control_ac3b10859c1be8f8bf632dff29a4af3b1}{master}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Warning:\ number\ of\ CPU\ processors\ "{}},\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}},\ \&}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\ larger\ than\ ndim\_i:\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ print\ *,\ \textcolor{stringliteral}{"{}\ fedrixs\ >>>\ Only\ "{}},\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}},\ \textcolor{stringliteral}{"{}\ processors\ will\ really\ work!"{}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00037}00037\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 1}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ 2}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00044}00044\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_split(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ color,\ key,\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_rank(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }mpi\_comm\_size(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00049}00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a00f9d7b62af04cd765776675d3302ddc}{myid}}\ =\ \mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00050}00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}}\ =\ \mbox{\hyperlink{namespacem__control_a5cdb14d0076d1c960beac7799691a403}{origin\_nprocs}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00051}00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}\ =\ \mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00052}00052\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacem__control_a4aced335067dc774740e8ed51fa43163}{origin\_myid}}\ <\ \mbox{\hyperlink{namespacem__control_ac73afc7cf69e0c46557a4b9539fd7415}{ndim\_i}})\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{ed__driver_8f90_a5706bd8bee60960fe8166de1870e47da}{ed\_driver}}()}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00056}00056\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_barrier(\mbox{\hyperlink{namespacem__control_ab003bf6a5bfe1a0b3cba73fc3b0a0632}{origin\_comm}},\ ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00059}00059\ \ \ \ \ \textcolor{keyword}{call\ }mpi\_finalize(ierror)}
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{ed__main_8f90_source_l00061}00061\ \textcolor{keyword}{end\ program\ }\mbox{\hyperlink{ed__main_8f90_a4d3d4fb36660d909e9dbec9d6bc45282}{ed\_main}}}
+
+\end{DoxyCode}

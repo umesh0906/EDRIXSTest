@@ -1,0 +1,206 @@
+\hypertarget{m__types_8f90_source}{}\doxysection{m\+\_\+types.\+f90}
+\mbox{\hyperlink{m__types_8f90}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00001}00001\ \textcolor{comment}{!!>>>\ module\ used\ to\ define\ some\ types}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00002}\mbox{\hyperlink{namespacem__types}{00002}}\ \textcolor{keyword}{module}\ \mbox{\hyperlink{namespacem__types}{m\_types}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00004}00004\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00005}00005\ \ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00006}00006\ \ \ \ \ \textcolor{comment}{!\ 2-\/index\ tensor}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00007}\mbox{\hyperlink{structm__types_1_1t__tensor2}{00007}}\ \ \ \ \ \textcolor{keyword}{type}\ \mbox{\hyperlink{structm__types_1_1t__tensor2}{t\_tensor2}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00008}\mbox{\hyperlink{structm__types_1_1t__tensor2_ad723f0c7ec3619601bd13e050efc7b96}{00008}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ind1}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00009}\mbox{\hyperlink{structm__types_1_1t__tensor2_afae8016a797887b0425a1725e284de87}{00009}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ind2}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00010}\mbox{\hyperlink{structm__types_1_1t__tensor2_a44112c326092aa994d61baac24096d1f}{00010}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ val}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{end\ type\ }\mbox{\hyperlink{structm__types_1_1t__tensor2}{t\_tensor2}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00013}00013\ \ \ \ \ \textcolor{comment}{!\ 4-\/index\ tensor}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00014}\mbox{\hyperlink{structm__types_1_1t__tensor4}{00014}}\ \ \ \ \ \textcolor{keyword}{type}\ \mbox{\hyperlink{structm__types_1_1t__tensor4}{t\_tensor4}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00015}\mbox{\hyperlink{structm__types_1_1t__tensor4_a22e10a8532c70c9dd29412d3721d4545}{00015}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ind1}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00016}\mbox{\hyperlink{structm__types_1_1t__tensor4_a490763bfa317199114279834a8327fc8}{00016}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ind2}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00017}\mbox{\hyperlink{structm__types_1_1t__tensor4_ab1e275d29f1fb9ded192d0ba4af47e15}{00017}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ind3}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00018}\mbox{\hyperlink{structm__types_1_1t__tensor4_a3380b3f3569bfd46cf96210e990f0f2c}{00018}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ ind4}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00019}\mbox{\hyperlink{structm__types_1_1t__tensor4_a7eb64504f8b9f45313d1f1570e3e9199}{00019}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ val}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{end\ type\ }\mbox{\hyperlink{structm__types_1_1t__tensor4}{t\_tensor4}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00022}00022\ \ \ \ \ \textcolor{comment}{!\ one\ column\ in\ one\ row\ of\ a\ sparse\ matrix}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00023}\mbox{\hyperlink{structm__types_1_1t__col}{00023}}\ \ \ \ \ \textcolor{keyword}{type}\ \mbox{\hyperlink{structm__types_1_1t__col}{t\_col}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ current\ column\ index}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00025}\mbox{\hyperlink{structm__types_1_1t__col_a4b551c54251a1a483807a2501816cdfd}{00025}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ value\ in\ this\ position}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00027}\mbox{\hyperlink{structm__types_1_1t__col_a93bc83c1da016dca1c348b89028fd335}{00027}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ ::\ val}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ next\ column\ position}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00029}\mbox{\hyperlink{structm__types_1_1t__col_ada09e3f229e99bb119507fb64ff4d70c}{00029}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (\mbox{\hyperlink{structm__types_1_1t__col}{t\_col}}),\ \textcolor{keywordtype}{pointer}\ ::\ next}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{end\ type\ }\mbox{\hyperlink{structm__types_1_1t__col}{t\_col}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00032}00032\ \ \ \ \ \textcolor{comment}{!\ simulate\ array\ of\ pointers\ of\ T\_col}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00033}\mbox{\hyperlink{structm__types_1_1t__container__col}{00033}}\ \ \ \ \ \textcolor{keyword}{type}\ \mbox{\hyperlink{structm__types_1_1t__container__col}{t\_container\_col}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ just\ a\ pointer\ to\ T\_col}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00035}\mbox{\hyperlink{structm__types_1_1t__container__col_abdc7686caf33735de0821e4814e1f197}{00035}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (\mbox{\hyperlink{structm__types_1_1t__col}{t\_col}}),\ \textcolor{keywordtype}{pointer}\ ::\ \ col\_ptr}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{end\ type\ }\mbox{\hyperlink{structm__types_1_1t__container__col}{t\_container\_col}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00038}00038\ \ \ \ \ \textcolor{comment}{!\ use\ CSR\ to\ represent\ a\ sparse\ matrix\ }}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00039}\mbox{\hyperlink{structm__types_1_1t__csr}{00039}}\ \ \ \ \ \textcolor{keyword}{type}\ \mbox{\hyperlink{structm__types_1_1t__csr}{t\_csr}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ number\ of\ nonzero\ matrix\ elements}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00041}\mbox{\hyperlink{structm__types_1_1t__csr_a21f619bbf4da47ee20d37e91ced87956}{00041}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ nnz}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ number\ of\ rows\ of\ the\ matrix}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00043}\mbox{\hyperlink{structm__types_1_1t__csr_a02329c8e375e7b0b8ea66f081f256d9c}{00043}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ m}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ the\ shift\ of\ rows}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00045}\mbox{\hyperlink{structm__types_1_1t__csr_a94a095aff006dfbcf3b6e565fcae2712}{00045}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ row\_shift}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ the\ shift\ of\ columns}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00047}\mbox{\hyperlink{structm__types_1_1t__csr_a4cd306ce681d0a5cb8818db9c43704d9}{00047}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ col\_shift}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ the\ row\ index}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00049}\mbox{\hyperlink{structm__types_1_1t__csr_a432c73224915dd8ecd4da5c50367994c}{00049}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{allocatable}\ ::\ iaa(:)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ the\ column\ index}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00051}\mbox{\hyperlink{structm__types_1_1t__csr_a35bc7da595afec249928442dea914abe}{00051}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{allocatable}\ ::\ jaa(:)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ the\ matrix\ elements}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00053}\mbox{\hyperlink{structm__types_1_1t__csr_a734f3267b73870e948ea8f9d39c2d40e}{00053}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ ::\ aa(:)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00054}00054\ \ \ \ \ \textcolor{keyword}{end\ type\ }\mbox{\hyperlink{structm__types_1_1t__csr}{t\_csr}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{contains}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00058}\mbox{\hyperlink{namespacem__types_abd0ca5d73afb35c07d0d4adba445c6e8}{00058}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__types_abd0ca5d73afb35c07d0d4adba445c6e8}{init\_col}}(self,\ col,\ val)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_col),\ \textcolor{keywordtype}{pointer}\ ::\ self}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(in)}\ ::\ val}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(self)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00067}00067\ \ \ \ \ \ \ \ \ self\%col\ =\ col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00068}00068\ \ \ \ \ \ \ \ \ self\%val\ =\ val}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00069}00069\ \ \ \ \ \ \ \ \ self\%next\ =>\ null()}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__types_abd0ca5d73afb35c07d0d4adba445c6e8}{init\_col}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00074}\mbox{\hyperlink{namespacem__types_aec8d2008c4e184ec95db90ef2c9b2f36}{00074}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__types_aec8d2008c4e184ec95db90ef2c9b2f36}{insert\_into\_row}}(self,\ col,\ val)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables\ }}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_col),\ \textcolor{keywordtype}{pointer}\ ::\ self}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(in)}\ ::\ val}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_col),\ \textcolor{keywordtype}{pointer}\ ::\ curr}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_col),\ \textcolor{keywordtype}{pointer}\ ::\ prev}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_col),\ \textcolor{keywordtype}{pointer}\ ::\ tmp}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00086}00086\ \ \ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00087}00087\ \ \ \ \ \ \ \ \ curr\ =>\ self}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00088}00088\ \ \ \ \ \ \ \ \ prev\ =>\ null()}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{associated}(curr))}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ compare\ col\ with\ current\ node}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (col\ ==\ curr\%col)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ curr\%val\ =\ curr\%val\ +\ val}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00094}00094\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ insert\ before\ current\ node}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (col\ <\ curr\%col)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(tmp)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp\%col\ =\ col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp\%val\ =\ val\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp\%next\ =>\ curr}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (.not.\ \textcolor{keyword}{associated}(prev))\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self\ =>\ tmp}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00105}00105\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endif}\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev\%next\ =>\ tmp}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00108}00108\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ prev\ =>\ curr}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ curr\ =>\ curr\%next\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00111}00111\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ arrive\ at\ the\ tail\ of\ the\ list}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(tmp)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00115}00115\ \ \ \ \ \ \ \ \ tmp\%col\ =\ col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00116}00116\ \ \ \ \ \ \ \ \ tmp\%val\ =\ val\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00117}00117\ \ \ \ \ \ \ \ \ tmp\%next\ =>\ null()}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00118}00118\ \ \ \ \ \ \ \ \ prev\%next\ =>\ tmp}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00121}00121\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__types_aec8d2008c4e184ec95db90ef2c9b2f36}{insert\_into\_row}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00123}\mbox{\hyperlink{namespacem__types_a6fb75dff3efeb5e521c895f53b6bada8}{00123}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__types_a6fb75dff3efeb5e521c895f53b6bada8}{init\_csr}}(self)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ ::\ self}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00129}00129\ \ \ \ \ \ \ \ \ self\%m\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00130}00130\ \ \ \ \ \ \ \ \ self\%nnz\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00131}00131\ \ \ \ \ \ \ \ \ self\%row\_shift\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00132}00132\ \ \ \ \ \ \ \ \ self\%col\_shift\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00135}00135\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__types_a6fb75dff3efeb5e521c895f53b6bada8}{init\_csr}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00138}\mbox{\hyperlink{namespacem__types_afa72812b21ac35564e90fb4e6b6a1823}{00138}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__types_afa72812b21ac35564e90fb4e6b6a1823}{alloc\_csr}}(m,\ nnz,\ self)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ m}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ ::\ nnz}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ ::\ self}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ istat}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(self\%iaa(m+1),\ stat=istat)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(self\%jaa(nnz),\ stat=istat)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keyword}{allocate}(self\%aa(nnz),\ \ stat=istat)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00152}00152\ \ \ \ \ \ \ \ \ self\%iaa\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00153}00153\ \ \ \ \ \ \ \ \ self\%jaa\ =\ 0}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00154}00154\ \ \ \ \ \ \ \ \ self\%aa\ \ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00157}00157\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__types_afa72812b21ac35564e90fb4e6b6a1823}{alloc\_csr}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00159}\mbox{\hyperlink{namespacem__types_a42410e788a922622a857175aff3ba80e}{00159}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__types_a42410e788a922622a857175aff3ba80e}{dealloc\_csr}}(self)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ ::\ self}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(self\%iaa))\ \textcolor{keyword}{deallocate}(self\%iaa)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(self\%jaa))\ \textcolor{keyword}{deallocate}(self\%jaa)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{allocated}(self\%aa))\ \ \textcolor{keyword}{deallocate}(self\%aa)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00170}00170\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__types_a42410e788a922622a857175aff3ba80e}{dealloc\_csr}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00172}00172\ \ \ \ \ \textcolor{comment}{!\ copy\ elements\ from\ csr\ to\ full}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00173}\mbox{\hyperlink{namespacem__types_a7f3bc30609b2ec6ee3fc6d7a3a773f64}{00173}}\ \ \ \ \ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{namespacem__types_a7f3bc30609b2ec6ee3fc6d7a3a773f64}{csr\_to\_full}}(m,\ n,\ m\_csr,\ m\_full)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ m}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ n}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ \ \ \ \ \ \ \ \ \ \ \ \ ::\ m\_csr}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00180}00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(out)}\ ::\ m\_full(m,n)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00181}00181\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ i}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ j}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ begin\_col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{integer}\ ::\ end\_col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00188}00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ init\ m\_full}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,m\_csr\%m}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ begin\_col\ =\ m\_csr\%iaa(i)\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ end\_col\ =\ m\_csr\%iaa(i+1)-\/1\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (begin\_col\ >\ end\_col)\ cycle}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ j=begin\_col,\ end\_col}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_full(i+m\_csr\%row\_shift,\ m\_csr\%jaa(j))\ =\ m\_csr\%aa(j)}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00195}00195\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00196}00196\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00199}00199\ \ \ \ \ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{namespacem__types_a7f3bc30609b2ec6ee3fc6d7a3a773f64}{csr\_to\_full}}}
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{m__types_8f90_source_l00201}00201\ \textcolor{keyword}{end\ module\ }\mbox{\hyperlink{namespacem__types}{m\_types}}\ }
+
+\end{DoxyCode}

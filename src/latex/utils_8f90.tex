@@ -1,0 +1,80 @@
+\hypertarget{utils_8f90}{}\doxysection{utils.\+f90 File Reference}
+\label{utils_8f90}\index{utils.f90@{utils.f90}}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+integer function \mbox{\hyperlink{utils_8f90_a93cc6914826eeda664bc64e4fa9cf5b6}{binary\+\_\+search}} (n, vec, m)
+\item 
+subroutine \mbox{\hyperlink{utils_8f90_af15b4162539239a5bafa53b4ebf64115}{sort\+\_\+eigvals}} (n, eigvals, sorted\+\_\+indx)
+\item 
+subroutine \mbox{\hyperlink{utils_8f90_a5256ecd7fc3ffc6268aef71add5dc031}{partition\+\_\+task}} (nprocs, m, n, end\+\_\+indx)
+\item 
+subroutine \mbox{\hyperlink{utils_8f90_aa7bc34ed020633677cc319cec33a321d}{get\+\_\+needed\+\_\+indx}} (nblock, ham\+\_\+csr, needed)
+\item 
+subroutine \mbox{\hyperlink{utils_8f90_ac467c9e327a0a87c986c6edea2e67d0e}{get\+\_\+number\+\_\+nonzeros}} (nblock, ham\+\_\+csr, num\+\_\+nonzeros)
+\item 
+subroutine \mbox{\hyperlink{utils_8f90_aad850e03a63ba215c4ecbec3d8e38ea6}{get\+\_\+prob}} (n, eigval, beta, prob)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{utils_8f90_a93cc6914826eeda664bc64e4fa9cf5b6}\label{utils_8f90_a93cc6914826eeda664bc64e4fa9cf5b6}} 
+\index{utils.f90@{utils.f90}!binary\_search@{binary\_search}}
+\index{binary\_search@{binary\_search}!utils.f90@{utils.f90}}
+\doxysubsubsection{\texorpdfstring{binary\_search()}{binary\_search()}}
+{\footnotesize\ttfamily integer function binary\+\_\+search (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{n,  }\item[{integer(dp), dimension(n), intent(in)}]{vec,  }\item[{integer(dp), intent(in)}]{m }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utils_8f90_source_l00002}{2}} of file \mbox{\hyperlink{utils_8f90_source}{utils.\+f90}}.
+
+\mbox{\Hypertarget{utils_8f90_aa7bc34ed020633677cc319cec33a321d}\label{utils_8f90_aa7bc34ed020633677cc319cec33a321d}} 
+\index{utils.f90@{utils.f90}!get\_needed\_indx@{get\_needed\_indx}}
+\index{get\_needed\_indx@{get\_needed\_indx}!utils.f90@{utils.f90}}
+\doxysubsubsection{\texorpdfstring{get\_needed\_indx()}{get\_needed\_indx()}}
+{\footnotesize\ttfamily subroutine get\+\_\+needed\+\_\+indx (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nblock,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham\+\_\+csr,  }\item[{integer, dimension(nprocs, nprocs), intent(out)}]{needed }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utils_8f90_source_l00114}{114}} of file \mbox{\hyperlink{utils_8f90_source}{utils.\+f90}}.
+
+\mbox{\Hypertarget{utils_8f90_ac467c9e327a0a87c986c6edea2e67d0e}\label{utils_8f90_ac467c9e327a0a87c986c6edea2e67d0e}} 
+\index{utils.f90@{utils.f90}!get\_number\_nonzeros@{get\_number\_nonzeros}}
+\index{get\_number\_nonzeros@{get\_number\_nonzeros}!utils.f90@{utils.f90}}
+\doxysubsubsection{\texorpdfstring{get\_number\_nonzeros()}{get\_number\_nonzeros()}}
+{\footnotesize\ttfamily subroutine get\+\_\+number\+\_\+nonzeros (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nblock,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham\+\_\+csr,  }\item[{integer(dp), intent(out)}]{num\+\_\+nonzeros }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utils_8f90_source_l00145}{145}} of file \mbox{\hyperlink{utils_8f90_source}{utils.\+f90}}.
+
+\mbox{\Hypertarget{utils_8f90_aad850e03a63ba215c4ecbec3d8e38ea6}\label{utils_8f90_aad850e03a63ba215c4ecbec3d8e38ea6}} 
+\index{utils.f90@{utils.f90}!get\_prob@{get\_prob}}
+\index{get\_prob@{get\_prob}!utils.f90@{utils.f90}}
+\doxysubsubsection{\texorpdfstring{get\_prob()}{get\_prob()}}
+{\footnotesize\ttfamily subroutine get\+\_\+prob (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{n,  }\item[{real(dp), dimension(n), intent(in)}]{eigval,  }\item[{real(dp), intent(in)}]{beta,  }\item[{real(dp), dimension(n), intent(out)}]{prob }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utils_8f90_source_l00173}{173}} of file \mbox{\hyperlink{utils_8f90_source}{utils.\+f90}}.
+
+\mbox{\Hypertarget{utils_8f90_a5256ecd7fc3ffc6268aef71add5dc031}\label{utils_8f90_a5256ecd7fc3ffc6268aef71add5dc031}} 
+\index{utils.f90@{utils.f90}!partition\_task@{partition\_task}}
+\index{partition\_task@{partition\_task}!utils.f90@{utils.f90}}
+\doxysubsubsection{\texorpdfstring{partition\_task()}{partition\_task()}}
+{\footnotesize\ttfamily subroutine partition\+\_\+task (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nprocs,  }\item[{integer, intent(in)}]{m,  }\item[{integer, intent(in)}]{n,  }\item[{integer, dimension(2, 2, nprocs), intent(out)}]{end\+\_\+indx }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utils_8f90_source_l00080}{80}} of file \mbox{\hyperlink{utils_8f90_source}{utils.\+f90}}.
+
+\mbox{\Hypertarget{utils_8f90_af15b4162539239a5bafa53b4ebf64115}\label{utils_8f90_af15b4162539239a5bafa53b4ebf64115}} 
+\index{utils.f90@{utils.f90}!sort\_eigvals@{sort\_eigvals}}
+\index{sort\_eigvals@{sort\_eigvals}!utils.f90@{utils.f90}}
+\doxysubsubsection{\texorpdfstring{sort\_eigvals()}{sort\_eigvals()}}
+{\footnotesize\ttfamily subroutine sort\+\_\+eigvals (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{n,  }\item[{real(dp), dimension(n), intent(inout)}]{eigvals,  }\item[{integer, dimension(n), intent(inout)}]{sorted\+\_\+indx }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utils_8f90_source_l00042}{42}} of file \mbox{\hyperlink{utils_8f90_source}{utils.\+f90}}.
+

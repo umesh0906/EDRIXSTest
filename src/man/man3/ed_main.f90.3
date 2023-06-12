@@ -1,0 +1,38 @@
+.TH "ed_main.f90" 3 "Sat Jun 10 2023" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ed_main.f90
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "program \fBed_main\fP"
+.br
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "program ed_main"
+This is main program that initializes the fortran code and calls the ed_driver\&. 
+.br
+ 
+.br
+ One can control the various flags from the \fBm_control\fP file\&. 
+.br
+ From \fBio\&.f90\fP file, it calls 
+.br
+ config: Gives dimension of the matrix 
+.br
+ read_fock_i: Provides fock basis by reading fock_i\&.in file 
+.br
+ Deallocates dealloc_fock_i from \fBm_global\fP file 
+.br
+ Call \fBed_driver\&.f90\fP 
+.PP
+Definition at line \fB10\fP of file \fBed_main\&.f90\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.
