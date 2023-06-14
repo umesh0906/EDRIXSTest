@@ -1,11 +1,7 @@
 !! Use parallel arpack to find a few lowest eigenstates of a large sparse Hamiltonian
 !> @details
 !! This subroutine diagnonlized a the matrix using Arpack
-!! @param[in]     param1: nblock, end_indx, needed, nloc, ham, tol, info,
-!! @param[inout]  paramN: eval,  n_vecs, eve, maxiter, tol, actual_step, nconv
-!! @return        void
 !! recall the euler formula: @f$ e^{i x} = \mathrm{cos} x + i \mathrm{sin} x  @f$
-!! The distance between \f$(x_1,y_1)\f$ and \f$(x_2,y_2)\f$ is
 !!
 
 

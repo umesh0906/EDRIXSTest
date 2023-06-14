@@ -1,6 +1,6 @@
-\hypertarget{arpack_8f90}{}\doxysection{arpack.\+f90 File Reference}
-\label{arpack_8f90}\index{arpack.f90@{arpack.f90}}
-\doxysubsection*{Functions/\+Subroutines}
+\doxysection{arpack.\+f90 File Reference}
+\hypertarget{arpack_8f90}{}\label{arpack_8f90}\index{arpack.f90@{arpack.f90}}
+\doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
 subroutine \mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{diag\+\_\+ham\+\_\+arpack}} (nblock, end\+\_\+indx, needed, nloc, nev, ham, eval, n\+\_\+vecs, evec, ncv, maxiter, tol, info, actual\+\_\+step, nconv)
@@ -8,23 +8,13 @@ subroutine \mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{diag\
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
-\mbox{\Hypertarget{arpack_8f90_a51fff9de16f75ce1a28a479784615222}\label{arpack_8f90_a51fff9de16f75ce1a28a479784615222}} 
+\Hypertarget{arpack_8f90_a51fff9de16f75ce1a28a479784615222}\label{arpack_8f90_a51fff9de16f75ce1a28a479784615222} 
 \index{arpack.f90@{arpack.f90}!diag\_ham\_arpack@{diag\_ham\_arpack}}
 \index{diag\_ham\_arpack@{diag\_ham\_arpack}!arpack.f90@{arpack.f90}}
 \doxysubsubsection{\texorpdfstring{diag\_ham\_arpack()}{diag\_ham\_arpack()}}
 {\footnotesize\ttfamily subroutine diag\+\_\+ham\+\_\+arpack (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nblock,  }\item[{integer, dimension(2,2,nprocs), intent(in)}]{end\+\_\+indx,  }\item[{integer, dimension(nprocs, nprocs), intent(in)}]{needed,  }\item[{integer, intent(in)}]{nloc,  }\item[{integer, intent(in)}]{nev,  }\item[{type (\mbox{\hyperlink{structm__types_1_1t__csr}{t\+\_\+csr}}), dimension(nblock)}]{ham,  }\item[{real(dp), dimension(nev), intent(out)}]{eval,  }\item[{integer, intent(in)}]{n\+\_\+vecs,  }\item[{complex(dp), dimension(nloc,n\+\_\+vecs), intent(out)}]{evec,  }\item[{integer, intent(in)}]{ncv,  }\item[{integer, intent(in)}]{maxiter,  }\item[{real(dp), intent(in)}]{tol,  }\item[{integer, intent(out)}]{info,  }\item[{integer, intent(out)}]{actual\+\_\+step,  }\item[{integer, intent(out)}]{nconv }\end{DoxyParamCaption})}
 
-This subroutine diagnonlized a the matrix using Arpack 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em param1} & nblock, end\+\_\+indx, needed, nloc, ham, tol, info, \\
-\hline
-\mbox{\texttt{ in,out}}  & {\em paramN} & eval, n\+\_\+vecs, eve, maxiter, tol, actual\+\_\+step, nconv \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-void recall the euler formula\+: $ e^{i x} = \mathrm{cos} x + i \mathrm{sin} x  $ The distance between $(x_1,y_1)$ and $(x_2,y_2)$ is 
-\end{DoxyReturn}
+This subroutine diagnonlized a the matrix using Arpack recall the euler formula\+: $ e^{i x} = \mathrm{cos} x + i \mathrm{sin} x  $ 
 
-
-Definition at line \mbox{\hyperlink{arpack_8f90_source_l00012}{12}} of file \mbox{\hyperlink{arpack_8f90_source}{arpack.\+f90}}.
+Definition at line \mbox{\hyperlink{arpack_8f90_source_l00008}{8}} of file \mbox{\hyperlink{arpack_8f90_source}{arpack.\+f90}}.
 

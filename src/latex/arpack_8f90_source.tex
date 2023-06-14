@@ -1,119 +1,119 @@
-\hypertarget{arpack_8f90_source}{}\doxysection{arpack.\+f90}
-\mbox{\hyperlink{arpack_8f90}{Go to the documentation of this file.}}
+\doxysection{arpack.\+f90}
+\hypertarget{arpack_8f90_source}{}\label{arpack_8f90_source}\mbox{\hyperlink{arpack_8f90}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00001}00001\ \textcolor{comment}{!!\ Use\ parallel\ arpack\ to\ find\ a\ few\ lowest\ eigenstates\ of\ a\ large\ sparse\ Hamiltonian}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00008}\mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{00008}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{diag\_ham\_arpack}}(nblock,\ end\_indx,\ needed,\ nloc,\ nev,\ ham,\ eval,\ \&}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00009}00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_vecs,\ evec,\ ncv,\ maxiter,\ tol,\ info,\ actual\_step,\ nconv)}
 \DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00010}00010\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00011}00011\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00012}\mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{00012}}\ \textcolor{keyword}{subroutine\ }\mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{diag\_ham\_arpack}}(nblock,\ end\_indx,\ needed,\ nloc,\ nev,\ ham,\ eval,\ \&}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_vecs,\ evec,\ ncv,\ maxiter,\ tol,\ info,\ actual\_step,\ nconv)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00014}00014\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \ \ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00018}00018\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00019}00019\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00022}00022\ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nblock}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00024}00024\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ end\_indx(2,2,nprocs)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ needed(nprocs,\ nprocs)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nloc}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nev}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\ ham(nblock)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00029}00029\ \textcolor{keywordtype}{\ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ ::\ eval(nev)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ n\_vecs}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00031}00031\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(out)}\ \ ::\ evec(nloc,n\_vecs)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ ncv}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ maxiter}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00034}00034\ \textcolor{keywordtype}{\ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ tol}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00035}00035\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ \ ::\ info}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00036}00036\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ \ ::\ actual\_step}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00037}00037\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ \ ::\ nconv}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00038}00038\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00039}00039\ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ ido}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ ishfts}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00042}00042\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ mode}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00043}00043\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ lworkl}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00044}00044\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ iparam(11)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00045}00045\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ ipntr(14)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00046}00046\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ sorted\_indx(nev)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00047}00047\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ i}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00048}00048\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{logical}\ \ \ \ \ \ ::\ rvec}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{character(1)}\ ::\ bmat}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00051}00051\ \ \ \ \ \textcolor{keywordtype}{character(2)}\ ::\ which}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00052}00052\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ \ ::\ sigma}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00053}00053\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00054}00054\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ \ \ ,\ \textcolor{keywordtype}{allocatable}\ \ ::\ rwork(:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00055}00055\ \ \ \ \ \textcolor{keywordtype}{logical}\ \ \ \ ,\ \textcolor{keywordtype}{allocatable}\ \ ::\ selec(:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00056}00056\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ resid(:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ v(:,:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00058}00058\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ workd(:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00059}00059\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ workl(:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00060}00060\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ workev(:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00061}00061\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ d(:)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00062}00062\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00063}00063\ \ \ \ \ lworkl\ \ =\ 3*ncv**2\ +\ 5*ncv}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00064}00064\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00065}00065\ \ \ \ \ \textcolor{keyword}{allocate}(rwork(ncv))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00066}00066\ \ \ \ \ \textcolor{keyword}{allocate}(selec(ncv))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00067}00067\ \ \ \ \ \textcolor{keyword}{allocate}(resid(nloc))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{allocate}(v(nloc,ncv))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00069}00069\ \ \ \ \ \textcolor{keyword}{allocate}(workd(3*nloc))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{allocate}(workl(lworkl))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00071}00071\ \ \ \ \ \textcolor{keyword}{allocate}(workev(3*ncv))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{allocate}(d(ncv))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00073}00073\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00074}00074\ \ \ \ \ ishfts\ \ \ \ =\ 1}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00075}00075\ \ \ \ \ mode\ \ \ \ \ \ =\ 1}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00076}00076\ \ \ \ \ iparam(1)\ =\ ishfts}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00077}00077\ \ \ \ \ iparam(3)\ =\ maxiter}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00078}00078\ \ \ \ \ iparam(7)\ =\ mode}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00079}00079\ \ \ \ \ bmat\ \ \ \ \ \ =\ \textcolor{stringliteral}{'I'}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00080}00080\ \ \ \ \ which\ \ \ \ \ =\ \textcolor{stringliteral}{'SR'}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00081}00081\ \ \ \ \ ido\ \ \ \ \ \ \ =\ 0}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00082}00082\ \ \ \ \ info\ \ \ \ \ \ =\ 0}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00083}00083\ \ \ \ \ selec\ \ \ \ \ =\ .true.}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__constants}{m\_constants}},\ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__constants_a15743b6f1a6f57ab5b842d79fbffdd98}{dp}},\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__control}{m\_control}},\ \ \ \textcolor{keywordtype}{only}:\ \mbox{\hyperlink{namespacem__control_aed53f6eb55ad14842a27ac004ee3ca6c}{nprocs}},\ \mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{use\ }\mbox{\hyperlink{namespacem__types}{m\_types}}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{use\ }mpi}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{implicit\ none}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00018}00018\ \ \ \ \ \textcolor{comment}{!\ external\ variables}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nblock}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ end\_indx(2,2,nprocs)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ needed(nprocs,\ nprocs)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nloc}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ nev}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00024}00024\ \ \ \ \ \textcolor{keywordtype}{type}\ (T\_csr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\ ham(nblock)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00025}00025\ \textcolor{keywordtype}{\ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ ::\ eval(nev)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00026}00026\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ n\_vecs}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{intent(out)}\ \ ::\ evec(nloc,n\_vecs)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ ncv}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ \ ::\ maxiter}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00030}00030\ \textcolor{keywordtype}{\ \ \ \ real}(dp),\ \textcolor{keywordtype}{intent(in)}\ \ \ \ \ \ ::\ tol}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00031}00031\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ \ ::\ info}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ \ ::\ actual\_step}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{integer},\ \textcolor{keywordtype}{intent(out)}\ \ \ \ \ \ ::\ nconv}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00035}00035\ \ \ \ \ \textcolor{comment}{!\ local\ variables}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00036}00036\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ ido}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00037}00037\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ ishfts}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00038}00038\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ mode}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00039}00039\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ lworkl}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ iparam(11)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ ipntr(14)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00042}00042\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ sorted\_indx(nev)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00043}00043\ \ \ \ \ \textcolor{keywordtype}{integer}\ \ \ \ \ \ ::\ i}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00045}00045\ \ \ \ \ \textcolor{keywordtype}{logical}\ \ \ \ \ \ ::\ rvec}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00046}00046\ \ \ \ \ \textcolor{keywordtype}{character(1)}\ ::\ bmat}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00047}00047\ \ \ \ \ \textcolor{keywordtype}{character(2)}\ ::\ which}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{complex(dp)}\ \ ::\ sigma}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00050}00050\ \textcolor{keywordtype}{\ \ \ \ real}(dp)\ \ \ ,\ \textcolor{keywordtype}{allocatable}\ \ ::\ rwork(:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00051}00051\ \ \ \ \ \textcolor{keywordtype}{logical}\ \ \ \ ,\ \textcolor{keywordtype}{allocatable}\ \ ::\ selec(:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00052}00052\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ resid(:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00053}00053\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ v(:,:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00054}00054\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ workd(:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00055}00055\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ workl(:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00056}00056\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ workev(:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{complex(dp)},\ \textcolor{keywordtype}{allocatable}\ \ ::\ d(:)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00059}00059\ \ \ \ \ lworkl\ \ =\ 3*ncv**2\ +\ 5*ncv}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00061}00061\ \ \ \ \ \textcolor{keyword}{allocate}(rwork(ncv))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{allocate}(selec(ncv))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00063}00063\ \ \ \ \ \textcolor{keyword}{allocate}(resid(nloc))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00064}00064\ \ \ \ \ \textcolor{keyword}{allocate}(v(nloc,ncv))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00065}00065\ \ \ \ \ \textcolor{keyword}{allocate}(workd(3*nloc))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00066}00066\ \ \ \ \ \textcolor{keyword}{allocate}(workl(lworkl))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00067}00067\ \ \ \ \ \textcolor{keyword}{allocate}(workev(3*ncv))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{allocate}(d(ncv))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00070}00070\ \ \ \ \ ishfts\ \ \ \ =\ 1}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00071}00071\ \ \ \ \ mode\ \ \ \ \ \ =\ 1}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00072}00072\ \ \ \ \ iparam(1)\ =\ ishfts}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00073}00073\ \ \ \ \ iparam(3)\ =\ maxiter}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00074}00074\ \ \ \ \ iparam(7)\ =\ mode}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00075}00075\ \ \ \ \ bmat\ \ \ \ \ \ =\ \textcolor{stringliteral}{'I'}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00076}00076\ \ \ \ \ which\ \ \ \ \ =\ \textcolor{stringliteral}{'SR'}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00077}00077\ \ \ \ \ ido\ \ \ \ \ \ \ =\ 0}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00078}00078\ \ \ \ \ info\ \ \ \ \ \ =\ 0}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00079}00079\ \ \ \ \ selec\ \ \ \ \ =\ .true.}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{do}\ \textcolor{keywordflow}{while}\ (.true.)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }pznaupd(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ido,\ bmat,\ nloc,\ which,\ nev,\ tol,\ resid,\ ncv,\ \&}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v,\ nloc,\ iparam,\ ipntr,\ workd,\ workl,\ lworkl,\ rwork,\ info)}
 \DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00084}00084\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{do}\ \textcolor{keywordflow}{while}\ (.true.)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }pznaupd(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ ido,\ bmat,\ nloc,\ which,\ nev,\ tol,\ resid,\ ncv,\ \&}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v,\ nloc,\ iparam,\ ipntr,\ workd,\ workl,\ lworkl,\ rwork,\ info)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00088}00088\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ido\ .eq.\ -\/1\ .or.\ ido\ .eq.\ 1)\ \textcolor{keywordflow}{then}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ workd(ipntr(2):ipntr(2)+nloc-\/1)\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ ham,\ \&}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workd(ipntr(1)),\ workd(ipntr(2)))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{EXIT}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00095}00095\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00096}00096\ \textcolor{keywordflow}{\ \ \ \ enddo}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00097}00097\ \ \ \ \ actual\_step\ =\ iparam(3)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00098}00098\ \ \ \ \ nconv\ =\ iparam(5)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00099}00099\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{if}\ (info\ .lt.\ 0)\ \textcolor{keywordflow}{then}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00103}00103\ \ \ \ \ \ \ \ \ rvec\ =\ .true.}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }pzneupd(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ rvec,\ \textcolor{stringliteral}{'A'},\ selec,\ d,\ v,\ nloc,\ sigma,\ workev,\ \&}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bmat,\ nloc,\ which,\ nev,\ tol,\ resid,\ ncv,\ v,\ nloc,\ iparam,\ \&}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ipntr,\ workd,\ workl,\ lworkl,\ rwork,\ info)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (info\ .ne.\ 0)\ \textcolor{keywordflow}{then}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00109}00109\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ sort\ eigenvalues\ to\ ascending\ order}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00111}00111\ \ \ \ \ \ \ \ \ eval\ =\ real(d(1:nev))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,nev}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ sorted\_indx(i)\ =\ i}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ido\ .eq.\ -\/1\ .or.\ ido\ .eq.\ 1)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ workd(ipntr(2):ipntr(2)+nloc-\/1)\ =\ \mbox{\hyperlink{namespacem__constants_a2d801de550bf064793511705fce89567}{czero}}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{spmv_8f90_a47c3d20e0ee5069ec953cf38a88660a9}{pspmv\_csr}}(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ nblock,\ end\_indx,\ needed,\ nloc,\ nloc,\ ham,\ \&}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workd(ipntr(1)),\ workd(ipntr(2)))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{EXIT}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00091}00091\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00092}00092\ \textcolor{keywordflow}{\ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00093}00093\ \ \ \ \ actual\_step\ =\ iparam(3)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00094}00094\ \ \ \ \ nconv\ =\ iparam(5)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{if}\ (info\ .lt.\ 0)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00099}00099\ \ \ \ \ \ \ \ \ rvec\ =\ .true.}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }pzneupd(\mbox{\hyperlink{namespacem__control_a896ab416a37d0aa3ab8bfd65a9a31d8d}{new\_comm}},\ rvec,\ \textcolor{stringliteral}{'A'},\ selec,\ d,\ v,\ nloc,\ sigma,\ workev,\ \&}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bmat,\ nloc,\ which,\ nev,\ tol,\ resid,\ ncv,\ v,\ nloc,\ iparam,\ \&}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ipntr,\ workd,\ workl,\ lworkl,\ rwork,\ info)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (info\ .ne.\ 0)\ \textcolor{keywordflow}{then}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00105}00105\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{!\ sort\ eigenvalues\ to\ ascending\ order}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00107}00107\ \ \ \ \ \ \ \ \ eval\ =\ real(d(1:nev))}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,nev}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ sorted\_indx(i)\ =\ i}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00110}00110\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_af15b4162539239a5bafa53b4ebf64115}{sort\_eigvals}}(nev,\ eval,\ sorted\_indx)}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,n\_vecs}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ evec(:,i)\ =\ v(:,sorted\_indx(i))}
 \DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00114}00114\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{call\ }\mbox{\hyperlink{utils_8f90_af15b4162539239a5bafa53b4ebf64115}{sort\_eigvals}}(nev,\ eval,\ sorted\_indx)}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ i=1,n\_vecs}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ evec(:,i)\ =\ v(:,sorted\_indx(i))}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00118}00118\ \textcolor{keywordflow}{\ \ \ \ \ \ \ \ enddo}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00119}00119\ \textcolor{keywordflow}{\ \ \ \ endif}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00120}00120\ }
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{return}}
-\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00122}00122\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{diag\_ham\_arpack}}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00115}00115\ \textcolor{keywordflow}{\ \ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{arpack_8f90_source_l00118}00118\ \textcolor{keyword}{end\ subroutine\ }\mbox{\hyperlink{arpack_8f90_a51fff9de16f75ce1a28a479784615222}{diag\_ham\_arpack}}}
 
 \end{DoxyCode}

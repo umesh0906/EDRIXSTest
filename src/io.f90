@@ -1,4 +1,7 @@
-!!>>> read control parameters
+!> config: Reads control parameters from config.in file on master node and broadcastes it to all nodes
+!! read_hopping_i: Reads the hopping matrix from hopping_i.in file
+!! read_coulomb_i: Reads the coulumb matrix from hopping_i.in file
+
 subroutine config()
     use m_constants, only: mystd, mytmp
     use m_control
@@ -7,7 +10,7 @@ subroutine config()
     implicit none
 
     logical :: exists
-    integer :: ierror 
+    integer :: ierror
 
     namelist /control/ ed_solver, num_val_orbs, num_core_orbs, neval, nvector, &
                        idump, num_gs, maxiter, linsys_max, min_ndim, ncv, &
@@ -39,8 +42,8 @@ subroutine config()
     endif
 
     if (origin_myid == master) then
-        open(mytmp, file='config.in')            
-        read(mytmp, NML=control) 
+        open(mytmp, file='config.in')
+        read(mytmp, NML=control)
         close(mytmp)
     endif
 
@@ -94,12 +97,12 @@ subroutine read_hopping_i()
         call alloc_hopping_i()
         do num=1,nhopp_i
             read(mytmp, *) i, j, rdum1, rdum2
-            hopping_i(num)%ind1 = i 
-            hopping_i(num)%ind2 = j 
+            hopping_i(num)%ind1 = i
+            hopping_i(num)%ind2 = j
             hopping_i(num)%val  = dcmplx(rdum1, rdum2)
         enddo
         close(mytmp)
-    endif 
+    endif
 
     call MPI_BCAST(nhopp_i,  1, MPI_INTEGER,  master, new_comm, ierror)
     if (myid /= master) then
@@ -140,7 +143,7 @@ subroutine read_coulomb_i()
 
     if (myid == master) then
         open(mytmp, file="coulomb_i.in")
-        read(mytmp, *) ncoul_i 
+        read(mytmp, *) ncoul_i
         call alloc_coulomb_i()
         do num=1,ncoul_i
             read(mytmp, *) i, j, k, l, rdum1, rdum2
@@ -151,7 +154,7 @@ subroutine read_coulomb_i()
             coulomb_i(num)%val  = dcmplx(rdum1, rdum2)
         enddo
         close(mytmp)
-    endif 
+    endif
 
     call MPI_BCAST(ncoul_i, 1, MPI_INTEGER, master, new_comm, ierror)
     if (myid /= master) then
@@ -227,12 +230,12 @@ subroutine read_hopping_n()
         call alloc_hopping_n()
         do num=1,nhopp_n
             read(mytmp, *) i, j, rdum1, rdum2
-            hopping_n(num)%ind1 = i 
-            hopping_n(num)%ind2 = j 
+            hopping_n(num)%ind1 = i
+            hopping_n(num)%ind2 = j
             hopping_n(num)%val  = dcmplx(rdum1, rdum2)
         enddo
         close(mytmp)
-    endif 
+    endif
 
     call MPI_BCAST(nhopp_n, 1, MPI_INTEGER, master, new_comm, ierror)
     if (myid /= master) then
@@ -284,7 +287,7 @@ subroutine read_coulomb_n()
             coulomb_n(num)%val  = dcmplx(rdum1, rdum2)
         enddo
         close(mytmp)
-    endif 
+    endif
 
     call MPI_BCAST(ncoul_n, 1, MPI_INTEGER, master, new_comm, ierror)
     if (myid /= master) then
@@ -360,7 +363,7 @@ subroutine read_fock_f()
     return
 end subroutine read_fock_f
 
-!! read transition operators for XAS 
+!! read transition operators for XAS
 subroutine read_transop_xas()
     use m_constants, only: dp, mystd, mytmp
     use m_control,   only: myid, master, new_comm, ntran_xas
@@ -388,12 +391,12 @@ subroutine read_transop_xas()
         call alloc_transop_xas()
         do num=1,ntran_xas
             read(mytmp, *) i, j, rdum1, rdum2
-            transop_xas(num)%ind1 = i 
-            transop_xas(num)%ind2 = j 
+            transop_xas(num)%ind1 = i
+            transop_xas(num)%ind2 = j
             transop_xas(num)%val  = dcmplx(rdum1, rdum2)
         enddo
         close(mytmp)
-    endif 
+    endif
 
     call MPI_BCAST(ntran_xas, 1, MPI_INTEGER, master, new_comm, ierror)
     if (myid /= master) then
@@ -439,12 +442,12 @@ subroutine read_transop_rixs_i()
         call alloc_transop_rixs_i()
         do num=1,ntran_rixs_i
             read(mytmp, *) i, j, rdum1, rdum2
-            transop_rixs_i(num)%ind1 = i 
-            transop_rixs_i(num)%ind2 = j 
+            transop_rixs_i(num)%ind1 = i
+            transop_rixs_i(num)%ind2 = j
             transop_rixs_i(num)%val  = dcmplx(rdum1, rdum2)
         enddo
         close(mytmp)
-    endif 
+    endif
 
     call MPI_BCAST(ntran_rixs_i, 1, MPI_INTEGER, master, new_comm, ierror)
     if (myid /= master) then
@@ -489,12 +492,12 @@ subroutine read_transop_rixs_f()
         call alloc_transop_rixs_f()
         do num=1,ntran_rixs_f
             read(mytmp, *) i, j, rdum1, rdum2
-            transop_rixs_f(num)%ind1 = i 
-            transop_rixs_f(num)%ind2 = j 
+            transop_rixs_f(num)%ind1 = i
+            transop_rixs_f(num)%ind2 = j
             transop_rixs_f(num)%val  = dcmplx(rdum1, rdum2)
         enddo
         close(mytmp)
-    endif 
+    endif
 
     call MPI_BCAST(ntran_rixs_f, 1, MPI_INTEGER, master, new_comm, ierror)
     if (myid /= master) then
@@ -511,7 +514,7 @@ subroutine read_transop_rixs_f()
     return
 end subroutine read_transop_rixs_f
 
-!! write poles 
+!! write poles
 subroutine write_krylov(fname, neff, alpha, beta, norm, e_gs)
     use m_constants, only: dp, mytmp
     use m_control,   only: myid, master
@@ -537,7 +540,7 @@ subroutine write_krylov(fname, neff, alpha, beta, norm, e_gs)
         enddo
         close(mytmp)
     endif
-    
+
 end subroutine write_krylov
 
 !! write eigenvectors
@@ -555,7 +558,7 @@ subroutine write_eigvecs(fname, nloc, eigvec, eigval)
     write(mytmp) eigval
     write(mytmp) eigvec
     close(mytmp)
- 
+
     return
 end subroutine write_eigvecs
 
@@ -577,7 +580,7 @@ subroutine read_eigvecs(fname, nloc, eigvec, eigval)
 
     open(file_id, file=fname, form="unformatted")
     read(file_id) eigval
-    read(file_id) eigvec 
+    read(file_id) eigvec
     close(file_id)
 
     return
@@ -599,7 +602,7 @@ subroutine write_lowest_eigvals(n, eigval)
         open(mytmp, file="eigvals.dat")
         do i=1,n
             write(mytmp, "(i5, f20.10)") i, eigval(i)
-        enddo 
+        enddo
         close(mytmp)
     endif
 
@@ -627,7 +630,7 @@ subroutine write_denmat(n, num_orbs, denmat)
                     write(mytmp, "(3i5, 2f20.10)") i, j, k, real(denmat(j, k,i)), aimag(denmat(j,k,i))
                 enddo
             enddo
-        enddo 
+        enddo
         close(mytmp)
     endif
 
@@ -651,11 +654,9 @@ subroutine write_opavg(n, eval, opavg)
         open(mytmp, file="opavg.dat")
         do i=1,n
             write(mytmp, "(1i5, 4f20.10)") i, eval(i), real(opavg(i)), aimag(opavg(i))
-        enddo 
+        enddo
         close(mytmp)
     endif
 
     return
 end subroutine write_opavg
-
-

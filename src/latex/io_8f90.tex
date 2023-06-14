@@ -1,10 +1,10 @@
-\hypertarget{io_8f90}{}\doxysection{io.\+f90 File Reference}
-\label{io_8f90}\index{io.f90@{io.f90}}
-\doxysubsection*{Functions/\+Subroutines}
+\doxysection{io.\+f90 File Reference}
+\hypertarget{io_8f90}{}\label{io_8f90}\index{io.f90@{io.f90}}
+\doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
 subroutine \mbox{\hyperlink{io_8f90_ad477686ee760c61aabf02b2a025d1c00}{config}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em config\+: Reads control parameters from config.\+in file on master node and broadcastes it to all nodes read\+\_\+hopping\+\_\+i\+: Reads the hopping matrix from hopping\+\_\+i.\+in file read\+\_\+coulomb\+\_\+i\+: Reads the coulumb matrix from hopping\+\_\+i.\+in file \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{io_8f90_abdc5dadebaaded05442bd0ffb35f7de7}{read\+\_\+hopping\+\_\+i}} ()
 \item 
 subroutine \mbox{\hyperlink{io_8f90_a0eeff768f4dfe8cf4113222bd7d15fce}{read\+\_\+coulomb\+\_\+i}} ()
@@ -40,7 +40,7 @@ subroutine \mbox{\hyperlink{io_8f90_aa625eb6d922d0ee0a6ee6a7fcee5cbcf}{write\+\_
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
-\mbox{\Hypertarget{io_8f90_ad477686ee760c61aabf02b2a025d1c00}\label{io_8f90_ad477686ee760c61aabf02b2a025d1c00}} 
+\Hypertarget{io_8f90_ad477686ee760c61aabf02b2a025d1c00}\label{io_8f90_ad477686ee760c61aabf02b2a025d1c00} 
 \index{io.f90@{io.f90}!config@{config}}
 \index{config@{config}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{config()}{config()}}
@@ -48,9 +48,13 @@ subroutine \mbox{\hyperlink{io_8f90_aa625eb6d922d0ee0a6ee6a7fcee5cbcf}{write\+\_
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00002}{2}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+config\+: Reads control parameters from config.\+in file on master node and broadcastes it to all nodes read\+\_\+hopping\+\_\+i\+: Reads the hopping matrix from hopping\+\_\+i.\+in file read\+\_\+coulomb\+\_\+i\+: Reads the coulumb matrix from hopping\+\_\+i.\+in file 
 
-\mbox{\Hypertarget{io_8f90_a0eeff768f4dfe8cf4113222bd7d15fce}\label{io_8f90_a0eeff768f4dfe8cf4113222bd7d15fce}} 
+
+
+Definition at line \mbox{\hyperlink{io_8f90_source_l00005}{5}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+
+\Hypertarget{io_8f90_a0eeff768f4dfe8cf4113222bd7d15fce}\label{io_8f90_a0eeff768f4dfe8cf4113222bd7d15fce} 
 \index{io.f90@{io.f90}!read\_coulomb\_i@{read\_coulomb\_i}}
 \index{read\_coulomb\_i@{read\_coulomb\_i}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_coulomb\_i()}{read\_coulomb\_i()}}
@@ -58,9 +62,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00002}{2}} of file \mbox{\hy
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00120}{120}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00123}{123}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_afda8c0cc367918a8d7321075b0970f87}\label{io_8f90_afda8c0cc367918a8d7321075b0970f87}} 
+\Hypertarget{io_8f90_afda8c0cc367918a8d7321075b0970f87}\label{io_8f90_afda8c0cc367918a8d7321075b0970f87} 
 \index{io.f90@{io.f90}!read\_coulomb\_n@{read\_coulomb\_n}}
 \index{read\_coulomb\_n@{read\_coulomb\_n}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_coulomb\_n()}{read\_coulomb\_n()}}
@@ -68,19 +72,19 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00120}{120}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00253}{253}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00256}{256}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_aba78b721f1743094eb7b745ac244df1c}\label{io_8f90_aba78b721f1743094eb7b745ac244df1c}} 
+\Hypertarget{io_8f90_aba78b721f1743094eb7b745ac244df1c}\label{io_8f90_aba78b721f1743094eb7b745ac244df1c} 
 \index{io.f90@{io.f90}!read\_eigvecs@{read\_eigvecs}}
 \index{read\_eigvecs@{read\_eigvecs}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_eigvecs()}{read\_eigvecs()}}
-{\footnotesize\ttfamily subroutine read\+\_\+eigvecs (\begin{DoxyParamCaption}\item[{character($\ast$), intent(in)}]{fname,  }\item[{integer, intent(in)}]{nloc,  }\item[{complex(dp), dimension(nloc), intent(out)}]{eigvec,  }\item[{real(dp), intent(out)}]{eigval }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily subroutine read\+\_\+eigvecs (\begin{DoxyParamCaption}\item[{character(\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{integer, intent(in)}]{nloc,  }\item[{complex(dp), dimension(nloc), intent(out)}]{eigvec,  }\item[{real(dp), intent(out)}]{eigval }\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00563}{563}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00566}{566}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a6aaa81cf42e896f7ec7f5496915398ab}\label{io_8f90_a6aaa81cf42e896f7ec7f5496915398ab}} 
+\Hypertarget{io_8f90_a6aaa81cf42e896f7ec7f5496915398ab}\label{io_8f90_a6aaa81cf42e896f7ec7f5496915398ab} 
 \index{io.f90@{io.f90}!read\_fock\_f@{read\_fock\_f}}
 \index{read\_fock\_f@{read\_fock\_f}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_fock\_f()}{read\_fock\_f()}}
@@ -88,9 +92,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00563}{563}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00336}{336}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00339}{339}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a7db27cecc3aca80ca299aea361410c2b}\label{io_8f90_a7db27cecc3aca80ca299aea361410c2b}} 
+\Hypertarget{io_8f90_a7db27cecc3aca80ca299aea361410c2b}\label{io_8f90_a7db27cecc3aca80ca299aea361410c2b} 
 \index{io.f90@{io.f90}!read\_fock\_i@{read\_fock\_i}}
 \index{read\_fock\_i@{read\_fock\_i}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_fock\_i()}{read\_fock\_i()}}
@@ -98,9 +102,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00336}{336}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00174}{174}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00177}{177}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}\label{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}} 
+\Hypertarget{io_8f90_a2596935d9f7a93dafcd2a099a55d6271}\label{io_8f90_a2596935d9f7a93dafcd2a099a55d6271} 
 \index{io.f90@{io.f90}!read\_fock\_n@{read\_fock\_n}}
 \index{read\_fock\_n@{read\_fock\_n}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_fock\_n()}{read\_fock\_n()}}
@@ -108,9 +112,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00174}{174}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00308}{308}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00311}{311}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_abdc5dadebaaded05442bd0ffb35f7de7}\label{io_8f90_abdc5dadebaaded05442bd0ffb35f7de7}} 
+\Hypertarget{io_8f90_abdc5dadebaaded05442bd0ffb35f7de7}\label{io_8f90_abdc5dadebaaded05442bd0ffb35f7de7} 
 \index{io.f90@{io.f90}!read\_hopping\_i@{read\_hopping\_i}}
 \index{read\_hopping\_i@{read\_hopping\_i}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_hopping\_i()}{read\_hopping\_i()}}
@@ -118,9 +122,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00308}{308}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00070}{70}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00073}{73}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_acaf8099af1508186dbab2ea9b42d79bc}\label{io_8f90_acaf8099af1508186dbab2ea9b42d79bc}} 
+\Hypertarget{io_8f90_acaf8099af1508186dbab2ea9b42d79bc}\label{io_8f90_acaf8099af1508186dbab2ea9b42d79bc} 
 \index{io.f90@{io.f90}!read\_hopping\_n@{read\_hopping\_n}}
 \index{read\_hopping\_n@{read\_hopping\_n}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_hopping\_n()}{read\_hopping\_n()}}
@@ -128,9 +132,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00070}{70}} of file \mbox{\h
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00202}{202}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00205}{205}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a1722f90395fc2b381ee2fa0394c9cd09}\label{io_8f90_a1722f90395fc2b381ee2fa0394c9cd09}} 
+\Hypertarget{io_8f90_a1722f90395fc2b381ee2fa0394c9cd09}\label{io_8f90_a1722f90395fc2b381ee2fa0394c9cd09} 
 \index{io.f90@{io.f90}!read\_transop\_rixs\_f@{read\_transop\_rixs\_f}}
 \index{read\_transop\_rixs\_f@{read\_transop\_rixs\_f}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_transop\_rixs\_f()}{read\_transop\_rixs\_f()}}
@@ -138,9 +142,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00202}{202}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00465}{465}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00468}{468}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a0b349b52e168f3b1e18cbc1db8f52609}\label{io_8f90_a0b349b52e168f3b1e18cbc1db8f52609}} 
+\Hypertarget{io_8f90_a0b349b52e168f3b1e18cbc1db8f52609}\label{io_8f90_a0b349b52e168f3b1e18cbc1db8f52609} 
 \index{io.f90@{io.f90}!read\_transop\_rixs\_i@{read\_transop\_rixs\_i}}
 \index{read\_transop\_rixs\_i@{read\_transop\_rixs\_i}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_transop\_rixs\_i()}{read\_transop\_rixs\_i()}}
@@ -148,9 +152,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00465}{465}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00414}{414}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00417}{417}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a021d6d1122d54b1b03161a452c6fc0b4}\label{io_8f90_a021d6d1122d54b1b03161a452c6fc0b4}} 
+\Hypertarget{io_8f90_a021d6d1122d54b1b03161a452c6fc0b4}\label{io_8f90_a021d6d1122d54b1b03161a452c6fc0b4} 
 \index{io.f90@{io.f90}!read\_transop\_xas@{read\_transop\_xas}}
 \index{read\_transop\_xas@{read\_transop\_xas}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{read\_transop\_xas()}{read\_transop\_xas()}}
@@ -158,9 +162,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00414}{414}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00364}{364}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00367}{367}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_ac8b1106484d79ae26f519f98da975de4}\label{io_8f90_ac8b1106484d79ae26f519f98da975de4}} 
+\Hypertarget{io_8f90_ac8b1106484d79ae26f519f98da975de4}\label{io_8f90_ac8b1106484d79ae26f519f98da975de4} 
 \index{io.f90@{io.f90}!write\_denmat@{write\_denmat}}
 \index{write\_denmat@{write\_denmat}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{write\_denmat()}{write\_denmat()}}
@@ -168,29 +172,29 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00364}{364}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00610}{610}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00613}{613}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a072c1ed8260e7c0797fa4b7e8aa2818d}\label{io_8f90_a072c1ed8260e7c0797fa4b7e8aa2818d}} 
+\Hypertarget{io_8f90_a072c1ed8260e7c0797fa4b7e8aa2818d}\label{io_8f90_a072c1ed8260e7c0797fa4b7e8aa2818d} 
 \index{io.f90@{io.f90}!write\_eigvecs@{write\_eigvecs}}
 \index{write\_eigvecs@{write\_eigvecs}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{write\_eigvecs()}{write\_eigvecs()}}
-{\footnotesize\ttfamily subroutine write\+\_\+eigvecs (\begin{DoxyParamCaption}\item[{character($\ast$), intent(in)}]{fname,  }\item[{integer, intent(in)}]{nloc,  }\item[{complex(dp), dimension(nloc), intent(in)}]{eigvec,  }\item[{real(dp), intent(in)}]{eigval }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily subroutine write\+\_\+eigvecs (\begin{DoxyParamCaption}\item[{character(\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{integer, intent(in)}]{nloc,  }\item[{complex(dp), dimension(nloc), intent(in)}]{eigvec,  }\item[{real(dp), intent(in)}]{eigval }\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00544}{544}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00547}{547}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_ab2341c20b18a0a661d6e8f358d4f1be8}\label{io_8f90_ab2341c20b18a0a661d6e8f358d4f1be8}} 
+\Hypertarget{io_8f90_ab2341c20b18a0a661d6e8f358d4f1be8}\label{io_8f90_ab2341c20b18a0a661d6e8f358d4f1be8} 
 \index{io.f90@{io.f90}!write\_krylov@{write\_krylov}}
 \index{write\_krylov@{write\_krylov}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{write\_krylov()}{write\_krylov()}}
-{\footnotesize\ttfamily subroutine write\+\_\+krylov (\begin{DoxyParamCaption}\item[{character($\ast$), intent(in)}]{fname,  }\item[{integer, intent(in)}]{neff,  }\item[{real(dp), dimension(neff), intent(in)}]{alpha,  }\item[{real(dp), dimension(neff), intent(in)}]{beta,  }\item[{real(dp), intent(in)}]{norm,  }\item[{real(dp), intent(in)}]{e\+\_\+gs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily subroutine write\+\_\+krylov (\begin{DoxyParamCaption}\item[{character(\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{integer, intent(in)}]{neff,  }\item[{real(dp), dimension(neff), intent(in)}]{alpha,  }\item[{real(dp), dimension(neff), intent(in)}]{beta,  }\item[{real(dp), intent(in)}]{norm,  }\item[{real(dp), intent(in)}]{e\+\_\+gs }\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00515}{515}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00518}{518}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_a64795979090e27f2d26d9a2ccdd08d5e}\label{io_8f90_a64795979090e27f2d26d9a2ccdd08d5e}} 
+\Hypertarget{io_8f90_a64795979090e27f2d26d9a2ccdd08d5e}\label{io_8f90_a64795979090e27f2d26d9a2ccdd08d5e} 
 \index{io.f90@{io.f90}!write\_lowest\_eigvals@{write\_lowest\_eigvals}}
 \index{write\_lowest\_eigvals@{write\_lowest\_eigvals}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{write\_lowest\_eigvals()}{write\_lowest\_eigvals()}}
@@ -198,9 +202,9 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00515}{515}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00587}{587}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00590}{590}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
-\mbox{\Hypertarget{io_8f90_aa625eb6d922d0ee0a6ee6a7fcee5cbcf}\label{io_8f90_aa625eb6d922d0ee0a6ee6a7fcee5cbcf}} 
+\Hypertarget{io_8f90_aa625eb6d922d0ee0a6ee6a7fcee5cbcf}\label{io_8f90_aa625eb6d922d0ee0a6ee6a7fcee5cbcf} 
 \index{io.f90@{io.f90}!write\_opavg@{write\_opavg}}
 \index{write\_opavg@{write\_opavg}!io.f90@{io.f90}}
 \doxysubsubsection{\texorpdfstring{write\_opavg()}{write\_opavg()}}
@@ -208,5 +212,5 @@ Definition at line \mbox{\hyperlink{io_8f90_source_l00587}{587}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{io_8f90_source_l00638}{638}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
+Definition at line \mbox{\hyperlink{io_8f90_source_l00641}{641}} of file \mbox{\hyperlink{io_8f90_source}{io.\+f90}}.
 
