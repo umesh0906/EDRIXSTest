@@ -1,0 +1,27 @@
+<map id="m_types::dealloc_csr" name="m_types::dealloc_csr">
+<area shape="rect" id="Node000001" title=" " alt="" coords="498,179,644,204"/>
+<area shape="rect" id="Node000002" href="$namespacem__global.html#ae85787bd403e20fbfdea52a52ee71bbf" title=" " alt="" coords="271,153,450,179"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="483,184,451,180,451,174,484,178"/>
+<area shape="rect" id="Node000012" href="$namespacem__global.html#a82fd719998c41856086fa0966f45caa8" title=" " alt="" coords="273,203,449,228"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="484,204,450,208,449,203,484,199"/>
+<area shape="rect" id="Node000003" href="$ed__driver_8f90.html#a5706bd8bee60960fe8166de1870e47da" title="This sets up the drive for calling the ED code. ." alt="" coords="145,55,220,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="322,148,206,83,209,79,325,144"/>
+<area shape="rect" id="Node000006" href="$rixs__driver_8f90.html#a0407f8460e22064b14c73e1e55ba0e25" title=" " alt="" coords="142,203,223,228"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="296,186,272,193,224,206,223,201,270,188,295,181"/>
+<area shape="rect" id="Node000009" href="$xas__driver_8f90.html#a71df8d095e50a2a6375ec5ec5e1d9496" title=" " alt="" coords="142,153,223,179"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="256,169,223,169,223,164,256,164"/>
+<area shape="rect" id="Node000004" href="$pyapi_8f90.html#a6444ebf2c39a1bf243da4800825feb06" title=" " alt="" coords="9,5,90,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="131,51,85,34,87,29,133,46"/>
+<area shape="rect" id="Node000005" href="$ed__main_8f90.html#a4d3d4fb36660d909e9dbec9d6bc45282" title=" " alt="" coords="14,55,85,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="130,70,85,70,85,65,130,65"/>
+<area shape="rect" id="Node000007" href="$pyapi_8f90.html#a3d9fb8546dfc91267e37577e19542d2a" title=" " alt="" coords="5,203,94,228"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="127,218,94,218,94,213,127,213"/>
+<area shape="rect" id="Node000008" href="$rixs__main_8f90.html#af9eaaf0df114b46fc68b59f3b5f7cf11" title=" " alt="" coords="11,252,88,278"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="133,237,87,254,85,249,131,232"/>
+<area shape="rect" id="Node000010" href="$pyapi_8f90.html#a6d1d4dfb0bee4d6e0a1210a3b66b94a9" title=" " alt="" coords="5,104,94,130"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="131,150,85,133,87,128,133,145"/>
+<area shape="rect" id="Node000011" href="$xas__main_8f90.html#aa0040a0c9e3b559d002dde0a4c6e5549" title=" " alt="" coords="11,153,88,179"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="127,169,89,169,89,164,127,164"/>
+<area shape="poly" id="edge12_Node000012_Node000006" title=" " alt="" coords="258,218,223,218,223,213,258,213"/>
+<area shape="poly" id="edge13_Node000012_Node000009" title=" " alt="" coords="295,201,270,194,223,180,224,175,272,189,296,196"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="write_opavg" name="write_opavg">
+<area shape="rect" id="Node000001" title=" " alt="" coords="299,31,390,56"/>
+<area shape="rect" id="Node000002" href="$opavg__driver_8f90.html#a78eb6a19f80214256090dd2faed722e4" title=" " alt="" coords="156,31,251,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="284,46,252,46,252,41,284,41"/>
+<area shape="rect" id="Node000003" href="$pyapi_8f90.html#a37097b1e02e2cefce778c2b2e7ee4cf6" title=" " alt="" coords="5,5,108,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="141,35,107,30,108,24,141,30"/>
+<area shape="rect" id="Node000004" href="$opavg__main_8f90.html#abbf195558407b24c27321344b68c87a9" title=" " alt="" coords="11,55,102,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="141,56,103,63,102,57,140,51"/>
+</map>

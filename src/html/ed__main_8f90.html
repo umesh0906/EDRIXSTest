@@ -140,6 +140,91 @@ Functions/Subroutines</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ed__main_8f90_source.html#l00010">10</a> of file <a class="el" href="ed__main_8f90_source.html">ed_main.f90</a>.</p>
 
+<p class="reference">References <a class="el" href="io_8f90_source.html#l00007">config()</a>, <a class="el" href="m__global_8f90_source.html#l00103">m_global::dealloc_fock_i()</a>, <a class="el" href="ed__driver_8f90_source.html#l00023">ed_driver()</a>, <a class="el" href="m__control_8f90_source.html#l00093">m_control::master</a>, <a class="el" href="m__control_8f90_source.html#l00090">m_control::myid</a>, <a class="el" href="m__control_8f90_source.html#l00017">m_control::ndim_i</a>, <a class="el" href="m__control_8f90_source.html#l00096">m_control::new_comm</a>, <a class="el" href="m__control_8f90_source.html#l00086">m_control::nprocs</a>, <a class="el" href="m__control_8f90_source.html#l00097">m_control::origin_comm</a>, <a class="el" href="m__control_8f90_source.html#l00089">m_control::origin_myid</a>, <a class="el" href="m__control_8f90_source.html#l00085">m_control::origin_nprocs</a>, and <a class="el" href="io_8f90_source.html#l00179">read_fock_i()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="ed__main_8f90_a4d3d4fb36660d909e9dbec9d6bc45282_cgraph.png" border="0" usemap="#aed__main_8f90_a4d3d4fb36660d909e9dbec9d6bc45282_cgraph" alt=""/></div>
+<map name="aed__main_8f90_a4d3d4fb36660d909e9dbec9d6bc45282_cgraph" id="aed__main_8f90_a4d3d4fb36660d909e9dbec9d6bc45282_cgraph">
+<area shape="rect" title=" " alt="" coords="5,479,76,504"/>
+<area shape="rect" href="io_8f90.html#ad477686ee760c61aabf02b2a025d1c00" title="config: Reads control parameters from config.in file on master node and broadcastes it to all nodes &#160;..." alt="" coords="133,403,189,428"/>
+<area shape="poly" title=" " alt="" coords="61,476,125,434,128,439,64,481"/>
+<area shape="rect" href="namespacem__global.html#aae0e281be12d46d02c1ffe5a09dff595" title=" " alt="" coords="258,5,422,31"/>
+<area shape="poly" title=" " alt="" coords="75,488,105,484,138,476,170,461,196,439,214,414,225,389,232,364,234,339,229,290,218,241,206,191,202,142,205,116,212,91,225,66,244,40,245,39,249,42,248,44,230,69,217,93,210,118,208,142,212,191,223,240,235,289,239,339,237,365,230,391,218,416,200,443,173,466,140,481,106,489,76,493"/>
+<area shape="rect" href="ed__driver_8f90.html#a5706bd8bee60960fe8166de1870e47da" title="This sets up the drive for calling the ED code. ." alt="" coords="124,504,198,530"/>
+<area shape="poly" title=" " alt="" coords="76,496,109,503,108,509,75,501"/>
+<area shape="rect" href="io_8f90.html#a7db27cecc3aca80ca299aea361410c2b" title=" " alt="" coords="296,1013,384,1039"/>
+<area shape="poly" title=" " alt="" coords="46,504,57,589,70,652,88,723,114,798,149,872,193,941,219,972,248,1000,264,1011,283,1018,281,1023,262,1016,244,1004,215,976,189,944,144,875,109,800,83,725,64,653,52,590,40,505"/>
+<area shape="poly" title=" " alt="" coords="180,502,196,484,208,443,213,389,212,259,212,192,215,130,225,78,233,57,244,41,245,39,249,42,248,44,238,60,230,80,220,131,217,192,217,259,218,389,213,444,200,486,184,505"/>
+<area shape="rect" href="namespacem__global.html#ac486dee39def24accd8484ff5c10f398" title=" " alt="" coords="258,153,423,179"/>
+<area shape="poly" title=" " alt="" coords="180,502,196,483,212,443,217,406,216,371,211,336,208,302,209,268,220,233,244,196,257,185,261,189,248,200,225,235,215,269,213,302,217,336,221,370,223,406,217,445,200,486,184,505"/>
+<area shape="rect" href="utils_8f90.html#a93cc6914826eeda664bc64e4fa9cf5b6" title=" " alt="" coords="518,180,621,206"/>
+<area shape="poly" title=" " alt="" coords="180,502,196,483,210,449,215,417,210,356,208,327,210,298,221,269,244,240,263,228,289,218,357,204,433,196,504,192,504,197,434,201,358,209,291,223,265,233,248,244,226,272,215,299,213,327,215,356,220,417,215,451,200,486,184,505"/>
+<area shape="rect" href="ham_8f90.html#ade3ceb66467698b2fbc3cf275038e65f" title="Using the &#160;table, this generates &#160;in the Fock space. &#160;Generates the transition operators,..." alt="" coords="295,255,385,280"/>
+<area shape="poly" title=" " alt="" coords="179,502,196,483,208,458,213,434,214,388,218,344,227,321,244,298,261,284,280,275,282,280,263,289,248,301,232,324,223,345,220,388,219,434,213,459,200,486,183,505"/>
+<area shape="rect" href="fock_8f90.html#a9289a6cfa0326c767c00a2ebb924e090" title=" " alt="" coords="515,377,624,403"/>
+<area shape="poly" title=" " alt="" coords="179,502,196,483,206,464,211,444,213,408,218,373,228,357,244,341,269,326,292,318,314,315,335,316,381,326,435,341,460,351,483,364,502,370,500,375,481,369,458,356,433,346,379,332,335,321,314,320,293,323,271,331,248,346,232,360,223,375,218,408,216,445,211,465,200,486,183,505"/>
+<area shape="rect" href="namespacem__types.html#a7f3bc30609b2ec6ee3fc6d7a3a773f64" title=" " alt="" coords="271,356,410,382"/>
+<area shape="poly" title=" " alt="" coords="178,502,196,483,210,458,217,435,225,413,244,391,256,383,259,388,248,395,230,416,222,437,215,460,200,486,181,506"/>
+<area shape="rect" href="namespacem__global.html#a203a6977348493152adaff209b7bedf3" title=" " alt="" coords="246,405,434,431"/>
+<area shape="poly" title=" " alt="" coords="175,502,245,440,257,434,259,439,247,444,179,506"/>
+<area shape="rect" href="namespacem__global.html#ae85787bd403e20fbfdea52a52ee71bbf" title=" " alt="" coords="251,455,430,480"/>
+<area shape="poly" title=" " alt="" coords="198,503,245,489,270,482,272,487,247,494,199,508"/>
+<area shape="rect" href="namespacem__global.html#ab7241f1d9a1580a890c29583b227863e" title=" " alt="" coords="248,504,432,530"/>
+<area shape="poly" title=" " alt="" coords="198,514,233,514,233,520,198,520"/>
+<area shape="rect" href="arpack_8f90.html#a51fff9de16f75ce1a28a479784615222" title=" " alt="" coords="279,553,402,579"/>
+<area shape="poly" title=" " alt="" coords="199,526,247,540,272,546,270,552,245,545,198,531"/>
+<area shape="rect" href="namespacem__lanczos.html#aed0cc19d3bbbb20cd6bb7065dd374050" title=" " alt="" coords="266,603,414,644"/>
+<area shape="poly" title=" " alt="" coords="176,528,207,559,247,589,257,594,254,599,245,594,203,563,172,532"/>
+<area shape="rect" href="full__diag_8f90.html#a3435e3ee3d1006ed91bead332444a90a" title=" " alt="" coords="290,668,391,694"/>
+<area shape="poly" title=" " alt="" coords="169,529,196,589,218,624,248,653,276,668,274,673,244,658,214,627,191,592,164,531"/>
+<area shape="rect" href="utils_8f90.html#aa7bc34ed020633677cc319cec33a321d" title=" " alt="" coords="281,717,400,743"/>
+<area shape="poly" title=" " alt="" coords="167,530,174,565,188,612,212,662,229,685,248,704,268,716,265,721,244,708,224,688,208,665,183,614,169,566,161,531"/>
+<area shape="rect" href="utils_8f90.html#ac467c9e327a0a87c986c6edea2e67d0e" title=" " alt="" coords="266,767,415,792"/>
+<area shape="poly" title=" " alt="" coords="165,530,170,573,182,633,207,698,225,728,248,754,254,759,251,763,244,757,221,731,202,701,177,635,164,574,160,530"/>
+<area shape="rect" href="utils_8f90.html#a5256ecd7fc3ffc6268aef71add5dc031" title=" " alt="" coords="291,816,390,842"/>
+<area shape="poly" title=" " alt="" coords="164,530,166,581,176,655,186,695,201,734,221,771,248,803,261,813,277,820,275,824,259,817,244,807,217,774,196,736,181,696,171,656,161,581,159,530"/>
+<area shape="rect" href="io_8f90.html#a0eeff768f4dfe8cf4113222bd7d15fce" title=" " alt="" coords="284,865,396,891"/>
+<area shape="poly" title=" " alt="" coords="166,530,175,598,192,695,217,791,232,828,248,852,272,867,269,872,244,856,227,830,212,792,187,696,170,598,161,531"/>
+<area shape="poly" title=" " alt="" coords="167,530,206,788,230,931,241,979,248,1001,264,1012,282,1019,280,1024,261,1017,244,1004,236,981,225,932,200,789,161,531"/>
+<area shape="rect" href="io_8f90.html#abdc5dadebaaded05442bd0ffb35f7de7" title=" " alt="" coords="286,915,394,940"/>
+<area shape="poly" title=" " alt="" coords="167,529,201,730,226,842,238,881,248,902,273,918,271,922,244,905,233,883,221,843,196,731,162,530"/>
+<area shape="rect" href="io_8f90.html#ac8b1106484d79ae26f519f98da975de4" title=" " alt="" coords="291,964,390,990"/>
+<area shape="poly" title=" " alt="" coords="167,530,200,755,224,882,237,927,248,951,261,961,277,968,275,973,259,966,244,955,232,929,219,884,194,756,161,531"/>
+<area shape="rect" href="io_8f90.html#a072c1ed8260e7c0797fa4b7e8aa2818d" title=" " alt="" coords="290,55,391,80"/>
+<area shape="poly" title=" " alt="" coords="180,502,196,483,208,455,216,428,221,376,216,327,206,280,199,233,198,187,203,163,212,139,225,115,244,90,258,78,274,71,276,76,261,83,248,93,229,117,216,141,208,164,204,187,204,233,212,279,221,326,226,376,221,429,213,457,200,486,184,505"/>
+<area shape="rect" href="io_8f90.html#a64795979090e27f2d26d9a2ccdd08d5e" title=" " alt="" coords="269,104,411,130"/>
+<area shape="poly" title=" " alt="" coords="180,502,196,483,214,435,219,390,215,347,208,305,202,265,203,224,215,182,244,139,254,130,258,134,248,143,220,184,208,224,207,264,213,305,221,346,224,390,219,436,200,486,184,505"/>
+<area shape="rect" href="namespacem__types.html#a6fb75dff3efeb5e521c895f53b6bada8" title=" " alt="" coords="509,131,630,156"/>
+<area shape="poly" title=" " alt="" coords="423,155,494,148,494,154,424,161"/>
+<area shape="poly" title=" " alt="" coords="380,252,433,233,481,214,503,207,505,213,483,219,435,238,382,257"/>
+<area shape="rect" href="namespacem__types.html#afa72812b21ac35564e90fb4e6b6a1823" title=" " alt="" coords="504,279,635,304"/>
+<area shape="poly" title=" " alt="" coords="386,270,489,280,489,286,385,275"/>
+<area shape="rect" href="namespacem__types.html#abd0ca5d73afb35c07d0d4adba445c6e8" title=" " alt="" coords="509,328,630,354"/>
+<area shape="poly" title=" " alt="" coords="382,278,435,297,483,314,505,321,503,326,481,319,433,302,380,283"/>
+<area shape="rect" href="namespacem__types.html#aec8d2008c4e184ec95db90ef2c9b2f36" title=" " alt="" coords="486,229,653,255"/>
+<area shape="poly" title=" " alt="" coords="385,260,471,250,471,256,386,265"/>
+<area shape="poly" title=" " alt="" coords="387,274,412,284,436,297,452,315,460,332,469,348,484,364,502,374,500,379,481,368,464,352,456,334,448,318,433,302,410,288,385,279"/>
+<area shape="rect" href="namespacem__types.html#a42410e788a922622a857175aff3ba80e" title=" " alt="" coords="497,455,642,480"/>
+<area shape="poly" title=" " alt="" coords="430,465,482,465,482,470,430,470"/>
+<area shape="rect" href="spmv_8f90.html#a47c3d20e0ee5069ec953cf38a88660a9" title=" " alt="" coords="527,583,612,608"/>
+<area shape="poly" title=" " alt="" coords="403,571,512,586,512,591,402,577"/>
+<area shape="rect" href="utils_8f90.html#af15b4162539239a5bafa53b4ebf64115" title=" " alt="" coords="524,533,615,559"/>
+<area shape="poly" title=" " alt="" coords="402,558,509,549,509,554,402,563"/>
+<area shape="rect" href="spmv_8f90.html#a11a5912cf5999eee051513ecb31e6196" title=" " alt="" coords="705,583,794,608"/>
+<area shape="poly" title=" " alt="" coords="613,593,690,593,690,598,613,598"/>
+<area shape="poly" title=" " alt="" coords="414,612,512,600,512,605,415,617"/>
+<area shape="rect" href="namespacem__lanczos.html#a7d0da944adb4fd1a2676437f36c9599a" title=" " alt="" coords="490,632,649,658"/>
+<area shape="poly" title=" " alt="" coords="415,628,476,633,475,639,414,633"/>
+<area shape="rect" href="namespacem__global.html#a16a5f8db766c1995922bfc4718da1683" title=" " alt="" coords="482,865,657,891"/>
+<area shape="poly" title=" " alt="" coords="397,876,467,876,467,881,397,881"/>
+<area shape="rect" href="namespacem__global.html#ab9c0c82d9f655338af0b27096d0d5688" title=" " alt="" coords="494,1013,645,1039"/>
+<area shape="poly" title=" " alt="" coords="385,1024,480,1024,480,1029,385,1029"/>
+<area shape="rect" href="namespacem__global.html#a8b989d262fa492de9c94bc56ad2714a3" title=" " alt="" coords="484,915,655,940"/>
+<area shape="poly" title=" " alt="" coords="395,925,469,925,469,930,395,930"/>
+</map>
+</div>
+
 </div>
 </div>
 </div><!-- contents -->
