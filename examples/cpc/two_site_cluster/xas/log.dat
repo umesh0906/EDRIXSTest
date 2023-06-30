@@ -1,0 +1,119 @@
+ ---------------------------
+  fedrixs >>> XAS Begin ... 
+
+
+     num_val_orbs:               12
+     num_core_orbs:              12
+     ndim_i:                    220
+     ndim_n:                    792
+     nhopp_n:                   132
+     ncoul_n:                   760
+     num_gs:                      4
+     nkryl:                     500
+
+  fedrixs >>> For ground state:            1
+     Building transition operator for absorption process ...
+     Done !
+
+     Apply transition operator on the ground state to get intermediate state...
+     Done !
+
+     Build Hamiltonian for intermediate configuration...
+     Allocate memory for ham_csr ...
+     Really building Hamiltonian begin here ...
+     Number of nonzero elements of intermediate Hamiltonian:                 15600
+     Done !
+
+     Building Krylov space for XAS spectrum ...
+     Krylov iteration:     50
+     Krylov iteration:    100
+     Krylov iteration:    150
+     Krylov iteration:    200
+     Krylov iteration:    250
+     Krylov iteration:    300
+     Krylov iteration:    350
+     Krylov iteration:    400
+     Krylov iteration:    450
+     Krylov iteration:    500
+     Done !
+
+  fedrixs >>> For ground state:            2
+     Building transition operator for absorption process ...
+     Done !
+
+     Apply transition operator on the ground state to get intermediate state...
+     Done !
+
+     Build Hamiltonian for intermediate configuration...
+     Allocate memory for ham_csr ...
+     Really building Hamiltonian begin here ...
+     Number of nonzero elements of intermediate Hamiltonian:                 15600
+     Done !
+
+     Building Krylov space for XAS spectrum ...
+     Krylov iteration:     50
+     Krylov iteration:    100
+     Krylov iteration:    150
+     Krylov iteration:    200
+     Krylov iteration:    250
+     Krylov iteration:    300
+     Krylov iteration:    350
+     Krylov iteration:    400
+     Krylov iteration:    450
+     Krylov iteration:    500
+     Done !
+
+  fedrixs >>> For ground state:            3
+     Building transition operator for absorption process ...
+     Done !
+
+     Apply transition operator on the ground state to get intermediate state...
+     Done !
+
+     Build Hamiltonian for intermediate configuration...
+     Allocate memory for ham_csr ...
+     Really building Hamiltonian begin here ...
+     Number of nonzero elements of intermediate Hamiltonian:                 15600
+     Done !
+
+     Building Krylov space for XAS spectrum ...
+     Krylov iteration:     50
+     Krylov iteration:    100
+     Krylov iteration:    150
+     Krylov iteration:    200
+     Krylov iteration:    250
+     Krylov iteration:    300
+     Krylov iteration:    350
+     Krylov iteration:    400
+     Krylov iteration:    450
+     Krylov iteration:    500
+     Done !
+
+  fedrixs >>> For ground state:            4
+     Building transition operator for absorption process ...
+     Done !
+
+     Apply transition operator on the ground state to get intermediate state...
+     Done !
+
+     Build Hamiltonian for intermediate configuration...
+     Allocate memory for ham_csr ...
+     Really building Hamiltonian begin here ...
+     Number of nonzero elements of intermediate Hamiltonian:                 15600
+     Done !
+
+     Building Krylov space for XAS spectrum ...
+     Krylov iteration:     50
+     Krylov iteration:    100
+     Krylov iteration:    150
+     Krylov iteration:    200
+     Krylov iteration:    250
+     Krylov iteration:    300
+     Krylov iteration:    350
+     Krylov iteration:    400
+     Krylov iteration:    450
+     Krylov iteration:    500
+     Done !
+
+
+  fedrixs >>> XAS End !

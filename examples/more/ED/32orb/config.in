@@ -1,0 +1,9 @@
+&control
+ed_solver    = 0
+num_val_orbs = 2
+neval        = 2
+nvector      = 2
+maxiter      = 500
+eigval_tol   = 1E-10
+idump        = .true.
+&end

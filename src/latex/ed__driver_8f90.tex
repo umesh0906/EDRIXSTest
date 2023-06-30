@@ -4,13 +4,8 @@
 \begin{DoxyCompactItemize}
 \item 
 subroutine \mbox{\hyperlink{ed__driver_8f90_a5706bd8bee60960fe8166de1870e47da}{ed\+\_\+driver}} ()
-\begin{DoxyCompactList}\small\item\em This sets up the drive for call the ED code ~\newline
- Reads $\langle s|H_T |s\rangle $, $\langle s|H_C |s\rangle $ and $|s\rangle $ from \doxylink{io_8f90}{io.\+f90} file ~\newline
-~\newline
- Calls ED solver\+: ~\newline
- ed\+\_\+solver = 0 \+: full ED using \doxylink{full__diag_8f90}{full\+\_\+diag.\+f90} ~\newline
- ed\+\_\+solver = 1 \+: Lanczos from anczos.\+f90 ~\newline
- ed\+\_\+solver==2 \+: Arpack from \doxylink{arpack_8f90}{arpack.\+f90}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em This sets up the drive for calling the ED code.~\newline
+. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
@@ -22,15 +17,30 @@ subroutine \mbox{\hyperlink{ed__driver_8f90_a5706bd8bee60960fe8166de1870e47da}{e
 
 
 
-This sets up the drive for call the ED code ~\newline
- Reads $\langle s|H_T |s\rangle $, $\langle s|H_C |s\rangle $ and $|s\rangle $ from \doxylink{io_8f90}{io.\+f90} file ~\newline
+This sets up the drive for calling the ED code.~\newline
+. 
+
+Here we initialiaze a few definition used in the work for for a cluster\+:~\newline
+ $ s_i $\+: Index for site $-i$ ~\newline
+ $| F \rangle = \Pi_i |s_i\rangle $\+: Fock state configuration ~\newline
+ $ | F \rangle = \{| F_n \rangle  \}$\+: Fock space ~\newline
+ $ H = H^T + H^C $\+: Hamiltonian ~\newline
+ $ N $\+: Size of Fock space = Dimention of $H$ ~\newline
+ ~\newline
+ $ h_{ij}^T, h_{ij}^C$ \+: Hopping table, Coulomb table~\newline
+ Read $\langle s_j|h_{ij}^T |s_i\rangle $, $\langle s_j |h_{ij}^C |s_i\rangle $ and $|F\rangle $ from \doxylink{io_8f90}{io.\+f90} file ~\newline
+ Build $ H $ by calling build\+\_\+ham\+\_\+i from \doxylink{ham_8f90}{ham.\+f90} ~\newline
 ~\newline
  Calls ED solver\+: ~\newline
  ed\+\_\+solver = 0 \+: full ED using \doxylink{full__diag_8f90}{full\+\_\+diag.\+f90} ~\newline
  ed\+\_\+solver = 1 \+: Lanczos from anczos.\+f90 ~\newline
- ed\+\_\+solver==2 \+: Arpack from \doxylink{arpack_8f90}{arpack.\+f90}. 
+ ed\+\_\+solver = 2 \+: Arpack from \doxylink{arpack_8f90}{arpack.\+f90} ~\newline
+ ~\newline
+ $E_i$; Eigenvalue with index-\/ $i$ ~\newline
+ $|V_i\rangle = \sum_n a_n^i |F_n\rangle $ \+: Eigenvector with index-\/ $i$ ~\newline
+ ~\newline
+ Evaluate Density Matrix given by\+: ~\newline
+ $ M_{ij} = |s_i\rangle \langle s_| KK   x  $ 
 
-
-
-Definition at line \mbox{\hyperlink{ed__driver_8f90_source_l00007}{7}} of file \mbox{\hyperlink{ed__driver_8f90_source}{ed\+\_\+driver.\+f90}}.
+Definition at line \mbox{\hyperlink{ed__driver_8f90_source_l00022}{22}} of file \mbox{\hyperlink{ed__driver_8f90_source}{ed\+\_\+driver.\+f90}}.
 

@@ -1,0 +1,36 @@
+ --------------------------------------------
+  fedrixs >>> ED begin ... 
+
+  fedrixs >>> ndim_i:         220  is smaller than min_ndim:        1000
+  fedrixs >>> set ed_solver = 0, use full-diagonalization !
+
+     num_val_orbs:               12
+     ed_solver:                   0
+     neval:                     220
+     nvector:                     4
+     maxiter:                   500
+     min_ndim:                 1000
+     ncv:                         3
+     nhopp_i:                   112
+     ncoul_i:                   152
+     ndim_i:                    220
+     nprocs:                      4
+     eigval_tol:           0.10E-07
+     idump:                       T
+
+  fedrixs >>> Build Hamiltonian ...
+     Allocate memory for ham_csr ...
+     Really building Hamiltonian begin here ...
+  fedrixs >>> Number of nonzero elements of the Hamiltonian                 5060
+  fedrixs >>> Done ! Time used:    2.8279999999999972E-003   seconds
+
+  fedrixs >>> Diagonalize Hamiltonian to find a few lowest states ...
+
+
+  fedrixs >>> Done ! Time used:   0.24793399999999999        seconds
+
+  fedrixs >>> Calculate the density matrix ... 
+  fedrixs >>> Done ! Time used:    1.2649999999999995E-002   seconds
+
+  fedrixs >>> ED end ! Total time used:   0.26341199999999992        seconds
+

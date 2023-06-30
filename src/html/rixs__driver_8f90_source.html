@@ -7,8 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Fotran EDRIXS: rixs_driver.f90 Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -27,18 +32,19 @@ MathJax.Hub.Config({
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
-  <td id="projectlogo"><img alt="Logo" src="physlogo-2.gif"/></td>
   <td id="projectalign">
    <div id="projectname">Fotran EDRIXS
    </div>
    <div id="projectbrief">We provide the basic structure of the code</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
           <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
           <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
@@ -49,8 +55,7 @@ MathJax.Hub.Config({
             <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
           </span>
         </div>
-</td>
- </tr>
+</td></tr>
  </tbody>
 </table>
 </div>
@@ -62,6 +67,21 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 /* @license-end */
 </script>
 </div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('rixs__driver_8f90_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -333,21 +353,21 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keywordflow">return</span></div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="keyword">end subroutine </span><a class="code hl_function" href="rixs__driver_8f90.html#a0407f8460e22064b14c73e1e55ba0e25">rixs_driver</a></div>
-<div class="ttc" id="aham_8f90_html_a9e67524f01add50c128fa9f094d32588"><div class="ttname"><a href="ham_8f90.html#a9e67524f01add50c128fa9f094d32588">build_transop_f</a></div><div class="ttdeci">subroutine build_transop_f(mcfgs, ncfgs, fock_left, fock_right, num_val_orbs, num_core_orbs, nblock, end_indx, ntran, transop, tran_csr)</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00915">ham.f90:917</a></div></div>
-<div class="ttc" id="aham_8f90_html_ab9e8d106f98346d29b99dbbded25d8d5"><div class="ttname"><a href="ham_8f90.html#ab9e8d106f98346d29b99dbbded25d8d5">build_ham_n</a></div><div class="ttdeci">subroutine build_ham_n(ncfgs, fock, num_val_orbs, num_core_orbs, nblock, end_indx, nhopp, hopping, ncoul, coulomb, omega, ham_sign, ham_csr)</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00352">ham.f90:354</a></div></div>
-<div class="ttc" id="aham_8f90_html_adb706c43859bdda6ff6a47fd83edbb1c"><div class="ttname"><a href="ham_8f90.html#adb706c43859bdda6ff6a47fd83edbb1c">build_transop_i</a></div><div class="ttdeci">subroutine build_transop_i(mcfgs, ncfgs, fock_left, fock_right, num_val_orbs, num_core_orbs, nblock, end_indx, ntran, transop, tran_csr)</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00714">ham.f90:716</a></div></div>
-<div class="ttc" id="aham_8f90_html_ade3ceb66467698b2fbc3cf275038e65f"><div class="ttname"><a href="ham_8f90.html#ade3ceb66467698b2fbc3cf275038e65f">build_ham_i</a></div><div class="ttdeci">subroutine build_ham_i(ncfgs, fock, nblock, end_indx, nhopp, hopping, ncoul, coulomb, omega, ham_sign, ham_csr)</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00002">ham.f90:4</a></div></div>
-<div class="ttc" id="aio_8f90_html_a0b349b52e168f3b1e18cbc1db8f52609"><div class="ttname"><a href="io_8f90.html#a0b349b52e168f3b1e18cbc1db8f52609">read_transop_rixs_i</a></div><div class="ttdeci">subroutine read_transop_rixs_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00417">io.f90:418</a></div></div>
-<div class="ttc" id="aio_8f90_html_a0eeff768f4dfe8cf4113222bd7d15fce"><div class="ttname"><a href="io_8f90.html#a0eeff768f4dfe8cf4113222bd7d15fce">read_coulomb_i</a></div><div class="ttdeci">subroutine read_coulomb_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00123">io.f90:124</a></div></div>
-<div class="ttc" id="aio_8f90_html_a1722f90395fc2b381ee2fa0394c9cd09"><div class="ttname"><a href="io_8f90.html#a1722f90395fc2b381ee2fa0394c9cd09">read_transop_rixs_f</a></div><div class="ttdeci">subroutine read_transop_rixs_f()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00468">io.f90:469</a></div></div>
-<div class="ttc" id="aio_8f90_html_a2596935d9f7a93dafcd2a099a55d6271"><div class="ttname"><a href="io_8f90.html#a2596935d9f7a93dafcd2a099a55d6271">read_fock_n</a></div><div class="ttdeci">subroutine read_fock_n()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00311">io.f90:312</a></div></div>
-<div class="ttc" id="aio_8f90_html_a6aaa81cf42e896f7ec7f5496915398ab"><div class="ttname"><a href="io_8f90.html#a6aaa81cf42e896f7ec7f5496915398ab">read_fock_f</a></div><div class="ttdeci">subroutine read_fock_f()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00339">io.f90:340</a></div></div>
-<div class="ttc" id="aio_8f90_html_a7db27cecc3aca80ca299aea361410c2b"><div class="ttname"><a href="io_8f90.html#a7db27cecc3aca80ca299aea361410c2b">read_fock_i</a></div><div class="ttdeci">subroutine read_fock_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00177">io.f90:178</a></div></div>
-<div class="ttc" id="aio_8f90_html_ab2341c20b18a0a661d6e8f358d4f1be8"><div class="ttname"><a href="io_8f90.html#ab2341c20b18a0a661d6e8f358d4f1be8">write_krylov</a></div><div class="ttdeci">subroutine write_krylov(fname, neff, alpha, beta, norm, e_gs)</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00518">io.f90:519</a></div></div>
-<div class="ttc" id="aio_8f90_html_aba78b721f1743094eb7b745ac244df1c"><div class="ttname"><a href="io_8f90.html#aba78b721f1743094eb7b745ac244df1c">read_eigvecs</a></div><div class="ttdeci">subroutine read_eigvecs(fname, nloc, eigvec, eigval)</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00566">io.f90:567</a></div></div>
-<div class="ttc" id="aio_8f90_html_abdc5dadebaaded05442bd0ffb35f7de7"><div class="ttname"><a href="io_8f90.html#abdc5dadebaaded05442bd0ffb35f7de7">read_hopping_i</a></div><div class="ttdeci">subroutine read_hopping_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00073">io.f90:74</a></div></div>
-<div class="ttc" id="aio_8f90_html_acaf8099af1508186dbab2ea9b42d79bc"><div class="ttname"><a href="io_8f90.html#acaf8099af1508186dbab2ea9b42d79bc">read_hopping_n</a></div><div class="ttdeci">subroutine read_hopping_n()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00205">io.f90:206</a></div></div>
-<div class="ttc" id="aio_8f90_html_afda8c0cc367918a8d7321075b0970f87"><div class="ttname"><a href="io_8f90.html#afda8c0cc367918a8d7321075b0970f87">read_coulomb_n</a></div><div class="ttdeci">subroutine read_coulomb_n()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00256">io.f90:257</a></div></div>
+<div class="ttc" id="aham_8f90_html_a9e67524f01add50c128fa9f094d32588"><div class="ttname"><a href="ham_8f90.html#a9e67524f01add50c128fa9f094d32588">build_transop_f</a></div><div class="ttdeci">subroutine build_transop_f(mcfgs, ncfgs, fock_left, fock_right, num_val_orbs, num_core_orbs, nblock, end_indx, ntran, transop, tran_csr)</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00919">ham.f90:921</a></div></div>
+<div class="ttc" id="aham_8f90_html_ab9e8d106f98346d29b99dbbded25d8d5"><div class="ttname"><a href="ham_8f90.html#ab9e8d106f98346d29b99dbbded25d8d5">build_ham_n</a></div><div class="ttdeci">subroutine build_ham_n(ncfgs, fock, num_val_orbs, num_core_orbs, nblock, end_indx, nhopp, hopping, ncoul, coulomb, omega, ham_sign, ham_csr)</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00356">ham.f90:358</a></div></div>
+<div class="ttc" id="aham_8f90_html_adb706c43859bdda6ff6a47fd83edbb1c"><div class="ttname"><a href="ham_8f90.html#adb706c43859bdda6ff6a47fd83edbb1c">build_transop_i</a></div><div class="ttdeci">subroutine build_transop_i(mcfgs, ncfgs, fock_left, fock_right, num_val_orbs, num_core_orbs, nblock, end_indx, ntran, transop, tran_csr)</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00718">ham.f90:720</a></div></div>
+<div class="ttc" id="aham_8f90_html_ade3ceb66467698b2fbc3cf275038e65f"><div class="ttname"><a href="ham_8f90.html#ade3ceb66467698b2fbc3cf275038e65f">build_ham_i</a></div><div class="ttdeci">subroutine build_ham_i(ncfgs, fock, nblock, end_indx, nhopp, hopping, ncoul, coulomb, omega, ham_sign, ham_csr)</div><div class="ttdoc">Using the  table, this generates  in the Fock space.  Generates the transition operators,...</div><div class="ttdef"><b>Definition</b> <a href="ham_8f90_source.html#l00006">ham.f90:8</a></div></div>
+<div class="ttc" id="aio_8f90_html_a0b349b52e168f3b1e18cbc1db8f52609"><div class="ttname"><a href="io_8f90.html#a0b349b52e168f3b1e18cbc1db8f52609">read_transop_rixs_i</a></div><div class="ttdeci">subroutine read_transop_rixs_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00418">io.f90:419</a></div></div>
+<div class="ttc" id="aio_8f90_html_a0eeff768f4dfe8cf4113222bd7d15fce"><div class="ttname"><a href="io_8f90.html#a0eeff768f4dfe8cf4113222bd7d15fce">read_coulomb_i</a></div><div class="ttdeci">subroutine read_coulomb_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00124">io.f90:125</a></div></div>
+<div class="ttc" id="aio_8f90_html_a1722f90395fc2b381ee2fa0394c9cd09"><div class="ttname"><a href="io_8f90.html#a1722f90395fc2b381ee2fa0394c9cd09">read_transop_rixs_f</a></div><div class="ttdeci">subroutine read_transop_rixs_f()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00469">io.f90:470</a></div></div>
+<div class="ttc" id="aio_8f90_html_a2596935d9f7a93dafcd2a099a55d6271"><div class="ttname"><a href="io_8f90.html#a2596935d9f7a93dafcd2a099a55d6271">read_fock_n</a></div><div class="ttdeci">subroutine read_fock_n()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00312">io.f90:313</a></div></div>
+<div class="ttc" id="aio_8f90_html_a6aaa81cf42e896f7ec7f5496915398ab"><div class="ttname"><a href="io_8f90.html#a6aaa81cf42e896f7ec7f5496915398ab">read_fock_f</a></div><div class="ttdeci">subroutine read_fock_f()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00340">io.f90:341</a></div></div>
+<div class="ttc" id="aio_8f90_html_a7db27cecc3aca80ca299aea361410c2b"><div class="ttname"><a href="io_8f90.html#a7db27cecc3aca80ca299aea361410c2b">read_fock_i</a></div><div class="ttdeci">subroutine read_fock_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00178">io.f90:179</a></div></div>
+<div class="ttc" id="aio_8f90_html_ab2341c20b18a0a661d6e8f358d4f1be8"><div class="ttname"><a href="io_8f90.html#ab2341c20b18a0a661d6e8f358d4f1be8">write_krylov</a></div><div class="ttdeci">subroutine write_krylov(fname, neff, alpha, beta, norm, e_gs)</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00519">io.f90:520</a></div></div>
+<div class="ttc" id="aio_8f90_html_aba78b721f1743094eb7b745ac244df1c"><div class="ttname"><a href="io_8f90.html#aba78b721f1743094eb7b745ac244df1c">read_eigvecs</a></div><div class="ttdeci">subroutine read_eigvecs(fname, nloc, eigvec, eigval)</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00567">io.f90:568</a></div></div>
+<div class="ttc" id="aio_8f90_html_abdc5dadebaaded05442bd0ffb35f7de7"><div class="ttname"><a href="io_8f90.html#abdc5dadebaaded05442bd0ffb35f7de7">read_hopping_i</a></div><div class="ttdeci">subroutine read_hopping_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00074">io.f90:75</a></div></div>
+<div class="ttc" id="aio_8f90_html_acaf8099af1508186dbab2ea9b42d79bc"><div class="ttname"><a href="io_8f90.html#acaf8099af1508186dbab2ea9b42d79bc">read_hopping_n</a></div><div class="ttdeci">subroutine read_hopping_n()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00206">io.f90:207</a></div></div>
+<div class="ttc" id="aio_8f90_html_afda8c0cc367918a8d7321075b0970f87"><div class="ttname"><a href="io_8f90.html#afda8c0cc367918a8d7321075b0970f87">read_coulomb_n</a></div><div class="ttdeci">subroutine read_coulomb_n()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00257">io.f90:258</a></div></div>
 <div class="ttc" id="alinsys_8f90_html_a03ececaaddafbfa19b0f7002d9c8c03c"><div class="ttname"><a href="linsys_8f90.html#a03ececaaddafbfa19b0f7002d9c8c03c">pminres_csr</a></div><div class="ttdeci">subroutine pminres_csr(nblock, end_indx, needed, nloc, ham, b_vec, x_vec, info)</div><div class="ttdef"><b>Definition</b> <a href="linsys_8f90_source.html#l00003">linsys.f90:4</a></div></div>
 <div class="ttc" id="anamespacem__constants_html"><div class="ttname"><a href="namespacem__constants.html">m_constants</a></div><div class="ttdef"><b>Definition</b> <a href="m__constants_8f90_source.html#l00001">m_constants.f90:1</a></div></div>
 <div class="ttc" id="anamespacem__constants_html_a2d801de550bf064793511705fce89567"><div class="ttname"><a href="namespacem__constants.html#a2d801de550bf064793511705fce89567">m_constants::czero</a></div><div class="ttdeci">complex(dp), parameter, public czero</div><div class="ttdef"><b>Definition</b> <a href="m__constants_8f90_source.html#l00014">m_constants.f90:14</a></div></div>
@@ -411,9 +431,13 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <div class="ttc" id="autils_8f90_html_aa7bc34ed020633677cc319cec33a321d"><div class="ttname"><a href="utils_8f90.html#aa7bc34ed020633677cc319cec33a321d">get_needed_indx</a></div><div class="ttdeci">subroutine get_needed_indx(nblock, ham_csr, needed)</div><div class="ttdef"><b>Definition</b> <a href="utils_8f90_source.html#l00114">utils.f90:115</a></div></div>
 <div class="ttc" id="autils_8f90_html_ac467c9e327a0a87c986c6edea2e67d0e"><div class="ttname"><a href="utils_8f90.html#ac467c9e327a0a87c986c6edea2e67d0e">get_number_nonzeros</a></div><div class="ttdeci">subroutine get_number_nonzeros(nblock, ham_csr, num_nonzeros)</div><div class="ttdef"><b>Definition</b> <a href="utils_8f90_source.html#l00145">utils.f90:146</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="rixs__driver_8f90.html">rixs_driver.f90</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
+  </ul>
+</div>
 </body>
 </html>

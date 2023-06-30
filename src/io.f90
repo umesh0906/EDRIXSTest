@@ -1,6 +1,7 @@
-!> config: Reads control parameters from config.in file on master node and broadcastes it to all nodes
-!! read_hopping_i: Reads the hopping matrix from hopping_i.in file
-!! read_coulomb_i: Reads the coulumb matrix from hopping_i.in file
+!> config: Reads control parameters from config.in file on master node and broadcastes it to all nodes \n
+!! read_hopping_i: Reads the hopping matrix from hopping_i.in file \n
+!! read_coulomb_i: Reads the coulumb matrix from coulumb_i.in file \n
+!! read_fock_i: Reads the coulumb matrix from coulumb_i.in file
 
 subroutine config()
     use m_constants, only: mystd, mytmp

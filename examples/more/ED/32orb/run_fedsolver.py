@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+#!/usr/bin/env python
+
+
+# In[115]:
 
 
 import sys
@@ -8,56 +17,59 @@ from edrixs.fedrixs import ed_fsolver
 from mpi4py import MPI
 
 
-def get_hopping_coulomb():
-    N_site = 16
-    norbs = 32
+# In[116]:
+
+
+def get_hopping_coulomb(N_site):
+    N = N_site
+    norbs = 2*N_site
     U, t = 4.0, -1.0
 
-    umat = np.zeros((norbs, norbs, norbs, norbs), dtype=np.complex128)
+    hopp = np.zeros((N, N), dtype=np.complex128)
     for i in range(N_site):
-        off = i * 2
-        umat[off, off + 1, off + 1, off] = U
+        #for j in range(N_site)
+        hopp[i, (i-1+N)%N] = hopp[i, (i+1)%N] = t
 
-    hopp = np.zeros((N_site, N_site), dtype=np.complex128)
-    indx = [
-        [3, 1, 12, 4], [0, 2, 13, 5], [1, 3, 14, 6], [2, 0, 15, 7],
-        [7, 5, 0, 8], [4, 6, 1, 9], [5, 7, 2, 10], [6, 4, 3, 11],
-        [11, 9, 4, 12], [8, 10, 5, 13], [9, 11, 6, 14], [10, 8, 7, 15],
-        [15, 13, 8, 0], [12, 14, 9, 1, ], [13, 15, 10, 2], [14, 12, 11, 3]
-    ]
-
-    for i, item in enumerate(indx):
-        hopp[i, item[0]] = hopp[i, item[1]] = hopp[i, item[2]] = hopp[i, item[3]] = t
     hopping = np.zeros((norbs, norbs), dtype=np.complex128)
     hopping[0:norbs:2, 0:norbs:2] = hopp
     hopping[1:norbs:2, 1:norbs:2] = hopp
+
+    umat = np.zeros((norbs, norbs, norbs, norbs), dtype=np.complex128)
+    for i in range(N):
+        off = i * 2
+        umat[off, off + 1, off + 1, off] = U
 
     edrixs.write_emat(hopping, "hopping_i.in", 1E-10)
     edrixs.write_umat(umat, "coulomb_i.in", 1E-10)
 
 
+# In[117]:
+
+
 def get_config():
     config_in = [
         "&control",
-        "ed_solver    = 1",
-        "num_val_orbs = 32",
-        "neval        = 1",
-        "nvector      = 1",
+        "ed_solver    = 0",
+        "num_val_orbs = 2",
+        "neval        = 2",
+        "nvector      = 2",
         "maxiter      = 500",
         "eigval_tol   = 1E-10",
-        "idump        = .false.",
+        "idump        = .true.",
         "&end"
     ]
-
     f = open('config.in', 'w')
     for line in config_in:
         f.write(line + "\n")
     f.close()
 
 
-def get_fock(tot_sz):
-    Sz_list = [1, -1] * 16
-    basis = edrixs.get_fock_basis_by_NSz(32, 16, Sz_list)
+# In[118]:
+
+
+def get_fock(tot_sz, N_site):
+    Sz_list = [1, -1] * N_site
+    basis = edrixs.get_fock_basis_by_NSz(2*N_site, N_site, Sz_list)
     print("Total Sz: ", tot_sz)
     for key, val in list(basis.items()):
         if key == tot_sz:
@@ -75,6 +87,9 @@ def get_fock(tot_sz):
             break
 
 
+# In[125]:
+
+
 if __name__ == "__main__":
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -82,11 +97,11 @@ if __name__ == "__main__":
     fcomm = comm.py2f()
 
     if rank == 0:
-        get_hopping_coulomb()
+        N_site =2
+        get_hopping_coulomb(N_site)
         get_config()
-        tot_sz = int(sys.argv[1])
-        get_fock(tot_sz)
-
+        tot_sz = 0#int(sys.argv[1])
+        get_fock(tot_sz, N_site)
     comm.Barrier()
     print("edrixs >>> Running ED ...")
     ed_fsolver(fcomm, rank, size)

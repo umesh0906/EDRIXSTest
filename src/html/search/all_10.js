@@ -11,10 +11,11 @@ var searchData=
   ['read_5ftransop_5frixs_5ff_8',['read_transop_rixs_f',['../io_8f90.html#a1722f90395fc2b381ee2fa0394c9cd09',1,'io.f90']]],
   ['read_5ftransop_5frixs_5fi_9',['read_transop_rixs_i',['../io_8f90.html#a0b349b52e168f3b1e18cbc1db8f52609',1,'io.f90']]],
   ['read_5ftransop_5fxas_10',['read_transop_xas',['../io_8f90.html#a021d6d1122d54b1b03161a452c6fc0b4',1,'io.f90']]],
-  ['rixs_5fdriver_11',['rixs_driver',['../rixs__driver_8f90.html#a0407f8460e22064b14c73e1e55ba0e25',1,'rixs_driver.f90']]],
-  ['rixs_5fdriver_2ef90_12',['rixs_driver.f90',['../rixs__driver_8f90.html',1,'']]],
-  ['rixs_5ffsolver_13',['rixs_fsolver',['../pyapi_8f90.html#a3d9fb8546dfc91267e37577e19542d2a',1,'pyapi.f90']]],
-  ['rixs_5fmain_14',['rixs_main',['../rixs__main_8f90.html#af9eaaf0df114b46fc68b59f3b5f7cf11',1,'rixs_main.f90']]],
-  ['rixs_5fmain_2ef90_15',['rixs_main.f90',['../rixs__main_8f90.html',1,'']]],
-  ['row_5fshift_16',['row_shift',['../structm__types_1_1t__csr.html#a94a095aff006dfbcf3b6e565fcae2712',1,'m_types::t_csr']]]
+  ['readme_2emd_11',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['rixs_5fdriver_12',['rixs_driver',['../rixs__driver_8f90.html#a0407f8460e22064b14c73e1e55ba0e25',1,'rixs_driver.f90']]],
+  ['rixs_5fdriver_2ef90_13',['rixs_driver.f90',['../rixs__driver_8f90.html',1,'']]],
+  ['rixs_5ffsolver_14',['rixs_fsolver',['../pyapi_8f90.html#a3d9fb8546dfc91267e37577e19542d2a',1,'pyapi.f90']]],
+  ['rixs_5fmain_15',['rixs_main',['../rixs__main_8f90.html#af9eaaf0df114b46fc68b59f3b5f7cf11',1,'rixs_main.f90']]],
+  ['rixs_5fmain_2ef90_16',['rixs_main.f90',['../rixs__main_8f90.html',1,'']]],
+  ['row_5fshift_17',['row_shift',['../structm__types_1_1t__csr.html#a94a095aff006dfbcf3b6e565fcae2712',1,'m_types::t_csr']]]
 ];

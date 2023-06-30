@@ -1,4 +1,8 @@
 !! Give hopping, Coulomb interaction terms, and the Fock basis, build many particle Hamiltonian
+!> Using the \f$ h_{ij}^T, h_{ij}^C\f$ table, this generates \f$H\f$ in the Fock space.\n
+!! Generates the transition operators, \f$D_{i}|g\rangle \f$.
+!!
+
 subroutine build_ham_i(ncfgs, fock, nblock, end_indx, nhopp, hopping, &
                        ncoul, coulomb, omega, ham_sign, ham_csr)
     use m_constants, only: dp

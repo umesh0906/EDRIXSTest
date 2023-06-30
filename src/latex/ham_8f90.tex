@@ -4,7 +4,8 @@
 \begin{DoxyCompactItemize}
 \item 
 subroutine \mbox{\hyperlink{ham_8f90_ade3ceb66467698b2fbc3cf275038e65f}{build\+\_\+ham\+\_\+i}} (ncfgs, fock, nblock, end\+\_\+indx, nhopp, hopping, ncoul, coulomb, omega, ham\+\_\+sign, ham\+\_\+csr)
-\item 
+\begin{DoxyCompactList}\small\item\em Using the $ h_{ij}^T, h_{ij}^C$ table, this generates $H$ in the Fock space.~\newline
+ Generates the transition operators, $D_{i}|g\rangle $. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{ham_8f90_ab9e8d106f98346d29b99dbbded25d8d5}{build\+\_\+ham\+\_\+n}} (ncfgs, fock, num\+\_\+val\+\_\+orbs, num\+\_\+core\+\_\+orbs, nblock, end\+\_\+indx, nhopp, hopping, ncoul, coulomb, omega, ham\+\_\+sign, ham\+\_\+csr)
 \item 
 subroutine \mbox{\hyperlink{ham_8f90_adb706c43859bdda6ff6a47fd83edbb1c}{build\+\_\+transop\+\_\+i}} (mcfgs, ncfgs, fock\+\_\+left, fock\+\_\+right, num\+\_\+val\+\_\+orbs, num\+\_\+core\+\_\+orbs, nblock, end\+\_\+indx, ntran, transop, tran\+\_\+csr)
@@ -22,7 +23,12 @@ subroutine \mbox{\hyperlink{ham_8f90_a9e67524f01add50c128fa9f094d32588}{build\+\
 
 
 
-Definition at line \mbox{\hyperlink{ham_8f90_source_l00002}{2}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+Using the $ h_{ij}^T, h_{ij}^C$ table, this generates $H$ in the Fock space.~\newline
+ Generates the transition operators, $D_{i}|g\rangle $. 
+
+
+
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00006}{6}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
 
 \Hypertarget{ham_8f90_ab9e8d106f98346d29b99dbbded25d8d5}\label{ham_8f90_ab9e8d106f98346d29b99dbbded25d8d5} 
 \index{ham.f90@{ham.f90}!build\_ham\_n@{build\_ham\_n}}
@@ -32,7 +38,7 @@ Definition at line \mbox{\hyperlink{ham_8f90_source_l00002}{2}} of file \mbox{\h
 
 
 
-Definition at line \mbox{\hyperlink{ham_8f90_source_l00352}{352}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00356}{356}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
 
 \Hypertarget{ham_8f90_a9e67524f01add50c128fa9f094d32588}\label{ham_8f90_a9e67524f01add50c128fa9f094d32588} 
 \index{ham.f90@{ham.f90}!build\_transop\_f@{build\_transop\_f}}
@@ -42,7 +48,7 @@ Definition at line \mbox{\hyperlink{ham_8f90_source_l00352}{352}} of file \mbox{
 
 
 
-Definition at line \mbox{\hyperlink{ham_8f90_source_l00915}{915}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00919}{919}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
 
 \Hypertarget{ham_8f90_adb706c43859bdda6ff6a47fd83edbb1c}\label{ham_8f90_adb706c43859bdda6ff6a47fd83edbb1c} 
 \index{ham.f90@{ham.f90}!build\_transop\_i@{build\_transop\_i}}
@@ -52,5 +58,5 @@ Definition at line \mbox{\hyperlink{ham_8f90_source_l00915}{915}} of file \mbox{
 
 
 
-Definition at line \mbox{\hyperlink{ham_8f90_source_l00714}{714}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
+Definition at line \mbox{\hyperlink{ham_8f90_source_l00718}{718}} of file \mbox{\hyperlink{ham_8f90_source}{ham.\+f90}}.
 

@@ -7,8 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Fotran EDRIXS: opavg_main.f90 Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -27,18 +32,19 @@ MathJax.Hub.Config({
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
-  <td id="projectlogo"><img alt="Logo" src="physlogo-2.gif"/></td>
   <td id="projectalign">
    <div id="projectname">Fotran EDRIXS
    </div>
    <div id="projectbrief">We provide the basic structure of the code</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
           <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
           <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
@@ -49,8 +55,7 @@ MathJax.Hub.Config({
             <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
           </span>
         </div>
-</td>
- </tr>
+</td></tr>
  </tbody>
 </table>
 </div>
@@ -62,6 +67,21 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 /* @license-end */
 </script>
 </div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('opavg__main_8f90_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -138,8 +158,8 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">call </span>mpi_finalize(ierror)</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">end program </span><a class="code hl_function" href="opavg__main_8f90.html#abbf195558407b24c27321344b68c87a9">opavg_main</a></div>
-<div class="ttc" id="aio_8f90_html_a7db27cecc3aca80ca299aea361410c2b"><div class="ttname"><a href="io_8f90.html#a7db27cecc3aca80ca299aea361410c2b">read_fock_i</a></div><div class="ttdeci">subroutine read_fock_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00177">io.f90:178</a></div></div>
-<div class="ttc" id="aio_8f90_html_ad477686ee760c61aabf02b2a025d1c00"><div class="ttname"><a href="io_8f90.html#ad477686ee760c61aabf02b2a025d1c00">config</a></div><div class="ttdeci">subroutine config()</div><div class="ttdoc">config: Reads control parameters from config.in file on master node and broadcastes it to all nodes r...</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00005">io.f90:6</a></div></div>
+<div class="ttc" id="aio_8f90_html_a7db27cecc3aca80ca299aea361410c2b"><div class="ttname"><a href="io_8f90.html#a7db27cecc3aca80ca299aea361410c2b">read_fock_i</a></div><div class="ttdeci">subroutine read_fock_i()</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00178">io.f90:179</a></div></div>
+<div class="ttc" id="aio_8f90_html_ad477686ee760c61aabf02b2a025d1c00"><div class="ttname"><a href="io_8f90.html#ad477686ee760c61aabf02b2a025d1c00">config</a></div><div class="ttdeci">subroutine config()</div><div class="ttdoc">config: Reads control parameters from config.in file on master node and broadcastes it to all nodes  ...</div><div class="ttdef"><b>Definition</b> <a href="io_8f90_source.html#l00006">io.f90:7</a></div></div>
 <div class="ttc" id="anamespacem__control_html"><div class="ttname"><a href="namespacem__control.html">m_control</a></div><div class="ttdef"><b>Definition</b> <a href="m__control_8f90_source.html#l00002">m_control.f90:2</a></div></div>
 <div class="ttc" id="anamespacem__control_html_a00f9d7b62af04cd765776675d3302ddc"><div class="ttname"><a href="namespacem__control.html#a00f9d7b62af04cd765776675d3302ddc">m_control::myid</a></div><div class="ttdeci">integer, save, public myid</div><div class="ttdef"><b>Definition</b> <a href="m__control_8f90_source.html#l00090">m_control.f90:90</a></div></div>
 <div class="ttc" id="anamespacem__control_html_a4aced335067dc774740e8ed51fa43163"><div class="ttname"><a href="namespacem__control.html#a4aced335067dc774740e8ed51fa43163">m_control::origin_myid</a></div><div class="ttdeci">integer, save, public origin_myid</div><div class="ttdef"><b>Definition</b> <a href="m__control_8f90_source.html#l00089">m_control.f90:89</a></div></div>
@@ -154,9 +174,13 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <div class="ttc" id="aopavg__driver_8f90_html_a78eb6a19f80214256090dd2faed722e4"><div class="ttname"><a href="opavg__driver_8f90.html#a78eb6a19f80214256090dd2faed722e4">opavg_driver</a></div><div class="ttdeci">subroutine opavg_driver()</div><div class="ttdef"><b>Definition</b> <a href="opavg__driver_8f90_source.html#l00001">opavg_driver.f90:2</a></div></div>
 <div class="ttc" id="aopavg__main_8f90_html_abbf195558407b24c27321344b68c87a9"><div class="ttname"><a href="opavg__main_8f90.html#abbf195558407b24c27321344b68c87a9">opavg_main</a></div><div class="ttdeci">program opavg_main</div><div class="ttdef"><b>Definition</b> <a href="opavg__main_8f90_source.html#l00001">opavg_main.f90:1</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="opavg__main_8f90.html">opavg_main.f90</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
+  </ul>
+</div>
 </body>
 </html>

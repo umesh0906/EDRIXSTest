@@ -1,9 +1,24 @@
-!> This sets up the drive for call the ED code \n
-!! Reads \f$\langle s|H_T |s\rangle \f$, \f$\langle s|H_C |s\rangle \f$ and \f$|s\rangle \f$ from io.f90 file \n\n
+!> This sets up the drive for calling the ED code.\n
+!!
+!! Here we initialiaze a few definition used in the work for for a cluster:\n
+!! @f$ s_i @f$: Index for site@f$-i@f$ \n
+!! @f$| F \rangle = \Pi_i |s_i\rangle @f$: Fock state configuration \n
+!! @f$ | F \rangle = \{| F_n \rangle  \}@f$: Fock space \n
+!! @f$ H = H^T + H^C @f$: Hamiltonian \n
+!! @f$ N @f$: Size of Fock space = Dimention of @f$H@f$ \n \n
+!! \f$ h_{ij}^T, h_{ij}^C\f$ :  Hopping table, Coulomb table\n
+!! Read \f$\langle s_j|h_{ij}^T |s_i\rangle \f$, \f$\langle s_j |h_{ij}^C |s_i\rangle \f$ and \f$|F\rangle \f$ from io.f90 file \n
+!! Build @f$ H @f$ by calling build_ham_i from ham.f90 \n\n
+!!
 !! Calls ED solver: \n
 !! ed_solver = 0 : full ED using full_diag.f90 \n
 !! ed_solver = 1 : Lanczos from anczos.f90 \n
-!! ed_solver==2 : Arpack from arpack.f90
+!! ed_solver = 2 : Arpack from arpack.f90 \n \n
+!! \f$E_i\f$;  Eigenvalue with index-\f$i\f$ \n
+!! \f$|V_i\rangle = \sum_n a_n^i |F_n\rangle \f$ :  Eigenvector with index-\f$i\f$ \n \n
+!! Evaluate Density Matrix given by: \n
+!! @f$ M_{ij} = |s_i\rangle \langle s_| KK   x  @f$
+
 subroutine ed_driver()
     use m_constants
     use m_control

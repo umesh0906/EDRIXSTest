@@ -1,0 +1,13 @@
+&control
+num_val_orbs=12    ! Number of total valence orbitals (t2g): 2x6=12
+num_core_orbs=12   ! Number of total core orbitals (2p): 2x6=12
+ed_solver=0        ! Type of ED solver, full diagonalization of H_{i}
+neval=220          ! Number of eigenvalues obtained
+nvector=4          ! Number of eigenvectors obtained
+idump=.true.       ! Dump eigenvectors to file eigvec.xxx
+num_gs=4           ! Numer of gound states are used for XAS and RIXS calculations
+linsys_tol=1E-10   ! Tolerance for the termination of solving linear equations
+nkryl=500          ! Maximum number of Krylov vectors
+gamma_in=2.5       ! Core-hole life-time in eV
+omega_in=-540.4    ! Relative incident x-ray energy at which RIXS calculations are performed
+&end

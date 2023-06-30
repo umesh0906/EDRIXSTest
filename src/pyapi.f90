@@ -21,7 +21,7 @@ subroutine ed_fsolver(comm, my_id, num_procs)
     origin_myid = my_id
     origin_nprocs = num_procs
 
-    call config()  
+    call config()
     ! read fock to know the dimension of the Hamiltonian
     call read_fock_i()
     call dealloc_fock_i()
@@ -32,7 +32,7 @@ subroutine ed_fsolver(comm, my_id, num_procs)
             print *, " fedrixs >>> Only ", ndim_i, " processors will really work!"
         endif
         if (origin_myid < ndim_i) then
-            color = 1 
+            color = 1
             key = origin_myid
         else
             color = 2
@@ -79,7 +79,7 @@ subroutine xas_fsolver(comm, my_id, num_procs)
     origin_myid = my_id
     origin_nprocs = num_procs
 
-    call config()  
+    call config()
     call read_fock_i()
     call dealloc_fock_i()
     call read_fock_n()
@@ -93,7 +93,7 @@ subroutine xas_fsolver(comm, my_id, num_procs)
             print *, " fedrixs >>> Only ", min_dim, " processors will really work!"
         endif
         if (origin_myid < min_dim) then
-            color = 1 
+            color = 1
             key = origin_myid
         else
             color = 2
@@ -142,7 +142,7 @@ subroutine rixs_fsolver(comm, my_id, num_procs)
     origin_myid = my_id
     origin_nprocs = num_procs
 
-    call config()  
+    call config()
     call read_fock_i()
     call dealloc_fock_i()
     call read_fock_n()
@@ -158,7 +158,7 @@ subroutine rixs_fsolver(comm, my_id, num_procs)
             print *, " fedrixs >>> Only ", min_dim, " processors will really work!"
         endif
         if (origin_myid < min_dim) then
-            color = 1 
+            color = 1
             key = origin_myid
         else
             color = 2
@@ -204,7 +204,7 @@ subroutine opavg_fsolver(comm, my_id, num_procs)
     origin_myid = my_id
     origin_nprocs = num_procs
 
-    call config()  
+    call config()
     call read_fock_i()
     call dealloc_fock_i()
     if (ndim_i < origin_nprocs) then
@@ -214,7 +214,7 @@ subroutine opavg_fsolver(comm, my_id, num_procs)
             print *, " fedrixs >>> Only ", ndim_i, " processors will really work!"
         endif
         if (origin_myid < ndim_i) then
-            color = 1 
+            color = 1
             key = origin_myid
         else
             color = 2

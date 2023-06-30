@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "Fotran EDRIXS", "index.html", [
+    [ "EDRIXS Fortran", "index.html", "index" ],
     [ "Modules", "namespaces.html", [
       [ "Modules List", "namespaces.html", "namespaces_dup" ],
       [ "Module Members", "namespacemembers.html", [
@@ -54,7 +55,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"namespacem__types.html#afa72812b21ac35564e90fb4e6b6a1823"
+"namespacem__types.html#a7f3bc30609b2ec6ee3fc6d7a3a773f64"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
